@@ -1,0 +1,26 @@
+#main-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#control-container,
+#information-container {
+    flex: 1;
+    float: left;
+    text-align: center;
+    min-width: 12rem;
+
+    >* {
+        display: inline-block;
+    }
+}
+
+app-grid {
+    // flex: 2;
+
+    margin: {
+        left: 1rem;
+        right: 1rem;
+    }
+}

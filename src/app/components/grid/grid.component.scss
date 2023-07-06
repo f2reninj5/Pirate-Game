@@ -1,0 +1,18 @@
+.grid {
+    display: grid;
+    background-color: black;
+    padding: 0.5rem;
+    margin: auto;
+    border-radius: 0.4rem;
+
+    width: 80vmin;
+    height: 80vmin;
+}
+
+.selected {
+    background-color: red;
+}
+
+.selected:hover {
+    background-color: red;
+}

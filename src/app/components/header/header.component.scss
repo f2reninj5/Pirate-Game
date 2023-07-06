@@ -1,0 +1,15 @@
+:host {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.heading {
+
+    margin: 0.2rem;
+    font-family: 'Dr Sugiyama', cursive;
+    font-size: 3rem;
+    font-weight: normal;
+}

@@ -1,0 +1,4 @@
+<button class="custom-button" (click)="onClick()" [ngStyle]="{'background-color': backgroundColour, 'color': colour}">
+    <span *ngIf="icon" class="material-symbols-outlined">{{ icon }}</span>
+    <p *ngIf="text">{{ text }}</p>
+</button>
