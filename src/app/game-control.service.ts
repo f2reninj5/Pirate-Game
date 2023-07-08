@@ -3,6 +3,7 @@ import { Grid } from './models/Grid'
 import { PlayerManager } from './models/PlayerManager'
 import { PlayerOrderer } from './models/PlayerOrderer'
 import { ChooseQueue } from './models/ChooseQueue'
+import { Rule, RuleTypes, rules } from './models/Rules'
 
 @Injectable({
     providedIn: 'root'
@@ -12,6 +13,7 @@ export class GameControlService {
     private playerManager!: PlayerManager
     public playerOrderer!: PlayerOrderer
     public chooseQueue!: ChooseQueue
+    public rules: { [key in RuleTypes]: Rule[] } = rules
 
     constructor() {
         this.resetGame()

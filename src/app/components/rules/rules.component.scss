@@ -1,0 +1,31 @@
+:host {
+    margin: 0.5rem;
+    user-select: none;
+}
+
+.tile {
+    display: inline-block;
+    padding: 0.2rem;
+    margin: 0.2rem;
+    line-height: 0;
+
+    >* {
+        margin: 0;
+    }
+
+    border: {
+        width: 0.1rem;
+        style: solid;
+        color: black;
+        radius: 0.2rem;
+    }
+
+    &:hover {
+        background-color: lightgrey;
+    }
+}
+
+.icon {
+    width: 7vmin;
+    height: 7vmin;
+}
