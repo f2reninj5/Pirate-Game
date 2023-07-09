@@ -7,7 +7,7 @@ export const enum Direction {
 
 export class ChooseQueue {
     private playerManager: PlayerManager
-    private queue: string[] = []
+    private queue: string[] = ['Dylan', 'Ben', 'Maks', 'Ethan', 'George']
 
     constructor(playerManager: PlayerManager) {
         this.playerManager = playerManager

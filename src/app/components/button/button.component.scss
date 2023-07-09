@@ -1,5 +1,10 @@
+:host {
+    justify-content: center;
+    align-items: center;
+}
+
 .custom-button {
-    display: flex;
+    display: inline-flex;
     flex-direction: row;
     justify-content: center;
     gap: 1rem;
@@ -12,6 +17,7 @@
 
     &:hover {
         transform: scale(105%);
+        cursor: pointer;
     }
 
     &:active {

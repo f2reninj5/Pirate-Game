@@ -1,9 +1,10 @@
-<div class="background" (click)="closeWindow()"></div>
+<div class="background" (click)="closeable ? closeWindow() : undefined"></div>
 <div class="container">
     <header>
-        <span (click)="closeWindow()" class="material-symbols-outlined">close</span>
+        <span *ngIf="closeable" (click)="closeWindow()" class="material-symbols-outlined">close</span>
     </header>
-    <div class="contents">
+    <div *ngIf="contents" class="contents">
         <p>{{ contents }}</p>
     </div>
+    <ng-template #componentContainer></ng-template>
 </div>

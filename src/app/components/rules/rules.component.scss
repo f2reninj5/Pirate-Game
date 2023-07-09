@@ -1,6 +1,5 @@
 :host {
     margin: 0.5rem;
-    user-select: none;
 }
 
 .tile {
@@ -21,7 +20,12 @@
     }
 
     &:hover {
-        background-color: lightgrey;
+        transform: scale(105%);
+        cursor: pointer;
+    }
+
+    &:active {
+        transform: translateY(0.1rem);
     }
 }
 

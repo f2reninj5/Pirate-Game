@@ -1,5 +1,5 @@
 import { Component, ViewChild, ViewContainerRef } from '@angular/core'
-import { WindowService } from './window.service'
+import { WindowContentsType, WindowOptions, WindowService } from './window.service'
 import { WindowComponent } from './components/window/window.component'
 
 @Component({
@@ -11,19 +11,28 @@ export class AppComponent {
     @ViewChild('windowContainer', { read: ViewContainerRef }) windowContainerRef!: ViewContainerRef
 
     constructor(private windowService: WindowService) {
-        this.windowService.windowContents$.subscribe((contents) => {
+        this.windowService.windowContents$.subscribe(({ contents, options }) => {
             if (!contents) {
                 return this.removeWindow()
             }
 
-            this.createWindow(contents)
+            this.createWindow(contents, options)
         })
     }
 
-    private createWindow(contents: string): void {
+    private createWindow(contents: WindowContentsType, options?: WindowOptions): void {
         this.windowContainerRef.clear()
         const windowComponentRef = this.windowContainerRef.createComponent(WindowComponent)
-        windowComponentRef.setInput('contents', contents)
+
+        if (typeof contents === 'string') {
+            windowComponentRef.setInput('contents', contents)
+        } else {
+            windowComponentRef.setInput('component', contents)
+        }
+
+        if (options?.closeable) {
+            windowComponentRef.setInput('closeable', options.closeable)
+        }
     }
 
     private removeWindow(): void {

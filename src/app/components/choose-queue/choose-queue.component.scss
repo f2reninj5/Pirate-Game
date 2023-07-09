@@ -1,0 +1,63 @@
+:host {
+
+    margin: 0.5rem;
+
+    width: 80%;
+    max-width: 16rem;
+    min-height: 1rem;
+    background-color: lightgrey;
+    border-radius: 0.5rem;
+
+    &:hover {
+        transform: scale(105%);
+        cursor: pointer;
+    }
+
+    &:active {
+        transform: translateY(0.1rem);
+    }
+}
+
+.player-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: {
+        bottom: 0.5rem;
+    }
+}
+
+.player-element,
+.more-element {
+
+    box-sizing: border-box;
+    width: 90%;
+
+    padding: {
+        top: 0.1rem;
+        bottom: 0.1rem;
+        left: 1rem;
+        right: 1rem;
+    }
+
+    margin: 0.1rem;
+
+    border-radius: 2rem;
+
+    p {
+        line-height: 0;
+    }
+}
+
+.player-element {
+    background-color: white;
+}
+
+.more-element {
+    background-color: none;
+}
+
+#heading {
+    line-height: 0.1rem;
+}

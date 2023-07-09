@@ -8,7 +8,8 @@ import { WindowComponent } from './components/window/window.component'
 import { GridComponent } from './components/grid/grid.component'
 import { CellComponent } from './components/cell/cell.component'
 import { ChooseQueueComponent } from './components/choose-queue/choose-queue.component'
-import { RulesComponent } from './components/rules/rules.component'
+import { RulesComponent } from './components/rules/rules.component';
+import { ChooseQueueMenuComponent } from './components/choose-queue-menu/choose-queue-menu.component'
 
 @NgModule({
     declarations: [
@@ -19,7 +20,8 @@ import { RulesComponent } from './components/rules/rules.component'
         GridComponent,
         CellComponent,
         ChooseQueueComponent,
-        RulesComponent
+        RulesComponent,
+        ChooseQueueMenuComponent
     ],
     imports: [
         BrowserModule
