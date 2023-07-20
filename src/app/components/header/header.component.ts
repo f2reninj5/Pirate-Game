@@ -13,7 +13,7 @@ export class HeaderComponent {
     constructor(private gameControlService: GameControlService, private windowService: WindowService) {}
 
     openFeedbackForm() {
-        // this.windowService.createWindow('test')
+        this.windowService.createWindow('Feedback')
     }
 
     resetGame() {

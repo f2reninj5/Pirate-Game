@@ -8,8 +8,9 @@ import { WindowComponent } from './components/window/window.component'
 import { GridComponent } from './components/grid/grid.component'
 import { CellComponent } from './components/cell/cell.component'
 import { ChooseQueueComponent } from './components/choose-queue/choose-queue.component'
-import { RulesComponent } from './components/rules/rules.component';
+import { RulesComponent } from './components/rules/rules.component'
 import { ChooseQueueMenuComponent } from './components/choose-queue-menu/choose-queue-menu.component'
+import { FormsModule } from '@angular/forms'
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import { ChooseQueueMenuComponent } from './components/choose-queue-menu/choose-
         ChooseQueueMenuComponent
     ],
     imports: [
-        BrowserModule
+        BrowserModule,
+        FormsModule
     ],
     providers: [],
     bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, ViewChild, ViewContainerRef } from '@angular/core'
+import { AfterViewInit, ChangeDetectorRef, Component, Input, ViewChild, ViewContainerRef } from '@angular/core'
 import { WindowContentsType, WindowService } from 'src/app/window.service'
 
 @Component({
@@ -12,11 +12,11 @@ export class WindowComponent implements AfterViewInit {
     @Input() component!: Exclude<WindowContentsType, string>
     @Input() closeable: boolean = true
 
-    constructor(private windowService: WindowService) {}
+    constructor(private changeDetector: ChangeDetectorRef, private windowService: WindowService) {}
 
     ngAfterViewInit(): void {
-        // @ts-ignore
         const innerComponentRef = this.componentContainer.createComponent(this.component)
+        this.changeDetector.detectChanges()
     }
 
     closeWindow(): void {

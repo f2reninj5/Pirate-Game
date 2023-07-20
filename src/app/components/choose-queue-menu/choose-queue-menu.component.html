@@ -1,1 +1,21 @@
-<p>choose-queue-menu works!</p>
+<div class="player-list">
+    <ng-container *ngFor="let player of queue.getQueue(); index as i;">
+        <div class="player-list-element">
+            <div class="player-list-element-content">
+                <span (click)="movePlayerUp(player)" [ngStyle]="{'visibility': (i === 0 ? 'hidden' : 'visible')}" class="material-symbols-outlined">keyboard_arrow_up</span>
+                <span (click)="movePlayerDown(player)" [ngStyle]="{'visibility': (i === queue.length - 1 ? 'hidden' : 'visible')}" class="material-symbols-outlined">keyboard_arrow_down</span>
+                <p class="name">{{ player }}</p>
+                <span (click)="removePlayer(player)" class="material-symbols-outlined remove-button">remove</span>
+            </div>
+        </div>
+    </ng-container>
+</div>
+<div id="add-list" class="player-list">
+    <div class="player-list-element">
+        <div class="player-list-element-content">
+            <input (keyup)="($event.key === 'Enter' ? addPlayer() : undefined)" [(ngModel)]="inputPlayer" type="text" placeholder="Player">
+            <span (click)="addPlayer()" class="material-symbols-outlined add-button">add</span>
+        </div>
+    </div>
+</div>
+<app-button backgroundColour="black" color="white" text="Add Randomly"></app-button>

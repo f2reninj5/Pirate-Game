@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { Subject } from 'rxjs'
 import { ChooseQueueMenuComponent } from './components/choose-queue-menu/choose-queue-menu.component'
 
-export type WindowContentsType = string | ChooseQueueMenuComponent
+export type WindowContentsType = string | typeof ChooseQueueMenuComponent
 
 export interface WindowOptions {
     closeable?: boolean
@@ -19,7 +19,7 @@ export class WindowService {
 
     constructor() {}
 
-    public createWindow(contents: WindowContentsType, options: WindowOptions): void {
+    public createWindow(contents: WindowContentsType, options?: WindowOptions): void {
         this.windowContents.next({ contents, options })
     }
 

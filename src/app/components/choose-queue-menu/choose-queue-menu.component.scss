@@ -1,0 +1,120 @@
+:host {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+// .player-list {
+//     display: inline-flex;
+//     flex-direction: column;
+//     align-items: center;
+// }
+
+// .player-element,
+// .add-element {
+
+//     width: 15rem;
+
+//     padding: {
+//         top: 0.1rem;
+//         bottom: 0.1rem;
+//         left: 1rem;
+//         right: 1rem;
+//     }
+
+//     margin: 0.1rem;
+//     border-radius: 2rem;
+//     background-color: lightgrey;
+
+//     p {
+//         line-height: 0;
+//     }
+// }
+
+// .list-element-wrapper {
+//     display: flex;
+//     flex-direction: row;
+//     align-items: center;
+//     gap: 0.5rem;
+
+//     >* {
+//         display: inline-block;
+//     }
+
+//     .name,
+//     .delete-icon {
+//         float: right;
+//     }
+
+//     .name {
+//         max-width: 15ch;
+//         text-overflow: ellipsis;
+
+//         margin: {
+//             left: auto;
+//             right: 0;
+//         }
+//     }
+// }
+
+.player-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.5rem;
+}
+
+.material-symbols-outlined {
+    cursor: pointer;
+}
+
+.player-list-element {
+    box-sizing: border-box;
+    width: 16rem;
+    border-radius: 2rem;
+    background-color: lightgrey;
+
+    padding: {
+        left: 1rem;
+        right: 1rem;
+    }
+}
+
+.player-list-element-content {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.remove-button,
+.add-button {
+    margin: {
+        left: auto;
+    }
+}
+
+span {
+    display: inline-block;
+}
+
+p {
+    display: inline-block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+input {
+    margin: 0.5rem;
+
+    padding: {
+        top: 0.5rem;
+        bottom: 0.5rem;
+        left: 1rem;
+        right: 1rem;
+    }
+
+    border: none;
+    border-radius: 1rem;
+    min-width: 4rem;
+}
