@@ -2,6 +2,7 @@ import { Component, ViewChild, ViewContainerRef } from '@angular/core'
 import { WindowContentsType, WindowOptions, WindowService } from './window.service'
 import { WindowComponent } from './components/window/window.component'
 import { FilesComponent } from './components/files/files.component'
+import { GameControlService } from './game-control.service'
 
 @Component({
     selector: 'app-root',
@@ -11,7 +12,7 @@ import { FilesComponent } from './components/files/files.component'
 export class AppComponent {
     @ViewChild('windowContainer', { read: ViewContainerRef }) windowContainerRef!: ViewContainerRef
 
-    constructor(private windowService: WindowService) {
+    constructor(private gameControlService: GameControlService, private windowService: WindowService) {
         this.windowService.windowContents$.subscribe(({ contents, options }) => {
             if (!contents) {
                 return this.removeWindow()
@@ -42,5 +43,9 @@ export class AppComponent {
 
     public createFilesWindow(): void {
         this.windowService.createWindow(FilesComponent)
+    }
+
+    public selectRandomUnselectedCell(): void {
+        this.gameControlService.grid.selectRandomUnselectedCell()
     }
 }

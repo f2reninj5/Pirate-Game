@@ -5,8 +5,12 @@
     border-radius: 0.2rem;
 
     &:hover {
-        background-color: lightgrey;
         cursor: pointer;
+        transform: scale(105%);
+    }
+
+    &:active {
+        transform: translateY(0.1rem);
     }
 
     * {

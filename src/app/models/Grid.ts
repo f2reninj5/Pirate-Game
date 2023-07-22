@@ -13,4 +13,35 @@ export class Grid {
             this.cells.push(new Cell(this, i))
         }
     }
+
+    get unselectedCells(): Cell[] {
+        return this.cells.filter(c => !c.selected)
+    }
+
+    public async selectRandomUnselectedCell(): Promise<void> {
+        if (this.unselectedCells.length === 0) { return }
+
+        const randomIndex: number = Math.floor(Math.random() * this.unselectedCells.length)
+
+        if (this.unselectedCells.length > 2) {
+            await this.playAnimationUpToCell(randomIndex)
+        }
+
+        this.unselectedCells[randomIndex].toggleSelect()
+    }
+
+    public async playAnimationUpToCell(index: number): Promise<void> {
+        let cycles: number = Math.max(2, Math.ceil(this.unselectedCells.length ** 0.5))
+        let animatable: Cell[] = this.unselectedCells
+        animatable.sort(() => Math.random() - 0.5)
+        let queue = animatable.slice(0, cycles)
+
+        if (queue[-1] === this.cells[index]) {
+            queue[-1] = animatable[cycles]
+        }
+
+        for (const cell of queue) {
+            await cell.glance(200)
+        }
+    }
 }
