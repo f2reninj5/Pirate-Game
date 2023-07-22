@@ -1,66 +1,26 @@
 :host {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
 }
-
-// .player-list {
-//     display: inline-flex;
-//     flex-direction: column;
-//     align-items: center;
-// }
-
-// .player-element,
-// .add-element {
-
-//     width: 15rem;
-
-//     padding: {
-//         top: 0.1rem;
-//         bottom: 0.1rem;
-//         left: 1rem;
-//         right: 1rem;
-//     }
-
-//     margin: 0.1rem;
-//     border-radius: 2rem;
-//     background-color: lightgrey;
-
-//     p {
-//         line-height: 0;
-//     }
-// }
-
-// .list-element-wrapper {
-//     display: flex;
-//     flex-direction: row;
-//     align-items: center;
-//     gap: 0.5rem;
-
-//     >* {
-//         display: inline-block;
-//     }
-
-//     .name,
-//     .delete-icon {
-//         float: right;
-//     }
-
-//     .name {
-//         max-width: 15ch;
-//         text-overflow: ellipsis;
-
-//         margin: {
-//             left: auto;
-//             right: 0;
-//         }
-//     }
-// }
 
 .player-list {
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
     padding: 0.5rem;
+    margin: 0.5rem;
+}
+
+.scrollable {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 12rem;
+
+    border: {
+        width: 0.1rem;
+        style: solid;
+        color: lightgrey;
+    }
 }
 
 .material-symbols-outlined {
@@ -91,6 +51,11 @@
     margin: {
         left: auto;
     }
+}
+
+.new {
+    background-color: #67b007;
+    color: white;
 }
 
 span {

@@ -1,15 +1,15 @@
-import { PlayerManager } from './PlayerManager'
+import { PlayerSuggester } from './PlayerSuggester'
 
 export class PlayerOrderer {
-    private playerManager: PlayerManager
+    private playerSuggester: PlayerSuggester
     private queue: string[] = []
 
-    constructor(playerManager: PlayerManager) {
-        this.playerManager = playerManager
+    constructor(playerSuggester: PlayerSuggester) {
+        this.playerSuggester = playerSuggester
     }
 
     public addPlayer(player: string): void {
-        this.playerManager.addPlayer(player)
+        this.playerSuggester.addPlayer(player)
         this.queue.push(player)
     }
 

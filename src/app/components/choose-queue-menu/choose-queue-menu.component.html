@@ -1,21 +1,33 @@
-<div class="player-list">
-    <ng-container *ngFor="let player of queue.getQueue(); index as i;">
+<div class="player-list scrollable">
+    <ng-container *ngFor="let player of mainQueue as queue; index as i;">
         <div class="player-list-element">
             <div class="player-list-element-content">
-                <span (click)="movePlayerUp(player)" [ngStyle]="{'visibility': (i === 0 ? 'hidden' : 'visible')}" class="material-symbols-outlined">keyboard_arrow_up</span>
-                <span (click)="movePlayerDown(player)" [ngStyle]="{'visibility': (i === queue.length - 1 ? 'hidden' : 'visible')}" class="material-symbols-outlined">keyboard_arrow_down</span>
+                <span (click)="movePlayerUpMain(player)" [ngStyle]="{'visibility': (i === 0 || extensionQueue.length ? 'hidden' : 'visible')}" class="material-symbols-outlined">keyboard_arrow_up</span>
+                <span (click)="movePlayerDownMain(player)" [ngStyle]="{'visibility': (i === queue.length - 1 || extensionQueue.length ? 'hidden' : 'visible')}" class="material-symbols-outlined">keyboard_arrow_down</span>
                 <p class="name">{{ player }}</p>
-                <span (click)="removePlayer(player)" class="material-symbols-outlined remove-button">remove</span>
+                <span (click)="removePlayerMain(player)" [ngStyle]="{'visibility': (extensionQueue.length ? 'hidden' : 'visible')}" class="material-symbols-outlined remove-button">remove</span>
             </div>
         </div>
     </ng-container>
 </div>
-<div id="add-list" class="player-list">
+<div class="player-list scrollable">
+    <ng-container *ngFor="let player of extensionQueue as queue; index as i;">
+        <div class="player-list-element new">
+            <div class="player-list-element-content">
+                <span (click)="movePlayerUpExtension(player)" [ngStyle]="{'visibility': (i === 0 ? 'hidden' : 'visible')}" class="material-symbols-outlined">keyboard_arrow_up</span>
+                <span (click)="movePlayerDownExtension(player)" [ngStyle]="{'visibility': (i === queue.length - 1 ? 'hidden' : 'visible')}" class="material-symbols-outlined">keyboard_arrow_down</span>
+                <p class="name">{{ player }}</p>
+                <span (click)="removePlayerExtension(player)" class="material-symbols-outlined remove-button">remove</span>
+            </div>
+        </div>
+    </ng-container>
+</div>
+<div class="player-list">
     <div class="player-list-element">
         <div class="player-list-element-content">
-            <input (keyup)="($event.key === 'Enter' ? addPlayer() : undefined)" [(ngModel)]="inputPlayer" type="text" placeholder="Player">
+            <input (keyup)="($event.key === 'Enter' ? addPlayer() : undefined)" [(ngModel)]="inputPlayerRaw" type="text" placeholder="Player">
             <span (click)="addPlayer()" class="material-symbols-outlined add-button">add</span>
         </div>
     </div>
 </div>
-<app-button backgroundColour="black" color="white" text="Add Randomly"></app-button>
+<app-button (click)="shuffleAndMerge()" backgroundColour="#67b007" color="white" text="Shuffle and Merge"></app-button>

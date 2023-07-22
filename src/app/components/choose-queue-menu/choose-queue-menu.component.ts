@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { GameControlService } from 'src/app/game-control.service'
-import { ChooseQueue, Direction } from 'src/app/models/ChooseQueue'
+import { ChooseQueue, Direction, QueueTypes } from 'src/app/models/ChooseQueue'
 import { WindowService } from 'src/app/window.service'
 
 @Component({
@@ -9,31 +9,59 @@ import { WindowService } from 'src/app/window.service'
     styleUrls: ['./choose-queue-menu.component.scss']
 })
 export class ChooseQueueMenuComponent {
-    public addQueue: string[] = []
-    inputPlayer: string = ''
+    public inputPlayerRaw: string = ''
 
     constructor(private gameControlService: GameControlService, private windowService: WindowService) {}
 
-    get queue(): ChooseQueue {
+    get chooseQueue(): ChooseQueue {
         return this.gameControlService.chooseQueue
     }
 
-    public movePlayerUp(player: string): void {
-        this.queue.movePlayer(player, Direction.UP)
+    get mainQueue(): string[] {
+        return this.chooseQueue.getQueue(QueueTypes.MAIN)
     }
 
-    public movePlayerDown(player: string): void {
-        this.queue.movePlayer(player, Direction.DOWN)
+    get extensionQueue(): string[] {
+        return this.chooseQueue.getQueue(QueueTypes.EXTENSION)
     }
 
-    public removePlayer(player: string): void {
-        this.queue.removePlayer(player)
+    get inputPlayer(): string {
+        return this.inputPlayerRaw.trim().toLowerCase()
     }
 
     public addPlayer(): void {
         if (this.inputPlayer) {
-            this.queue.addPlayer(this.inputPlayer)
-            this.inputPlayer = ''
+            this.chooseQueue.addPlayer(this.inputPlayer, QueueTypes.EXTENSION)
+            this.inputPlayerRaw = ''
         }
+    }
+
+    public movePlayerUpMain(player: string): void {
+        this.chooseQueue.movePlayer(player, Direction.UP, QueueTypes.MAIN)
+    }
+
+    public movePlayerDownMain(player: string): void {
+        this.chooseQueue.movePlayer(player, Direction.DOWN, QueueTypes.MAIN)
+    }
+
+    public removePlayerMain(player: string): void {
+        this.chooseQueue.removePlayer(player, QueueTypes.MAIN)
+    }
+
+    public movePlayerUpExtension(player: string): void {
+        this.chooseQueue.movePlayer(player, Direction.UP, QueueTypes.EXTENSION)
+    }
+
+    public movePlayerDownExtension(player: string): void {
+        this.chooseQueue.movePlayer(player, Direction.DOWN, QueueTypes.EXTENSION)
+    }
+
+    public removePlayerExtension(player: string): void {
+        this.chooseQueue.removePlayer(player, QueueTypes.EXTENSION)
+    }
+
+    public shuffleAndMerge(): void {
+        this.chooseQueue.shuffle(QueueTypes.EXTENSION)
+        this.chooseQueue.mergeQueues()
     }
 }

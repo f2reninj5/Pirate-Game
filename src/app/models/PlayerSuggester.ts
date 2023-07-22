@@ -1,5 +1,5 @@
 
-export class PlayerManager {
+export class PlayerSuggester {
     public players: string[] = []
 
     constructor() {}
@@ -14,7 +14,7 @@ export class PlayerManager {
         this.players = this.players.filter(p => p !== player)
     }
 
-    public getPlayers(): string[] {
+    public getSuggestions(): string[] {
         return this.players
     }
 }

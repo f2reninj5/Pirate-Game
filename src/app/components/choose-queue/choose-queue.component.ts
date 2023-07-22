@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { GameControlService } from 'src/app/game-control.service'
-import { ChooseQueue } from 'src/app/models/ChooseQueue'
+import { ChooseQueue, QueueTypes } from 'src/app/models/ChooseQueue'
 import { WindowService } from 'src/app/window.service'
 import { ChooseQueueMenuComponent } from '../choose-queue-menu/choose-queue-menu.component'
 
@@ -18,7 +18,7 @@ export class ChooseQueueComponent {
     }
 
     public get queue(): string[] {
-        return this.chooseQueue.getQueue()
+        return this.chooseQueue.getQueue(QueueTypes.MAIN)
     }
 
     public createWindow(): void {

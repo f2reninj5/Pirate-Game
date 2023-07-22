@@ -1,14 +1,13 @@
-<div (click)="createWindow()">
-    <p id="heading">Choose Queue</p>
-    <div class="player-list">
-        <ng-container *ngFor="let player of queue.slice(0, 4); index as i">
-            <div *ngIf="i < 3 || queue.length <= 4; then playerBlock; else moreBlock"></div>
-            <ng-template #playerBlock>
-                <div class="player-element"><p>{{ player }}</p></div>
-            </ng-template>
-            <ng-template #moreBlock>
-                <div class="more-element"><span class="material-symbols-outlined">more_horiz</span></div>
-            </ng-template>
-        </ng-container>
-    </div>
+<div (click)="createWindow()" class="clickable"></div>
+<p id="heading">Choose Queue</p>
+<div class="player-list">
+    <ng-container *ngFor="let player of queue.slice(0, 4); index as i">
+        <div *ngIf="i < 3 || queue.length <= 4; then playerBlock; else moreBlock"></div>
+        <ng-template #playerBlock>
+            <div class="player-element"><p>{{ player }}</p></div>
+        </ng-template>
+        <ng-template #moreBlock>
+            <div class="more-element"><span class="material-symbols-outlined">more_horiz</span></div>
+        </ng-template>
+    </ng-container>
 </div>
