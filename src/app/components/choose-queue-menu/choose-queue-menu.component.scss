@@ -1,5 +1,10 @@
 :host {
     display: flex;
+    flex-wrap: wrap;
+}
+
+.column {
+    display: flex;
     flex-direction: column;
 }
 
@@ -27,11 +32,14 @@
     cursor: pointer;
 }
 
+.suggestion-list {
+    width: 12rem;
+}
+
+.suggestion-list-element,
 .player-list-element {
     box-sizing: border-box;
-    width: 16rem;
     border-radius: 2rem;
-    background-color: lightgrey;
 
     padding: {
         left: 1rem;
@@ -39,7 +47,19 @@
     }
 }
 
-.player-list-element-content {
+.suggestion-list-element {
+    background-color: #67b007;
+    color: white;
+    margin: 0.2rem;
+}
+
+.player-list-element {
+    width: 16rem;
+    background-color: lightgrey;
+}
+
+.player-list-element-content,
+.suggestion-list-element-content {
     display: flex;
     flex-direction: row;
     gap: 0.5rem;

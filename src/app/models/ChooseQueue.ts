@@ -90,4 +90,12 @@ export class ChooseQueue {
             throw new Error('Invalid queue type')
         }
     }
+
+    public getSuggestions(): string[] {
+        return this.playerSuggester.getSuggestions().filter(p => !this.isPlayerInEitherQueue(p))
+    }
+
+    public removeSuggestion(player: string): void {
+        this.playerSuggester.removePlayer(player)
+    }
 }

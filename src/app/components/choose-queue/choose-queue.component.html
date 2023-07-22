@@ -4,7 +4,7 @@
     <ng-container *ngFor="let player of queue.slice(0, 4); index as i">
         <div *ngIf="i < 3 || queue.length <= 4; then playerBlock; else moreBlock"></div>
         <ng-template #playerBlock>
-            <div class="player-element"><p>{{ player }}</p></div>
+            <div class="player-element"><p>{{ nameCase(player) }}</p></div>
         </ng-template>
         <ng-template #moreBlock>
             <div class="more-element"><span class="material-symbols-outlined">more_horiz</span></div>

@@ -24,4 +24,8 @@ export class ChooseQueueComponent {
     public createWindow(): void {
         this.windowSerivce.createWindow(ChooseQueueMenuComponent, { closeable: true })
     }
+
+    public nameCase(player: string): string {
+        return player.split(' ').map(p => p[0].toUpperCase() + p.slice(1)).join(' ')
+    }
 }

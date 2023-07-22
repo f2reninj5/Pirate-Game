@@ -25,6 +25,10 @@ export class ChooseQueueMenuComponent {
         return this.chooseQueue.getQueue(QueueTypes.EXTENSION)
     }
 
+    get suggestions(): string[] {
+        return this.chooseQueue.getSuggestions()
+    }
+
     get inputPlayer(): string {
         return this.inputPlayerRaw.trim().toLowerCase()
     }
@@ -63,5 +67,17 @@ export class ChooseQueueMenuComponent {
     public shuffleAndMerge(): void {
         this.chooseQueue.shuffle(QueueTypes.EXTENSION)
         this.chooseQueue.mergeQueues()
+    }
+
+    public removeSuggestion(player: string): void {
+        this.chooseQueue.removeSuggestion(player)
+    }
+
+    public addPlayerFromSuggestion(player: string): void {
+        this.chooseQueue.addPlayer(player, QueueTypes.EXTENSION)
+    }
+
+    public nameCase(player: string): string {
+        return player.split(' ').map(p => p[0].toUpperCase() + p.slice(1)).join(' ')
     }
 }
