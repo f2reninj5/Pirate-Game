@@ -5,7 +5,7 @@
     </div>
     <app-grid></app-grid><!--Make it so that you can pass grid size into the tag here.-->
     <div id="control-container">
-        <app-button backgroundColour="black" colour="white" text="Sheets"></app-button>
+        <app-button (click)="createFilesWindow()" backgroundColour="black" colour="white" text="Sheets"></app-button>
         <app-choose-queue></app-choose-queue>
         <app-button backgroundColour="black" colour="white" text="Player Orderer"></app-button>
         <app-button backgroundColour="#67b007" colour="white" text="Random Cell"></app-button>

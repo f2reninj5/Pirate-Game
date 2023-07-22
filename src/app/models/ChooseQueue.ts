@@ -12,7 +12,7 @@ export const enum QueueTypes {
 
 export class ChooseQueue {
     private playerSuggester: PlayerSuggester
-    private mainQueue: string[] = ['georgenstein', 'dylan', 'ben', 'maks', 'ethan']
+    private mainQueue: string[] = []
     private extensionQueue: string[] = []
 
     constructor(playerSuggester: PlayerSuggester) {

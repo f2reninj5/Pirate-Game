@@ -1,0 +1,44 @@
+h1,
+h2,
+h3 {
+    margin: 0.5rem;
+}
+
+h1 {
+    font-size: 1.5rem;
+}
+
+h2 {
+    font-size: 1rem;
+}
+
+h3 {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.thumbnail {
+    width: 20vmin;
+
+    border: {
+        width: 0.1rem;
+        style: solid;
+        color: lightgrey;
+    }
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.material-symbols-outlined {
+    cursor: pointer;
+}

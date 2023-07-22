@@ -1,0 +1,37 @@
+<table>
+    <tr>
+        <th></th>
+        <th>
+            <h1>Standard</h1>
+            <h3>15-30 players</h3>
+        </th>
+        <th>
+            <h1>Chaos</h1>
+            <h3>4-15 players</h3>
+        </th>
+    </tr>
+    <tr>
+        <th><h2>Full page</h2></th>
+        <ng-container *ngFor="let file of ['standard', 'chaos']">
+            <td>
+                <img class="thumbnail" src="{{ path }}{{ file }}_thumbnail.svg" alt="">
+                <div class="button-container">
+                    <a href="{{ path }}{{ file }}.pdf" download="standard"><span class="material-symbols-outlined">download</span></a>
+                    <span (click)="printFile(path + file + '.pdf')" class="material-symbols-outlined">print</span>
+                </div>
+            </td>
+        </ng-container>
+    </tr>
+    <tr>
+        <th><h2>Half page</h2></th>
+        <ng-container *ngFor="let file of ['standard_a5', 'chaos_a5']">
+            <td>
+                <img class="thumbnail" src="{{ path }}{{ file }}_thumbnail.svg" alt="">
+                <div class="button-container">
+                    <a href="{{ path }}{{ file }}.pdf" download="standard"><span class="material-symbols-outlined">download</span></a>
+                    <span (click)="printFile(path + file + '.pdf')" class="material-symbols-outlined">print</span>
+                </div>
+            </td>
+        </ng-container>
+    </tr>
+</table>

@@ -10,7 +10,8 @@ import { CellComponent } from './components/cell/cell.component'
 import { ChooseQueueComponent } from './components/choose-queue/choose-queue.component'
 import { RulesComponent } from './components/rules/rules.component'
 import { ChooseQueueMenuComponent } from './components/choose-queue-menu/choose-queue-menu.component'
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
+import { FilesComponent } from './components/files/files.component'
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import { FormsModule } from '@angular/forms'
         CellComponent,
         ChooseQueueComponent,
         RulesComponent,
-        ChooseQueueMenuComponent
+        ChooseQueueMenuComponent,
+        FilesComponent
     ],
     imports: [
         BrowserModule,

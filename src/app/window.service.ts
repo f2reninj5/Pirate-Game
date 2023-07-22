@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core'
+import { Injectable, Type } from '@angular/core'
 import { Subject } from 'rxjs'
 import { ChooseQueueMenuComponent } from './components/choose-queue-menu/choose-queue-menu.component'
+import { FilesComponent } from './components/files/files.component'
 
-export type WindowContentsType = string | typeof ChooseQueueMenuComponent
+export type WindowContentsType = string | Type<ChooseQueueMenuComponent | FilesComponent>
 
 export interface WindowOptions {
     closeable?: boolean

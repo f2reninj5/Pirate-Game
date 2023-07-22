@@ -1,6 +1,7 @@
 import { Component, ViewChild, ViewContainerRef } from '@angular/core'
 import { WindowContentsType, WindowOptions, WindowService } from './window.service'
 import { WindowComponent } from './components/window/window.component'
+import { FilesComponent } from './components/files/files.component'
 
 @Component({
     selector: 'app-root',
@@ -37,5 +38,9 @@ export class AppComponent {
 
     private removeWindow(): void {
         this.windowContainerRef.clear()
+    }
+
+    public createFilesWindow(): void {
+        this.windowService.createWindow(FilesComponent)
     }
 }
