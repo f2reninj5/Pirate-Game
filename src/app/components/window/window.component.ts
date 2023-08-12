@@ -15,6 +15,7 @@ export class WindowComponent implements AfterViewInit {
     constructor(private changeDetector: ChangeDetectorRef, private windowService: WindowService) {}
 
     ngAfterViewInit(): void {
+        if (!this.component) { return }
         const innerComponentRef = this.componentContainer.createComponent(this.component)
         this.changeDetector.detectChanges()
     }

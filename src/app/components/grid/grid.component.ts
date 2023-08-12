@@ -17,5 +17,17 @@ export class GridComponent {
 
     public onCellClick(index: number): void {
         this.gameControlService.toggleCellSelect(index)
+
+        if (!this.isChooseQueueEmpty()) {
+            this.shiftChooseQueue()
+        }
+    }
+
+    private isChooseQueueEmpty(): boolean {
+        return this.gameControlService.chooseQueue.isMainQueueEmpty()
+    }
+
+    private shiftChooseQueue(): string {
+        return this.gameControlService.chooseQueue.shiftMainQueue()
     }
 }

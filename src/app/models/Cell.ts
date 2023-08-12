@@ -7,7 +7,7 @@ const wait = (duration: number): Promise<void> => {
 }
 
 export class Cell {
-    private grid: Grid
+    public grid?: Grid
     public index: number
     public name: string
     public selected: boolean = false
@@ -24,7 +24,21 @@ export class Cell {
     }
 
     public toggleSelect(): void {
-        this.selected = !this.selected
+        if (this.selected) {
+            this.deselect()
+        } else {
+            this.select()
+        }
+    }
+
+    public select(): void {
+        this.selected = true
+        this.grid!.history.push(this)
+    }
+
+    public deselect(): void {
+        this.selected = false
+        this.grid!.history = this.grid!.history.filter(c => c != this)
     }
 
     /**

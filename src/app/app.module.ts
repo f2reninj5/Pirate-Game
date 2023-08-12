@@ -11,7 +11,11 @@ import { ChooseQueueComponent } from './components/choose-queue/choose-queue.com
 import { RulesComponent } from './components/rules/rules.component'
 import { ChooseQueueMenuComponent } from './components/choose-queue-menu/choose-queue-menu.component'
 import { FormsModule } from '@angular/forms';
-import { FilesComponent } from './components/files/files.component'
+import { FilesComponent } from './components/files/files.component';
+import { FeedbackComponent } from './components/feedback/feedback.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { PlayerShufflerComponent } from './components/player-shuffler/player-shuffler.component';
+import { HistoryComponent } from './components/history/history.component'
 
 @NgModule({
     declarations: [
@@ -24,7 +28,11 @@ import { FilesComponent } from './components/files/files.component'
         ChooseQueueComponent,
         RulesComponent,
         ChooseQueueMenuComponent,
-        FilesComponent
+        FilesComponent,
+        FeedbackComponent,
+        FooterComponent,
+        PlayerShufflerComponent,
+        HistoryComponent
     ],
     imports: [
         BrowserModule,

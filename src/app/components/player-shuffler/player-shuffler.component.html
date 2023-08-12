@@ -1,0 +1,39 @@
+<div class="column">
+    <h3>Shuffle Players</h3>
+    <div class="player-list scrollable">
+        <ng-container *ngFor="let player of queue; index as i;">
+            <div class="player-list-element">
+                <div class="player-list-element-content">
+                    <p class="name">{{ nameCase(player) }}</p>
+                    <span (click)="removePlayer(player)" class="material-symbols-outlined remove-button">remove</span>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    <div class="player-list">
+        <div class="player-list-element">
+            <div class="player-list-element-content">
+                <input (keyup)="($event.key === 'Enter' ? addPlayer() : undefined)" [(ngModel)]="inputPlayerRaw" type="text" placeholder="Player">
+                <span (click)="addPlayer()" class="material-symbols-outlined add-button">add</span>
+            </div>
+        </div>
+    </div>
+    <div class="button-container">
+        <app-button (click)="shuffle()" backgroundColour="#67b007" color="white" text="Shuffle"></app-button>
+        <app-button (click)="clear()" backgroundColour="red" color="white" text="Clear"></app-button>
+    </div>
+</div>
+<div class="column">
+    <h3>Suggestions</h3>
+    <div class="suggestion-list">
+        <ng-container *ngFor="let player of suggestions">
+            <div class="suggestion-list-element">
+                <div class="suggestion-list-element-content">
+                    <span (click)="addPlayerFromSuggestion(player)" class="material-symbols-outlined">add</span>
+                    <p>{{ nameCase(player) }}</p>
+                    <span (click)="removeSuggestion(player)" class="material-symbols-outlined remove-button">remove</span>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

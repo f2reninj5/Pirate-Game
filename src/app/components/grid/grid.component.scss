@@ -11,8 +11,21 @@
 
 .selected {
     background-color: red;
+    filter: grayscale(1);
+    animation: occupy 30s;
 }
 
 .glanced {
     background-color: orange;
+}
+
+@keyframes occupy {
+
+    from {
+        filter: grayscale(0);
+    }
+
+    to {
+        filter: grayscale(1);
+    }
 }

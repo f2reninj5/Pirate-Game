@@ -11,7 +11,7 @@ export const enum QueueTypes {
 }
 
 export class ChooseQueue {
-    private playerSuggester: PlayerSuggester
+    public playerSuggester: PlayerSuggester
     private mainQueue: string[] = []
     private extensionQueue: string[] = []
 
@@ -97,5 +97,13 @@ export class ChooseQueue {
 
     public removeSuggestion(player: string): void {
         this.playerSuggester.removePlayer(player)
+    }
+
+    public isMainQueueEmpty(): boolean {
+        return this.mainQueue.length === 0
+    }
+
+    shiftMainQueue(): string {
+        return this.mainQueue.shift()!
     }
 }

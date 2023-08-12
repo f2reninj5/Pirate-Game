@@ -4,6 +4,7 @@ export class Grid {
     public width: number
     public height: number
     public cells: Cell[] = []
+    public history: Cell[] = []
 
     constructor(width: number, height: number) {
         this.width = width

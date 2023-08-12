@@ -1,0 +1,8 @@
+<p id="heading">Recent Cells</p>
+<div class="container">
+    <ng-container *ngFor="let cell of getEndSlice(6); index as i">
+        <div class="cell" [ngStyle]="{'visibility': (cell ? 'visible' : 'hidden'), 'filter': 'grayscale(' + (i / 6) + ')'}">
+            <p>{{ cell ? cell.name : 'XY' }}</p>
+        </div>
+    </ng-container>
+</div>

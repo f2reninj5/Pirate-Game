@@ -2,13 +2,15 @@
 <div id="main-content">
     <div id="information-container">
         <app-rules></app-rules>
+        <app-history></app-history>
     </div>
-    <app-grid></app-grid><!--Make it so that you can pass grid size into the tag here.-->
+    <app-grid></app-grid><!--Make it so that you can pass grid size into the tag here?-->
     <div id="control-container">
         <app-button (click)="createFilesWindow()" backgroundColour="black" colour="white" text="Sheets"></app-button>
         <app-choose-queue></app-choose-queue>
-        <app-button backgroundColour="black" colour="white" text="Player Orderer"></app-button>
-        <app-button (click)="selectRandomUnselectedCell()" backgroundColour="#67b007" colour="white" text="Random Cell"></app-button>
+        <app-button (click)="createPlayerShufflerWindow()" backgroundColour="black" colour="white" text="Player Shuffler"></app-button>
+        <app-button (click)="(isChooseQueueEmpty() ? selectRandomUnselectedCell() : undefined)" [ngStyle]="{'filter': (isChooseQueueEmpty() ? 'none' : 'grayscale(100%)')}" backgroundColour="#67b007" colour="white" text="Random Cell"></app-button>
     </div>
 </div>
+<app-footer></app-footer>
 <ng-template #windowContainer></ng-template>

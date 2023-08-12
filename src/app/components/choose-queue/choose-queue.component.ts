@@ -11,7 +11,7 @@ import { ChooseQueueMenuComponent } from '../choose-queue-menu/choose-queue-menu
 })
 export class ChooseQueueComponent {
 
-    constructor(private gameControlService: GameControlService, private windowSerivce: WindowService) {}
+    constructor(private gameControlService: GameControlService, private windowService: WindowService) {}
 
     public get chooseQueue(): ChooseQueue {
         return this.gameControlService.chooseQueue
@@ -22,7 +22,7 @@ export class ChooseQueueComponent {
     }
 
     public createWindow(): void {
-        this.windowSerivce.createWindow(ChooseQueueMenuComponent, { closeable: true })
+        this.windowService.createWindow(ChooseQueueMenuComponent, { closeable: true })
     }
 
     public nameCase(player: string): string {

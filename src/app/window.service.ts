@@ -2,8 +2,10 @@ import { Injectable, Type } from '@angular/core'
 import { Subject } from 'rxjs'
 import { ChooseQueueMenuComponent } from './components/choose-queue-menu/choose-queue-menu.component'
 import { FilesComponent } from './components/files/files.component'
+import { FeedbackComponent } from './components/feedback/feedback.component'
+import { PlayerShufflerComponent } from './components/player-shuffler/player-shuffler.component'
 
-export type WindowContentsType = string | Type<ChooseQueueMenuComponent | FilesComponent>
+export type WindowContentsType = string | Type<ChooseQueueMenuComponent | FeedbackComponent | FilesComponent | PlayerShufflerComponent>
 
 export interface WindowOptions {
     closeable?: boolean

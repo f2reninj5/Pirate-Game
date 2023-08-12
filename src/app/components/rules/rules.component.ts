@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { GameControlService } from 'src/app/game-control.service'
-import { RuleTypes } from 'src/app/models/Rules'
+import { Rule, RuleTypes } from 'src/app/models/Rules'
+import { WindowService } from 'src/app/window.service'
 
 @Component({
     selector: 'app-rules',
@@ -10,9 +11,13 @@ import { RuleTypes } from 'src/app/models/Rules'
 export class RulesComponent {
     private ruleType: RuleTypes = RuleTypes.CHAOS
 
-    constructor(private gameControlService: GameControlService) {}
+    constructor(private gameControlService: GameControlService, private windowService: WindowService) {}
 
     get rules() {
         return this.gameControlService.rules[this.ruleType]
+    }
+
+    public createRuleWindow(rule: Rule): void {
+        this.windowService.createWindow(rule.tile.summary, { closeable: true })
     }
 }

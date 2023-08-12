@@ -1,0 +1,26 @@
+:host {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: lightgrey;
+    border-radius: 0.5rem;
+    padding: 0.2rem;
+    margin: 1rem;
+}
+
+.cell {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 4vmin;
+    height: 4vmin;
+    padding: 0.5rem;
+    border-radius: 0.2rem;
+    background-color: red;
+    margin: 0.2rem;
+}
+
+#heading {
+    line-height: 0.1rem;
+}
