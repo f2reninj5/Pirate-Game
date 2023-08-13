@@ -18,6 +18,6 @@ export class RulesComponent {
     }
 
     public createRuleWindow(rule: Rule): void {
-        this.windowService.createWindow(rule.tile.summary, { closeable: true })
+        this.windowService.createWindow(`${rule.tile.name}: ${rule.tile.summary}`, { closeable: true })
     }
 }
