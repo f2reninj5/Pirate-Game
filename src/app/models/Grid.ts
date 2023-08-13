@@ -45,4 +45,10 @@ export class Grid {
             await cell.glance(200)
         }
     }
+
+    public getMiddleCellIndex(): number {
+        let x = Math.floor(this.width / 2)
+        let y = Math.floor(this.height / 2)
+        return x + (y * this.width)
+    }
 }

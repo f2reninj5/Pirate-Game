@@ -1,3 +1,3 @@
 <div class="grid" [ngStyle]="{'grid-template-columns': '1fr '.repeat(grid.width)}">
-    <app-cell *ngFor="let cell of grid.cells" [ngClass]="cell.selected ? 'selected' : (cell.glanced ? 'glanced': '')" [name]="cell.name" (click)="onCellClick(cell.index)"></app-cell>
+    <app-cell *ngFor="let cell of grid.cells" [ngClass]="cell.selected ? 'selected' : (cell.glanced ? 'glanced': '')" [cell]="cell" (click)="onCellClick(cell.index)"></app-cell>
 </div>
