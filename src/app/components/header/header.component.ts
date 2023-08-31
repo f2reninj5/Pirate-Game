@@ -2,6 +2,7 @@ import { Component } from '@angular/core'
 import { GameControlService } from 'src/app/game-control.service'
 import { WindowService } from 'src/app/window.service'
 import { FeedbackComponent } from '../feedback/feedback.component'
+import { InstructionsComponent } from '../instructions/instructions.component'
 
 @Component({
     selector: 'app-header',
@@ -15,6 +16,10 @@ export class HeaderComponent {
 
     openFeedbackForm() {
         this.windowService.createWindow(FeedbackComponent)
+    }
+
+    openInstructions() {
+        this.windowService.createWindow(InstructionsComponent)
     }
 
     resetGame() {

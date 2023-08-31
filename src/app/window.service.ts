@@ -4,8 +4,9 @@ import { ChooseQueueMenuComponent } from './components/choose-queue-menu/choose-
 import { FilesComponent } from './components/files/files.component'
 import { FeedbackComponent } from './components/feedback/feedback.component'
 import { PlayerShufflerComponent } from './components/player-shuffler/player-shuffler.component'
+import { InstructionsComponent } from './components/instructions/instructions.component'
 
-export type WindowContentsType = string | Type<ChooseQueueMenuComponent | FeedbackComponent | FilesComponent | PlayerShufflerComponent>
+export type WindowContentsType = string | Type<ChooseQueueMenuComponent | FeedbackComponent | FilesComponent | InstructionsComponent | PlayerShufflerComponent>
 
 export interface WindowOptions {
     closeable?: boolean

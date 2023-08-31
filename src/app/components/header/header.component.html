@@ -1,3 +1,11 @@
-<app-button backgroundColour="#3293a8" colour="white" text="Feedback" (buttonClick)="openFeedbackForm()"></app-button>
-<h1 class="heading">{{ title }}</h1>
-<app-button backgroundColour="red" colour="white" icon="replay" (buttonClick)="resetGame()"></app-button>
+<div class="third">
+    <app-button backgroundColour="#3293a8" colour="white" text="Instructions" (buttonClick)="openInstructions()"></app-button>
+    <app-button backgroundColour="#3293a8" colour="white" text="Feedback" (buttonClick)="openFeedbackForm()"></app-button>
+</div>
+<div class="third">
+    <h1 class="heading">{{ title }}</h1>
+    <p class="version-number">v2.0.1</p>
+</div>
+<div class="third">
+    <app-button backgroundColour="red" colour="white" icon="replay" (buttonClick)="resetGame()"></app-button>
+</div>

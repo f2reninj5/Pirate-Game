@@ -15,7 +15,8 @@ import { FilesComponent } from './components/files/files.component';
 import { FeedbackComponent } from './components/feedback/feedback.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PlayerShufflerComponent } from './components/player-shuffler/player-shuffler.component';
-import { HistoryComponent } from './components/history/history.component'
+import { HistoryComponent } from './components/history/history.component';
+import { InstructionsComponent } from './components/instructions/instructions.component'
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import { HistoryComponent } from './components/history/history.component'
         FeedbackComponent,
         FooterComponent,
         PlayerShufflerComponent,
-        HistoryComponent
+        HistoryComponent,
+        InstructionsComponent
     ],
     imports: [
         BrowserModule,
