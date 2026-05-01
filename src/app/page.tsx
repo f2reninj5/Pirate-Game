@@ -1,3 +1,5 @@
+import Grid from "@/component/grid";
+
 export default function Home() {
   return (
     <>
@@ -7,7 +9,9 @@ export default function Home() {
         <h1 className="font-pirate">Pirate Game</h1>
         <button type="button">Reset</button>
       </header>
-      <main></main>
+      <main>
+        <Grid></Grid>
+      </main>
       <footer className="flex flex-row justify-center items-center">
         <span>
           Copyright © 2026 Maks Nowak. Licensed under the{" "}
