@@ -1,5 +1,6 @@
 "use client";
 
+import { Printer } from "lucide-react";
 import { useState } from "react";
 import Dialog from "@/component/dialog";
 import SheetCard from "@/component/sheet-card";
@@ -8,7 +9,7 @@ export default function SheetsDialog() {
   const [half, setHalf] = useState(true);
 
   return (
-    <Dialog trigger="Sheets" title="Sheets">
+    <Dialog trigger={<Printer />} title="Sheets">
       <div className="flex flex-col gap-2">
         <div>
           <span>Size: </span>

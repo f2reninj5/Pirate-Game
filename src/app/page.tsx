@@ -1,3 +1,4 @@
+import { RotateCcw } from "lucide-react";
 import FeedbackDialog from "@/component/feedback-dialog";
 import InstructionsDialog from "@/component/instructions-dialog";
 import SheetsDialog from "@/component/sheets-dialog";
@@ -15,7 +16,7 @@ export default function Home() {
         <h1 className="font-pirate text-5xl my-2">Pirate Game</h1>
         <span className="flex flex-row gap-2">
           <SheetsDialog />
-          <Dialog trigger="Reset" title="Reset">
+          <Dialog trigger={<RotateCcw />} title="Reset">
             <div className="flex flex-1 flex-col justify-around items-center">
               <h2>Are you sure?</h2>
               <button type="button">Reset</button>

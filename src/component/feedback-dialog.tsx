@@ -1,10 +1,11 @@
 "use client";
 
+import { Copy, MessageSquare, Printer } from "lucide-react";
 import Dialog from "@/component/dialog";
 
 export default function FeedbackDialog() {
   return (
-    <Dialog trigger="Feedback" title="Feedback">
+    <Dialog trigger={<MessageSquare />} title="Feedback">
       <div className="flex flex-row gap-2">
         <span>pirategame@maksnowak.me</span>
         <button
@@ -13,10 +14,12 @@ export default function FeedbackDialog() {
             navigator.clipboard.writeText("pirategame@maksnowak.me");
           }}
         >
-          Copy
+          <Copy />
         </button>
         <a href="mailto:pirategame@maksnowak.me?subject=Feedback">
-          <button type="button">Mail</button>
+          <button type="button">
+            <Printer />
+          </button>
         </a>
       </div>
     </Dialog>
