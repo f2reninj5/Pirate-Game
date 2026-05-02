@@ -15,3 +15,7 @@
   --color-light: var(--color-light);
   --font-pirate: var(--font-dr-sugiyama);
 }
+
+button {
+  @apply rounded-md border-2 border-gray-500 hover:border-red-500;
+}

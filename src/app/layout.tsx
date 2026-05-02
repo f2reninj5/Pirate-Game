@@ -22,9 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${drSugiyama.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col justify-between p-2 font-sans bg-light text-dark">
-        {children}
-      </body>
+      <body className="h-full font-sans bg-light text-dark">{children}</body>
     </html>
   );
 }
