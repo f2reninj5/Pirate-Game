@@ -2,6 +2,7 @@
 
 import * as Accordion from "@/component/accordion";
 import Dialog from "@/component/dialog";
+import Tiles from "@/component/tiles";
 
 export default function InstructionsDialog() {
   return (
@@ -115,7 +116,9 @@ export default function InstructionsDialog() {
             <Accordion.Trigger>
               <span className="text-xl font-bold">Tiles</span>
             </Accordion.Trigger>
-            <Accordion.Content>Tiles</Accordion.Content>
+            <Accordion.Content>
+              <Tiles />
+            </Accordion.Content>
           </Accordion.Item>
         </Accordion.Root>
       </article>
