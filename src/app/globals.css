@@ -18,5 +18,5 @@
 }
 
 button {
-  @apply rounded-md border-2 border-gray-500 hover:border-red-500;
+  @apply hover:cursor-pointer;
 }
