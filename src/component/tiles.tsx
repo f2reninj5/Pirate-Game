@@ -1,3 +1,8 @@
+"use client";
+
+import * as Accordion from "@/component/accordion";
+import { Popover } from "@/component/popover";
+
 export interface Tile {
   name: string;
   summary: string;
@@ -165,12 +170,26 @@ export { tiles, rules };
 
 export default function Tiles() {
   return (
-    <>
+    <div className="not-prose flex justify-center flex-wrap gap-2">
       {Object.entries(tiles).map(([key, value]) => (
-        <div key={key}>
-          {value.name}: {value.summary}
-        </div>
+        <Popover
+          className="w-20 h-20 bg-gray-500"
+          trigger={value.name}
+          key={key}
+        >
+          <h2>{value.name}</h2>
+          {value.summary}
+          <Accordion.Root type="single" collapsible={true}>
+            <Accordion.Item value="details">
+              <Accordion.Trigger>Details</Accordion.Trigger>
+              <Accordion.Content>
+                <p>pwafka</p>
+                <p>fawefa</p>
+              </Accordion.Content>
+            </Accordion.Item>
+          </Accordion.Root>
+        </Popover>
       ))}
-    </>
+    </div>
   );
 }
