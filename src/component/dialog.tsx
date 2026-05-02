@@ -19,7 +19,7 @@ export default function Dialog({
       <RadixDialog.Portal>
         <RadixDialog.Overlay className="fixed inset-0 bg-black/50" />
 
-        <RadixDialog.Content className="fixed top-1/2 left-1/2 -translate-1/2 bg-dark text-light p-4 w-80 min-h-80 rounded-xl flex flex-col">
+        <RadixDialog.Content className="fixed top-1/2 left-1/2 -translate-1/2 bg-dark text-light p-4 min-w-80 min-h-80 rounded-xl flex flex-col max-h-[90%] max-w-[90%]">
           <div className="flex items-center justify-between mb-4">
             <RadixDialog.Title>{title}</RadixDialog.Title>
 
@@ -33,7 +33,7 @@ export default function Dialog({
             </RadixDialog.Close>
           </div>
 
-          <div className="flex flex-1">{children}</div>
+          <div className="flex flex-col flex-1 overflow-auto">{children}</div>
         </RadixDialog.Content>
       </RadixDialog.Portal>
     </RadixDialog.Root>
