@@ -26,7 +26,7 @@ export default function Home() {
       <main>
         <Grid></Grid>
       </main>
-      <footer className="flex flex-row items-center">
+      <footer className="flex flex-row justify-center items-center">
         <span>
           Copyright © 2026 Maks Nowak. Licensed under the{" "}
           <a href="https://www.apache.org/licenses/LICENSE-2.0">
