@@ -1,7 +1,7 @@
 "use client";
 
-import { Popover } from "@/component/popover";
 import * as Accordion from "@/component/ui/accordion";
+import { Popover } from "@/component/ui/popover";
 
 export interface Tile {
   name: string;
