@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useContext } from "react";
+import { GameContext } from "@/context/game-context";
 import { cn } from "@/lib/cn";
 
 const styles = {
@@ -14,21 +15,15 @@ const labels = Array.from({ length: 7 }, (_, i) =>
 ).flat();
 
 export default function Grid() {
-  const [grid, setGrid] = useState<Array<boolean>>(new Array(49).fill(false));
-
-  function toggleCell(i: number) {
-    setGrid((g) => {
-      g = [...g];
-      g[i] = !g[i];
-      return g;
-    });
-  }
+  const gameContext = useContext(GameContext);
+  if (!gameContext) return null;
+  const { gameState, gameDispatch } = gameContext;
 
   return (
     <div className="select-none grid grid-cols-7 gap-2 bg-dark p-4 m-auto rounded-md w-[80vmin] h-[80vmin]">
-      {grid.map((used, i) => (
+      {gameState.grid.map((used, i) => (
         <button
-          onClick={() => toggleCell(i)}
+          onClick={() => gameDispatch({ type: "toggle_cell", index: i })}
           className={cn(
             "block bg-light rounded-sm hover:cursor-pointer hover:scale-105 active:scale-100 active:translate-y-0.5",
             used ? styles.used : "",
