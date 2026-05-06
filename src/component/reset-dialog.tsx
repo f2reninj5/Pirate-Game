@@ -2,7 +2,7 @@
 import * as RadixDialog from "@radix-ui/react-dialog";
 import { RotateCcw } from "lucide-react";
 import { useContext } from "react";
-import Dialog from "@/component/dialog";
+import Dialog from "@/component/ui/dialog";
 import { GameContext } from "@/context/game-context";
 
 export default function ResetDialog() {

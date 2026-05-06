@@ -1,7 +1,7 @@
 "use client";
 
 import { Copy, MessageSquare, Printer } from "lucide-react";
-import Dialog from "@/component/dialog";
+import Dialog from "@/component/ui/dialog";
 
 export default function FeedbackDialog() {
   return (

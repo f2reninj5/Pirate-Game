@@ -2,8 +2,8 @@
 
 import { Printer } from "lucide-react";
 import { useState } from "react";
-import Dialog from "@/component/dialog";
 import SheetCard from "@/component/sheet-card";
+import Dialog from "@/component/ui/dialog";
 
 export default function SheetsDialog() {
   const [half, setHalf] = useState(true);

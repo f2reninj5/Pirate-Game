@@ -1,9 +1,9 @@
 "use client";
 
 import { FileQuestion } from "lucide-react";
-import Dialog from "@/component/dialog";
 import Tiles from "@/component/tiles";
 import * as Accordion from "@/component/ui/accordion";
+import Dialog from "@/component/ui/dialog";
 
 export default function InstructionsDialog() {
   return (
