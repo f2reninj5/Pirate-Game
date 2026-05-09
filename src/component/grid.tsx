@@ -19,6 +19,12 @@ export default function Grid() {
   if (!gameContext) return null;
   const { gameState, gameDispatch } = gameContext;
 
+  const cellPositions: (number | null)[] = new Array(49).fill(null);
+
+  gameState.cellHistory.forEach((c, i) => {
+    cellPositions[c] = i;
+  });
+
   return (
     <div className="select-none grid grid-cols-7 gap-2 bg-dark p-4 m-auto rounded-md w-[80vmin] h-[80vmin]">
       {gameState.grid.map((used, i) => (
@@ -32,6 +38,7 @@ export default function Grid() {
           type="button"
         >
           <span className="m-1">{labels[i]}</span>
+          <span className="m-1">{cellPositions[i]}</span>
         </button>
       ))}
     </div>
