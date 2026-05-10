@@ -1,6 +1,7 @@
 "use client";
 
 import { useContext } from "react";
+import Button from "@/component/ui/button";
 import { GameContext } from "@/context/game-context";
 
 export default function RandomCellButton() {
@@ -9,8 +10,8 @@ export default function RandomCellButton() {
   const { gameDispatch } = gameContext;
 
   return (
-    <button type="button" onClick={() => gameDispatch({ type: "random_cell" })}>
+    <Button onClick={() => gameDispatch({ type: "random_cell" })}>
       Random Cell
-    </button>
+    </Button>
   );
 }
