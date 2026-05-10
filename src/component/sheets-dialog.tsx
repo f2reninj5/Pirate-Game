@@ -1,6 +1,6 @@
 "use client";
 
-import { Printer } from "lucide-react";
+import { Printer, RotateCcw } from "lucide-react";
 import { useState } from "react";
 import SheetCard from "@/component/sheet-card";
 import Dialog from "@/component/ui/dialog";
@@ -9,7 +9,14 @@ export default function SheetsDialog() {
   const [half, setHalf] = useState(true);
 
   return (
-    <Dialog trigger={<Printer />} title="Sheets">
+    <Dialog
+      trigger={
+        <button type="button">
+          <Printer />
+        </button>
+      }
+      title="Sheets"
+    >
       <div className="flex flex-col gap-2">
         <div>
           <span>Size: </span>

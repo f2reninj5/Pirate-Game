@@ -5,7 +5,14 @@ import Dialog from "@/component/ui/dialog";
 
 export default function FeedbackDialog() {
   return (
-    <Dialog trigger={<MessageSquare />} title="Feedback">
+    <Dialog
+      trigger={
+        <button type="button">
+          <MessageSquare />
+        </button>
+      }
+      title="Feedback"
+    >
       <div className="flex flex-row gap-2">
         <span>pirategame@maksnowak.me</span>
         <button

@@ -11,7 +11,14 @@ export default function ResetDialog() {
   const { gameDispatch } = gameContext;
 
   return (
-    <Dialog trigger={<RotateCcw />} title="Reset">
+    <Dialog
+      trigger={
+        <button type="button">
+          <RotateCcw />
+        </button>
+      }
+      title="Reset"
+    >
       <div className="flex flex-1 flex-col justify-around items-center">
         <h2>Are you sure?</h2>
         <RadixDialog.Close asChild>

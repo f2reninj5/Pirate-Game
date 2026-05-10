@@ -14,7 +14,7 @@ export default function Dialog({
 }) {
   return (
     <RadixDialog.Root>
-      <RadixDialog.Trigger>{trigger}</RadixDialog.Trigger>
+      <RadixDialog.Trigger asChild>{trigger}</RadixDialog.Trigger>
 
       <RadixDialog.Portal>
         <RadixDialog.Overlay className="fixed inset-0 bg-black/50" />
