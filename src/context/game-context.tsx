@@ -48,9 +48,8 @@ function gameReducer(state: GameState, action: GameReducerAction) {
 
       return { ...state, grid, cellHistory };
     }
-    case "load": {
+    case "load":
       return action.save;
-    }
     case "reset":
       return initialGameState;
   }
