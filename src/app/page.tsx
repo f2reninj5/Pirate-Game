@@ -1,3 +1,4 @@
+import ChooseQueue from "@/component/choose-queue";
 import FeedbackDialog from "@/component/feedback-dialog";
 import InstructionsDialog from "@/component/instructions-dialog";
 import SheetsDialog from "@/component/sheets-dialog";
@@ -22,6 +23,7 @@ export default function Game() {
         </header>
         <main>
           <Grid></Grid>
+          <ChooseQueue></ChooseQueue>
         </main>
         <footer className="flex flex-row justify-center items-center">
           <span>
