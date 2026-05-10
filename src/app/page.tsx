@@ -1,6 +1,7 @@
 import ChooseQueue from "@/component/choose-queue";
 import FeedbackDialog from "@/component/feedback-dialog";
 import InstructionsDialog from "@/component/instructions-dialog";
+import RandomCellButton from "@/component/random-cell-button";
 import SheetsDialog from "@/component/sheets-dialog";
 import { GameProvider } from "@/context/game-context";
 import Grid from "../component/grid";
@@ -23,6 +24,7 @@ export default function Game() {
         </header>
         <main>
           <Grid></Grid>
+          <RandomCellButton></RandomCellButton>
           <ChooseQueue></ChooseQueue>
         </main>
         <footer className="flex flex-row justify-center items-center">

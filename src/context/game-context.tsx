@@ -7,12 +7,14 @@ import {
   useEffect,
   useReducer,
 } from "react";
+import { getRandomUnusedCell } from "@/lib/grid";
 
 type GameState = {
   grid: boolean[];
   cellHistory: number[];
   players: string[];
   chooseQueue: string[];
+  _animation?: { grid?: "random" };
 };
 
 const initialGameState: GameState = {
@@ -30,7 +32,8 @@ function loadGameState(): GameState {
 type GameReducerAction =
   | { type: "toggle_cell"; index: number }
   | { type: "load"; save: GameState }
-  | { type: "reset" };
+  | { type: "reset" }
+  | { type: "random_cell" };
 
 function gameReducer(state: GameState, action: GameReducerAction) {
   switch (action.type) {
@@ -43,15 +46,31 @@ function gameReducer(state: GameState, action: GameReducerAction) {
       grid[i] = used;
 
       const cellHistory = used
-        ? [...state.cellHistory, i]
+        ? [i, ...state.cellHistory]
         : state.cellHistory.filter((c) => c !== i);
 
-      return { ...state, grid, cellHistory };
+      return { ...state, grid, cellHistory, _animation: {} };
     }
     case "load":
       return action.save;
     case "reset":
       return initialGameState;
+    case "random_cell": {
+      const grid = [...state.grid];
+      const randomIndex = getRandomUnusedCell(grid);
+      if (randomIndex === null) return state;
+
+      grid[randomIndex] = true;
+
+      const cellHistory = [randomIndex, ...state.cellHistory];
+
+      return {
+        ...state,
+        grid,
+        cellHistory,
+        _animation: { grid: "random" as const },
+      };
+    }
   }
 }
 
@@ -71,7 +90,8 @@ export function GameProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("gameState", JSON.stringify(gameState));
+    const { _animation: _, ...data } = gameState;
+    localStorage.setItem("gameState", JSON.stringify(data));
   }, [gameState]);
 
   return (
