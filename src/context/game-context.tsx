@@ -6,19 +6,20 @@ import {
   type ReactNode,
   useEffect,
   useReducer,
-  useRef,
 } from "react";
 
 type GameState = {
   grid: boolean[];
   cellHistory: number[];
   players: string[];
+  chooseQueue: string[];
 };
 
 const initialGameState: GameState = {
   grid: new Array(49).fill(false),
   cellHistory: [],
   players: [],
+  chooseQueue: [],
 };
 
 function loadGameState(): GameState {
