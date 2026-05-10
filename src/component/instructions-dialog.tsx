@@ -1,20 +1,14 @@
 "use client";
 
-import { FileQuestion, MessageSquare } from "lucide-react";
+import {FileQuestion} from "lucide-react";
 import Tiles from "@/component/tiles";
 import * as Accordion from "@/component/ui/accordion";
 import Dialog from "@/component/ui/dialog";
+import IconButton from "@/component/ui/icon-button";
 
 export default function InstructionsDialog() {
   return (
-    <Dialog
-      trigger={
-        <button type="button">
-          <FileQuestion />
-        </button>
-      }
-      title="Instructions"
-    >
+    <Dialog trigger={<IconButton icon={FileQuestion} />} title="Instructions">
       <article className="prose prose-invert h-screen">
         <h1 id="pirate-game">Pirate Game</h1>
 
