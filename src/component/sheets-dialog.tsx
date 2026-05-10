@@ -1,32 +1,23 @@
 "use client";
 
-import { Printer, RotateCcw } from "lucide-react";
+import { Columns2, Printer, Square } from "lucide-react";
 import { useState } from "react";
 import SheetCard from "@/component/sheet-card";
 import Dialog from "@/component/ui/dialog";
+import IconButton from "@/component/ui/icon-button";
 
 export default function SheetsDialog() {
   const [half, setHalf] = useState(true);
 
   return (
-    <Dialog
-      trigger={
-        <button type="button">
-          <Printer />
-        </button>
-      }
-      title="Sheets"
-    >
+    <Dialog trigger={<IconButton icon={Printer} />} title="Sheets">
       <div className="flex flex-col gap-2">
-        <div>
+        <div className="flex flex-row gap-2">
           <span>Size: </span>
-          <button
-            type="button"
+          <IconButton
+            icon={half ? Columns2 : Square}
             onClick={() => setHalf(!half)}
-            className={half ? "bg-white text-black" : ""}
-          >
-            {half ? "Half" : "Full"}
-          </button>
+          />
         </div>
         <div className="flex flex-row gap-2">
           {half ? (

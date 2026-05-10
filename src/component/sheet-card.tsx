@@ -1,4 +1,6 @@
+import { Download, Printer } from "lucide-react";
 import Image from "next/image";
+import IconButton from "@/component/ui/icon-button";
 
 export default function SheetCard({ name }: { name: string }) {
   function printFile(): void {
@@ -15,21 +17,19 @@ export default function SheetCard({ name }: { name: string }) {
   }
 
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       <Image
-        className="bg-white w-50"
+        className="bg-white w-50 h-50"
         src={`/thumbnail/${name}.svg`}
         width={100}
         height={100}
         alt=""
       />
-      <span>
+      <span className="flex flex-row gap-2">
         <a href={`/sheet/${name}.pdf`} download>
-          <button type="button">Download</button>
+          <IconButton icon={Download} />
         </a>
-        <button type="button" onClick={printFile}>
-          Print
-        </button>
+        <IconButton icon={Printer} onClick={printFile} />
       </span>
     </div>
   );
