@@ -1,16 +1,19 @@
 "use client";
 
 import { useContext } from "react";
+import PlayerList from "@/component/player-list";
 import Dialog from "@/component/ui/dialog";
 import { GameContext } from "@/context/game-context";
 
 function ChooseQueueTrigger(queue: string[]) {
   return (
-    <button type="button">
+    <button className="bg-gray-100 p-2 flex flex-col gap-2" type="button">
       <div>Choose Queue</div>
-      {queue.map((player, _) => (
-        <div key={player}>{player}</div>
-      ))}
+      <div className=" flex flex-col items-center gap-1">
+        <div className="bg-gray-400 text-[16px] w-full">{queue[0]}</div>
+        <div className="bg-gray-300 text-[12px] w-[75%]">{queue[1]}</div>
+        <div className="bg-gray-200 text-[9px] w-[56.25%]">{queue[2]}</div>
+      </div>
     </button>
   );
 }
@@ -25,7 +28,15 @@ export default function ChooseQueue() {
       trigger={ChooseQueueTrigger(gameState.chooseQueue)}
       title="Choose Queue"
     >
-      hello
+      <div className="grid grid-cols-2">
+        <span>Next:</span>
+        <div>
+          {gameState.chooseQueue.map((player) => (
+            <div key={player}>{player}</div>
+          ))}
+        </div>
+      </div>
+      <PlayerList></PlayerList>
     </Dialog>
   );
 }
