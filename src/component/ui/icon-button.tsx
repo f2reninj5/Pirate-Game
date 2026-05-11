@@ -9,8 +9,8 @@ export default function IconButton({
   ...props
 }: ComponentProps<typeof Button> & { icon: LucideIcon }) {
   return (
-    <Button className={cn("p-1", className)} {...props}>
-      <Icon />
+    <Button className={cn("text-2xl p-1", className)} {...props}>
+      <Icon size="1em" />
     </Button>
   );
 }
