@@ -28,15 +28,17 @@ export default function ChooseQueue() {
       trigger={ChooseQueueTrigger(gameState.chooseQueue)}
       title="Choose Queue"
     >
-      <div className="grid grid-cols-2">
-        <span>Next:</span>
-        <div>
-          {gameState.chooseQueue.map((player) => (
-            <div key={player}>{player}</div>
-          ))}
+      <div className="flex flex-row gap-2">
+        <div className="grid grid-cols-2">
+          <span>Next:</span>
+          <div>
+            {gameState.chooseQueue.map((player) => (
+              <div key={player}>{player}</div>
+            ))}
+          </div>
         </div>
+        <PlayerList></PlayerList>
       </div>
-      <PlayerList></PlayerList>
     </Dialog>
   );
 }
