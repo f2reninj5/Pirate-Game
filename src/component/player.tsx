@@ -5,6 +5,15 @@ export default function Player({ player }: { player: string }) {
   const [editing, setEditing] = useState(false);
   const [input, setInput] = useState(player);
 
+  function save() {
+    setEditing(false);
+  }
+
+  function cancel() {
+    setEditing(false);
+    setInput(player);
+  }
+
   return (
     <div className="group flex flex-row gap-2 px-2 rounded-sm w-30 bg-gray-800 overflow-hidden">
       {editing ? (
@@ -15,17 +24,20 @@ export default function Player({ player }: { player: string }) {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                save();
+              }
+
+              if (e.key === "Escape") {
+                cancel();
+              }
+            }}
           />{" "}
-          <button type="button" onClick={() => {}}>
+          <button type="button" onClick={save}>
             <Check size="1em" />
           </button>
-          <button
-            type="button"
-            onClick={() => {
-              setEditing(false);
-              setInput(player);
-            }}
-          >
+          <button type="button" onClick={cancel}>
             <X size="1em" />
           </button>
         </>
