@@ -9,7 +9,7 @@ export default function PlayerList() {
   const { gameState } = gameContext;
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="bg-dark shadow-inner shadow-black p-2 rounded-md flex flex-col gap-2">
       <div>Players</div>
       <div className="flex flex-row gap-2">
         <input className="w-30" type="text" placeholder="Name" />
@@ -21,7 +21,7 @@ export default function PlayerList() {
         {gameState.players.map((player) => (
           <div className="flex flex-row gap-2" key={player}>
             <input type="checkbox" />
-            <Player player={player} key={player}></Player>
+            <Player player={player} key={player} />
           </div>
         ))}
       </div>
