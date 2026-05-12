@@ -12,7 +12,7 @@ export default function PlayerList() {
     <div className="bg-dark shadow-inner shadow-black p-2 rounded-md flex flex-col gap-2">
       <div>Players</div>
       <div className="flex flex-row gap-2">
-        <input className="w-30" type="text" placeholder="Name" />
+        <input className="w-30 outline-none" type="text" placeholder="Name" />
         <button type="button">
           <Plus size="1em"></Plus>
         </button>
