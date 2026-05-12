@@ -2,6 +2,7 @@
 
 import { ArrowRight } from "lucide-react";
 import { useContext } from "react";
+import Player from "@/component/player";
 import PlayerList from "@/component/player-list";
 import Dialog from "@/component/ui/dialog";
 import { GameContext } from "@/context/game-context";
@@ -31,13 +32,13 @@ export default function ChooseQueue() {
     >
       <div className="flex flex-row gap-2 justify-between">
         <PlayerList></PlayerList>
-        <div className="grid grid-cols-2 gap-1">
+        <div className="grid grid-cols-[max-content_auto] gap-1">
           <span>
-            Choosing <ArrowRight className="inline" size="1em"></ArrowRight>
+            Next <ArrowRight className="inline" size="1em"></ArrowRight>
           </span>
-          <div>
+          <div className="flex flex-col gap-1">
             {gameState.chooseQueue.map((player) => (
-              <div key={player}>{player}</div>
+              <Player player={player} key={player} />
             ))}
           </div>
         </div>
