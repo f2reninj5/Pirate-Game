@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowRight } from "lucide-react";
 import { useContext } from "react";
 import PlayerList from "@/component/player-list";
 import Dialog from "@/component/ui/dialog";
@@ -28,16 +29,18 @@ export default function ChooseQueue() {
       trigger={ChooseQueueTrigger(gameState.chooseQueue)}
       title="Choose Queue"
     >
-      <div className="flex flex-row gap-2">
-        <div className="grid grid-cols-2">
-          <span>Next:</span>
+      <div className="flex flex-row gap-2 justify-between">
+        <PlayerList></PlayerList>
+        <div className="grid grid-cols-2 gap-1">
+          <span>
+            Choosing <ArrowRight className="inline" size="1em"></ArrowRight>
+          </span>
           <div>
             {gameState.chooseQueue.map((player) => (
               <div key={player}>{player}</div>
             ))}
           </div>
         </div>
-        <PlayerList></PlayerList>
       </div>
     </Dialog>
   );
