@@ -8,7 +8,23 @@ export default function PlayerList() {
   const ref = useRef<HTMLInputElement | null>(null);
   const [input, setInput] = useState("");
   if (!gameContext) return null;
-  const { gameState } = gameContext;
+  const { gameState, gameDispatch } = gameContext;
+
+  function unfocusInput() {
+    if (ref.current) ref.current.blur();
+  }
+
+  function addPlayer() {
+    if (input === "") return;
+    if (
+      gameState.players.some(
+        (player) => player.toLowerCase() === input.toLowerCase(),
+      )
+    )
+      return;
+    gameDispatch({ type: "add_player", player: input.trim() });
+    setInput("");
+  }
 
   return (
     <div className="bg-dark shadow-inner shadow-black p-2 rounded-md flex flex-col gap-2">
@@ -24,11 +40,15 @@ export default function PlayerList() {
           onKeyDown={(e) => {
             if (e.code === "Escape") {
               setInput("");
-              if (ref.current) ref.current.blur();
+              unfocusInput();
+            }
+
+            if (e.code === "Enter") {
+              addPlayer();
             }
           }}
         />
-        <button type="button">
+        <button onClick={addPlayer} type="button">
           <Plus size="1em"></Plus>
         </button>
       </div>
