@@ -8,6 +8,7 @@ import {
   useReducer,
 } from "react";
 import { getRandomUnusedCell } from "@/lib/grid";
+import { comparePlayers } from "@/lib/player";
 
 type GameState = {
   grid: boolean[];
@@ -33,7 +34,8 @@ type GameReducerAction =
   | { type: "toggle_cell"; index: number }
   | { type: "load"; save: GameState }
   | { type: "reset" }
-  | { type: "random_cell" };
+  | { type: "random_cell" }
+  | { type: "add_player"; player: string };
 
 function gameReducer(state: GameState, action: GameReducerAction) {
   switch (action.type) {
@@ -69,6 +71,13 @@ function gameReducer(state: GameState, action: GameReducerAction) {
         grid,
         cellHistory,
         _animation: { grid: "random" as const },
+      };
+    }
+    case "add_player": {
+      const { player } = action;
+      return {
+        ...state,
+        players: [...state.players, player].toSorted(comparePlayers),
       };
     }
   }
