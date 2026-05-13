@@ -1,5 +1,6 @@
-import { Plus } from "lucide-react";
+import { Delete, ListPlus, Plus } from "lucide-react";
 import { useContext, useRef, useState } from "react";
+import IconButton from "@/component/ui/icon-button";
 import { GameContext } from "@/context/game-context";
 import Player from "./player";
 
@@ -63,6 +64,13 @@ export default function PlayerList() {
               <Player player={player} key={player} />
             </div>
           ))}
+      </div>
+      <div className="flex flex-row gap-2 justify-between">
+        <input type="checkbox" />
+        <div className="flex flex-row gap-2">
+          <IconButton className="text-[1em]" icon={Delete} />
+          <IconButton className="text-[1em]" icon={ListPlus}></IconButton>
+        </div>
       </div>
     </div>
   );
