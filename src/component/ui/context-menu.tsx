@@ -66,7 +66,7 @@ export default function ContextMenu({
 }) {
   return (
     <RadixContextMenu.Root>
-      <RadixContextMenu.Trigger>{trigger}</RadixContextMenu.Trigger>
+      <RadixContextMenu.Trigger asChild>{trigger}</RadixContextMenu.Trigger>
 
       <RadixContextMenu.Portal>
         <RadixContextMenu.Content className="bg-dark text-light p-2 rounded-sm">
