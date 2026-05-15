@@ -1,7 +1,7 @@
 "use client";
 
 import { ContextMenu as RadixContextMenu } from "radix-ui";
-import type { ComponentProps } from "react";
+import type { ComponentProps, MouseEventHandler, ReactNode } from "react";
 
 function Item({ ...props }: ComponentProps<typeof RadixContextMenu.Item>) {
   return (
@@ -28,20 +28,49 @@ function Separator({
   );
 }
 
-export default function ContextMenuDemo() {
+function ItemGroup({
+  group,
+}: {
+  group: {
+    name?: string;
+    items: { name: string; onClick?: MouseEventHandler }[];
+  };
+}) {
+  const { name, items } = group;
+  return (
+    <>
+      {name ? <Label>{name}</Label> : null}
+      {items.map((item) => (
+        <Item key={item.name} onClick={item.onClick}>
+          {item.name}
+        </Item>
+      ))}
+    </>
+  );
+}
+
+export default function ContextMenu({
+  trigger,
+  groups,
+}: {
+  trigger: ReactNode;
+  groups: {
+    name?: string;
+    items: { name: string; onClick?: MouseEventHandler }[];
+  }[];
+}) {
   return (
     <RadixContextMenu.Root>
-      <RadixContextMenu.Trigger>Right-click here.</RadixContextMenu.Trigger>
+      <RadixContextMenu.Trigger>{trigger}</RadixContextMenu.Trigger>
 
       <RadixContextMenu.Portal>
         <RadixContextMenu.Content className="bg-dark text-light p-2 rounded-sm">
-          <Item>Edit name</Item>
-          <Item>Delete player</Item>
-
-          <Separator />
-
-          <Label>People</Label>
-          <Item>Back</Item>
+          {groups.map((group, i) => (
+            <>
+              {i === 0 ? null : <Separator key={`-${group.name ?? ""}`} />}
+              <ItemGroup group={group} key={group.name ?? ""} />
+            </>
+          ))}
         </RadixContextMenu.Content>
       </RadixContextMenu.Portal>
     </RadixContextMenu.Root>
