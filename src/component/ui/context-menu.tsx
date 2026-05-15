@@ -55,10 +55,10 @@ function ItemGroup({
 }
 
 export default function ContextMenu({
-  trigger,
+  children,
   groups,
 }: {
-  trigger: ReactNode;
+  children: ReactNode;
   groups: {
     name?: string;
     items: { name: string; onClick?: MouseEventHandler }[];
@@ -66,7 +66,7 @@ export default function ContextMenu({
 }) {
   return (
     <RadixContextMenu.Root>
-      <RadixContextMenu.Trigger asChild>{trigger}</RadixContextMenu.Trigger>
+      <RadixContextMenu.Trigger asChild>{children}</RadixContextMenu.Trigger>
 
       <RadixContextMenu.Portal>
         <RadixContextMenu.Content className="bg-dark text-light p-2 rounded-sm">
