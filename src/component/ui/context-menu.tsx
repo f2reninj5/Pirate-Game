@@ -1,7 +1,12 @@
 "use client";
 
 import { ContextMenu as RadixContextMenu } from "radix-ui";
-import type { ComponentProps, MouseEventHandler, ReactNode } from "react";
+import {
+  type ComponentProps,
+  Fragment,
+  type MouseEventHandler,
+  type ReactNode,
+} from "react";
 
 function Item({ ...props }: ComponentProps<typeof RadixContextMenu.Item>) {
   return (
@@ -66,10 +71,10 @@ export default function ContextMenu({
       <RadixContextMenu.Portal>
         <RadixContextMenu.Content className="bg-dark text-light p-2 rounded-sm">
           {groups.map((group, i) => (
-            <>
-              {i === 0 ? null : <Separator key={`-${group.name ?? ""}`} />}
-              <ItemGroup group={group} key={group.name ?? ""} />
-            </>
+            <Fragment key={group.name ?? ""}>
+              {i === 0 ? null : <Separator />}
+              <ItemGroup group={group} />
+            </Fragment>
           ))}
         </RadixContextMenu.Content>
       </RadixContextMenu.Portal>
