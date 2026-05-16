@@ -7,11 +7,7 @@ import { GameContext } from "@/context/game-context";
 export default function RandomCellButton() {
   const gameContext = useContext(GameContext);
   if (!gameContext) return null;
-  const { gameDispatch } = gameContext;
+  const { gridActions } = gameContext;
 
-  return (
-    <Button onClick={() => gameDispatch({ type: "random_cell" })}>
-      Random Cell
-    </Button>
-  );
+  return <Button onClick={gridActions.useRandomCell}>Random Cell</Button>;
 }

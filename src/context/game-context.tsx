@@ -1,28 +1,73 @@
 "use client";
 
-import {
-  type ActionDispatch,
-  createContext,
-  type ReactNode,
-  useEffect,
-  useReducer,
-} from "react";
+import { createContext, type ReactNode, useEffect, useState } from "react";
 import { getRandomUnusedCell } from "@/lib/grid";
 import { comparePlayers } from "@/lib/player";
 
-type GameState = {
+type GridState = {
   grid: boolean[];
   cellHistory: number[];
+  _animation?: "random";
+};
+
+type PlayersState = {
   players: string[];
-  chooseQueue: { stage: string[]; queue: string[] };
-  _animation?: { grid?: "random" };
+};
+
+type ChooseQueueState = {
+  stage: string[];
+  queue: string[];
+};
+
+type GameState = {
+  gridState: GridState;
+  playersState: PlayersState;
+  chooseQueueState: ChooseQueueState;
 };
 
 const initialGameState: GameState = {
-  grid: new Array(49).fill(false),
-  cellHistory: [],
-  players: [].toSorted(comparePlayers),
-  chooseQueue: { stage: [], queue: [] },
+  gridState: {
+    grid: new Array(49).fill(false),
+    cellHistory: [],
+  },
+  playersState: {
+    players: [
+      "Alice A",
+      "Alice B",
+      "Benjamin",
+      "Chloe",
+      "Daniel D",
+      "Daniel H",
+      "Ethan",
+      "Fiona",
+      "Grace",
+      "Henry",
+      "Isabella",
+      "Jack J",
+      "Jack K",
+      "Kevin",
+      "Liam",
+      "Mia M",
+      "Mia S",
+      "Noah",
+      "Olivia",
+      "Parker",
+      "Quinn",
+      "Ryan R",
+      "Ryan T",
+      "Sophia",
+      "Thomas",
+      "Uma",
+      "Victor",
+      "Willow",
+      "Xander",
+      "Zoe",
+    ].toSorted(comparePlayers),
+  },
+  chooseQueueState: {
+    stage: [],
+    queue: ["Zoe", "Victor", "Mia M"],
+  },
 };
 
 function loadGameState(): GameState {
@@ -30,81 +75,152 @@ function loadGameState(): GameState {
   return save ? JSON.parse(save) : initialGameState;
 }
 
-type GameReducerAction =
-  | { type: "toggle_cell"; index: number }
-  | { type: "load"; save: GameState }
-  | { type: "reset" }
-  | { type: "random_cell" }
-  | { type: "add_player"; player: string };
+function saveGameState(save: GameState) {
+  localStorage.setItem("gameState", JSON.stringify(save));
+}
 
-function gameReducer(state: GameState, action: GameReducerAction) {
-  switch (action.type) {
-    case "toggle_cell": {
-      const { index: i } = action;
+type GridActions = {
+  toggleCell: (index: number) => void;
+  useRandomCell: () => void;
+  reset: () => void;
+};
 
-      const grid = [...state.grid];
+type PlayersActions = {
+  addPlayer: (player: string) => void;
+  deletePlayer: (player: string) => void;
+  reset: () => void;
+};
+
+type ChooseQueueActions = {
+  stagePlayer: (player: string) => void;
+  unstagePlayer: (player: string) => void;
+  commitStage: () => void;
+  enqueuePlayer: (player: string) => void;
+  removePlayer: (player: string) => void;
+  dequeuePlayer: () => void;
+  reset: () => void;
+};
+
+type GameActions = {
+  reset: () => void;
+};
+
+export const GameContext = createContext<{
+  gridState: GridState;
+  gridActions: GridActions;
+  playersState: PlayersState;
+  playersActions: PlayersActions;
+  chooseQueueState: ChooseQueueState;
+  chooseQueueActions: ChooseQueueActions;
+  gameActions: GameActions;
+} | null>(null);
+
+export function GameProvider({ children }: { children: ReactNode }) {
+  const [gridState, setGridState] = useState<GridState>(
+    initialGameState.gridState,
+  );
+  const [playersState, setPlayersState] = useState<PlayersState>(
+    initialGameState.playersState,
+  );
+  const [chooseQueueState, setChooseQueueState] = useState<ChooseQueueState>(
+    initialGameState.chooseQueueState,
+  );
+
+  useEffect(() => {
+    const { gridState, playersState, chooseQueueState } = loadGameState();
+    setGridState(gridState);
+    setPlayersState(playersState);
+    setChooseQueueState(chooseQueueState);
+  }, []);
+
+  useEffect(() => {
+    const { _animation: _, ...strippedGridState } = gridState;
+    const gameState = {
+      gridState: strippedGridState,
+      playersState,
+      chooseQueueState,
+    };
+    saveGameState(gameState);
+  }, [gridState, playersState, chooseQueueState]);
+
+  const gridActions: GridActions = {
+    toggleCell: (i) => {
+      const grid = [...gridState.grid];
       const used = !grid[i];
 
       grid[i] = used;
 
       const cellHistory = used
-        ? [i, ...state.cellHistory]
-        : state.cellHistory.filter((c) => c !== i);
+        ? [i, ...gridState.cellHistory]
+        : gridState.cellHistory.filter((c) => c !== i);
 
-      return { ...state, grid, cellHistory, _animation: {} };
-    }
-    case "load":
-      return action.save;
-    case "reset":
-      return initialGameState;
-    case "random_cell": {
-      const grid = [...state.grid];
+      setGridState({ grid, cellHistory });
+    },
+    useRandomCell: () => {
+      const grid = [...gridState.grid];
       const randomIndex = getRandomUnusedCell(grid);
-      if (randomIndex === null) return state;
+      if (randomIndex === null) return;
 
       grid[randomIndex] = true;
 
-      const cellHistory = [randomIndex, ...state.cellHistory];
+      const cellHistory = [randomIndex, ...gridState.cellHistory];
 
-      return {
-        ...state,
+      setGridState({
         grid,
         cellHistory,
-        _animation: { grid: "random" as const },
-      };
-    }
-    case "add_player": {
-      const { player } = action;
-      return {
-        ...state,
-        players: [...state.players, player].toSorted(comparePlayers),
-      };
-    }
-  }
-}
+        _animation: "random" as const,
+      });
+    },
+    reset: () => {
+      setGridState(initialGameState.gridState);
+    },
+  };
 
-export const GameContext = createContext<{
-  gameState: GameState;
-  gameDispatch: ActionDispatch<[action: GameReducerAction]>;
-} | null>(null);
+  const playersActions: PlayersActions = {
+    addPlayer: (player) => {
+      setPlayersState({
+        ...playersState,
+        players: [...playersState.players, player].toSorted(comparePlayers),
+      });
+    },
+    deletePlayer: (player) => {},
+    reset: () => {
+      setPlayersState(initialGameState.playersState);
+    },
+  };
 
-export function GameProvider({ children }: { children: ReactNode }) {
-  const [gameState, gameDispatch] = useReducer(gameReducer, initialGameState);
+  const chooseQueueActions: ChooseQueueActions = {
+    stagePlayer: (player) => {},
+    unstagePlayer: (player) => {},
+    commitStage: () => {},
+    enqueuePlayer: (player) => {},
+    removePlayer: (player) => {},
+    dequeuePlayer: () => {},
+    reset: () => {
+      setChooseQueueState(initialGameState.chooseQueueState);
+    },
+  };
 
-  useEffect(() => {
-    gameDispatch({
-      type: "load",
-      save: loadGameState(),
-    });
-  }, []);
-
-  useEffect(() => {
-    const { _animation: _, ...data } = gameState;
-    localStorage.setItem("gameState", JSON.stringify(data));
-  }, [gameState]);
+  const gameActions: GameActions = {
+    reset: () => {
+      gridActions.reset();
+      playersActions.reset();
+      chooseQueueActions.reset();
+    },
+  };
 
   return (
-    <GameContext.Provider value={{ gameState, gameDispatch }}>
+    <GameContext.Provider
+      value={{
+        gridState,
+        gridActions,
+        playersState,
+        playersActions,
+        chooseQueueState,
+        chooseQueueActions,
+        gameActions,
+      }}
+    >
       {children}
     </GameContext.Provider>
   );

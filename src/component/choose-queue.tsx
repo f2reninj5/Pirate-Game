@@ -23,11 +23,11 @@ function ChooseQueueTrigger(queue: string[]) {
 export default function ChooseQueue() {
   const gameContext = useContext(GameContext);
   if (!gameContext) return null;
-  const { gameState, gameDispatch } = gameContext;
+  const { chooseQueueState } = gameContext;
 
   return (
     <Dialog
-      trigger={ChooseQueueTrigger(gameState.chooseQueue.queue)}
+      trigger={ChooseQueueTrigger(chooseQueueState.queue)}
       title="Choose Queue"
     >
       <div className="flex flex-row gap-2 justify-between">
@@ -37,7 +37,7 @@ export default function ChooseQueue() {
             Next <ArrowRight className="inline" size="1em"></ArrowRight>
           </span>
           <div className="flex flex-col gap-1">
-            {gameState.chooseQueue.queue.map((player) => (
+            {chooseQueueState.queue.map((player) => (
               <Player player={player} key={player} />
             ))}
           </div>

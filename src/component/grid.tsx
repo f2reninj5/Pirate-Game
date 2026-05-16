@@ -26,21 +26,21 @@ export default function Grid() {
 
   useEffect(() => {
     if (!gameContext) return;
-    const { gameState } = gameContext;
+    const { gridState } = gameContext;
 
-    const target = gameState.cellHistory[0];
-    const grid = [...gameState.grid];
+    const target = gridState.cellHistory[0];
+    const grid = [...gridState.grid];
     grid[target] = false;
     const id = ++animationId.current;
 
     (async function animate() {
       if (
-        gameState._animation?.grid === "random" &&
-        gameState.cellHistory.length < 49
+        gridState._animation === "random" &&
+        gridState.cellHistory.length < 49
       ) {
         for (let i = 0; i < randomInt(8, 13); i++) {
           if (id !== animationId.current) {
-            setGrid(gameState.grid);
+            setGrid(gridState.grid);
             return;
           }
           const randomIndex = getRandomUnusedCell(grid);
@@ -50,16 +50,16 @@ export default function Grid() {
         }
       }
 
-      setGrid(gameState.grid);
+      setGrid(gridState.grid);
       setHighlighted(null);
     })();
   }, [gameContext]);
 
   if (!gameContext) return null;
-  const { gameState, gameDispatch } = gameContext;
+  const { gridState, gridActions } = gameContext;
 
   const cellPositions: (number | null)[] = new Array(49).fill(null);
-  gameState.cellHistory.forEach((c, i) => {
+  gridState.cellHistory.forEach((c, i) => {
     cellPositions[c] = i;
   });
 
@@ -67,7 +67,7 @@ export default function Grid() {
     <div className="select-none grid grid-cols-7 gap-[0.5vmin] bg-dark p-[1vmin] m-auto rounded-lg w-[80vmin] h-[80vmin]">
       {grid.map((used, i) => (
         <button
-          onClick={() => gameDispatch({ type: "toggle_cell", index: i })}
+          onClick={() => gridActions.toggleCell(i)}
           className={cn(
             "block bg-light rounded-sm hover:cursor-pointer hover:scale-105 active:scale-100 active:translate-y-0.5",
             used ? styles.used : highlighted === i ? styles.highlighted : "",

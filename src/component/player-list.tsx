@@ -9,7 +9,7 @@ export default function PlayerList() {
   const ref = useRef<HTMLInputElement | null>(null);
   const [input, setInput] = useState("");
   if (!gameContext) return null;
-  const { gameState, gameDispatch } = gameContext;
+  const { playersState, playersActions } = gameContext;
 
   function unfocusInput() {
     if (ref.current) ref.current.blur();
@@ -18,12 +18,13 @@ export default function PlayerList() {
   function addPlayer() {
     if (input === "") return;
     if (
-      gameState.players.some(
+      playersState.players.some(
         (player) => player.toLowerCase() === input.toLowerCase(),
       )
-    )
+    ) {
       return;
-    gameDispatch({ type: "add_player", player: input.trim() });
+    }
+    playersActions.addPlayer(input.trim());
     setInput("");
   }
 
@@ -54,7 +55,7 @@ export default function PlayerList() {
         </button>
       </div>
       <div className="flex flex-col gap-1 h-[min(300px,50vh)] overflow-scroll pr-3">
-        {gameState.players
+        {playersState.players
           .filter((player) =>
             player.toLowerCase().startsWith(input.toLowerCase()),
           )

@@ -10,14 +10,14 @@ import { GameContext } from "@/context/game-context";
 export default function ResetDialog() {
   const gameContext = useContext(GameContext);
   if (!gameContext) return null;
-  const { gameDispatch } = gameContext;
+  const { gameActions } = gameContext;
 
   return (
     <Dialog trigger={<IconButton icon={RotateCcw} />} title="Reset">
       <div className="flex flex-1 flex-col justify-around items-center">
         <h2>Are you sure?</h2>
         <RadixDialog.Close asChild>
-          <Button onClick={() => gameDispatch({ type: "reset" })}>Reset</Button>
+          <Button onClick={() => gameActions.reset()}>Reset</Button>
         </RadixDialog.Close>
       </div>
     </Dialog>
