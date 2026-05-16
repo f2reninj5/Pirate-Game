@@ -22,7 +22,7 @@ export default function Player({ player }: { player: string }) {
           items: [
             {
               name: "Edit name",
-              onClick: () => {
+              onSelect: () => {
                 console.log("Edit name");
               },
             },

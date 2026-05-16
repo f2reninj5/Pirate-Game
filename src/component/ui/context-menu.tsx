@@ -1,12 +1,7 @@
 "use client";
 
 import { ContextMenu as RadixContextMenu } from "radix-ui";
-import {
-  type ComponentProps,
-  Fragment,
-  type MouseEventHandler,
-  type ReactNode,
-} from "react";
+import { type ComponentProps, Fragment, type ReactNode } from "react";
 
 function Item({ ...props }: ComponentProps<typeof RadixContextMenu.Item>) {
   return (
@@ -38,7 +33,7 @@ function ItemGroup({
 }: {
   group: {
     name?: string;
-    items: { name: string; onClick?: MouseEventHandler }[];
+    items: { name: string; onSelect?: (event: Event) => void }[];
   };
 }) {
   const { name, items } = group;
@@ -46,7 +41,7 @@ function ItemGroup({
     <>
       {name ? <Label>{name}</Label> : null}
       {items.map((item) => (
-        <Item key={item.name} onClick={item.onClick}>
+        <Item key={item.name} onSelect={item.onSelect}>
           {item.name}
         </Item>
       ))}
@@ -61,7 +56,7 @@ export default function ContextMenu({
   children: ReactNode;
   groups: {
     name?: string;
-    items: { name: string; onClick?: MouseEventHandler }[];
+    items: { name: string; onSelect?: (event: Event) => void }[];
   }[];
 }) {
   return (
