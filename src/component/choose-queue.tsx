@@ -27,7 +27,7 @@ export default function ChooseQueue() {
 
   return (
     <Dialog
-      trigger={ChooseQueueTrigger(gameState.chooseQueue)}
+      trigger={ChooseQueueTrigger(gameState.chooseQueue.queue)}
       title="Choose Queue"
     >
       <div className="flex flex-row gap-2 justify-between">
@@ -37,7 +37,7 @@ export default function ChooseQueue() {
             Next <ArrowRight className="inline" size="1em"></ArrowRight>
           </span>
           <div className="flex flex-col gap-1">
-            {gameState.chooseQueue.map((player) => (
+            {gameState.chooseQueue.queue.map((player) => (
               <Player player={player} key={player} />
             ))}
           </div>

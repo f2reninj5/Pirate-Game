@@ -14,15 +14,15 @@ type GameState = {
   grid: boolean[];
   cellHistory: number[];
   players: string[];
-  chooseQueue: string[];
+  chooseQueue: { stage: string[]; queue: string[] };
   _animation?: { grid?: "random" };
 };
 
 const initialGameState: GameState = {
   grid: new Array(49).fill(false),
   cellHistory: [],
-  players: [],
-  chooseQueue: [],
+  players: [].toSorted(comparePlayers),
+  chooseQueue: { stage: [], queue: [] },
 };
 
 function loadGameState(): GameState {
