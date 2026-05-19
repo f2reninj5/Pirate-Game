@@ -6,6 +6,7 @@ type SelectionContextType = {
   selected: Set<string>;
   toggle: (id: string) => void;
   clear: () => void;
+  selectOne: (id: string) => void;
 };
 
 const SelectionContext = createContext<SelectionContextType | null>(null);
@@ -29,8 +30,12 @@ export function SelectionProvider({ children }: { children: ReactNode }) {
     setSelected(new Set());
   }
 
+  function selectOne(id: string) {
+    setSelected(new Set([id]));
+  }
+
   return (
-    <SelectionContext.Provider value={{ selected, toggle, clear }}>
+    <SelectionContext.Provider value={{ selected, toggle, clear, selectOne }}>
       {children}
     </SelectionContext.Provider>
   );
