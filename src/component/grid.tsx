@@ -1,7 +1,7 @@
 "use client";
 
-import { useContext, useEffect, useRef, useState } from "react";
-import { GameContext } from "@/context/game-context";
+import { useEffect, useRef, useState } from "react";
+import { useGameContext } from "@/context/game-context";
 import { randomInt, sleep } from "@/lib/animation";
 import { cn } from "@/lib/cn";
 import { getRandomUnusedCell } from "@/lib/grid";
@@ -22,12 +22,9 @@ export default function Grid() {
   const [grid, setGrid] = useState<boolean[]>(new Array(49).fill(false));
   const animationId = useRef(0);
 
-  const gameContext = useContext(GameContext);
+  const { gridState, gridActions } = useGameContext();
 
   useEffect(() => {
-    if (!gameContext) return;
-    const { gridState } = gameContext;
-
     const target = gridState.cellHistory[0];
     const grid = [...gridState.grid];
     grid[target] = false;
@@ -53,10 +50,7 @@ export default function Grid() {
       setGrid(gridState.grid);
       setHighlighted(null);
     })();
-  }, [gameContext]);
-
-  if (!gameContext) return null;
-  const { gridState, gridActions } = gameContext;
+  }, [gridState]);
 
   const cellPositions: (number | null)[] = new Array(49).fill(null);
   gridState.cellHistory.forEach((c, i) => {

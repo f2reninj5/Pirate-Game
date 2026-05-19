@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, type ReactNode, useEffect, useState } from "react";
+import {
+  createContext,
+  type ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { getRandomUnusedCell } from "@/lib/grid";
 import { comparePlayers } from "@/lib/player";
 
@@ -105,7 +111,7 @@ type GameActions = {
   reset: () => void;
 };
 
-export const GameContext = createContext<{
+type GameContextType = {
   gridState: GridState;
   gridActions: GridActions;
   playersState: PlayersState;
@@ -113,7 +119,9 @@ export const GameContext = createContext<{
   chooseQueueState: ChooseQueueState;
   chooseQueueActions: ChooseQueueActions;
   gameActions: GameActions;
-} | null>(null);
+};
+
+const GameContext = createContext<GameContextType | null>(null);
 
 export function GameProvider({ children }: { children: ReactNode }) {
   const [gridState, setGridState] = useState<GridState>(
@@ -224,4 +232,12 @@ export function GameProvider({ children }: { children: ReactNode }) {
       {children}
     </GameContext.Provider>
   );
+}
+
+export function useGameContext() {
+  const context = useContext(GameContext);
+  if (context === null) {
+    throw new Error("useGameContext must be used within GameProvider");
+  }
+  return context;
 }

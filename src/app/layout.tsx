@@ -4,6 +4,7 @@ import "./globals.css";
 import type { ReactNode } from "react";
 import FeedbackDialog from "@/component/feedback-dialog";
 import InstructionsDialog from "@/component/instructions-dialog";
+import Logo from "@/component/logo";
 import ResetDialog from "@/component/reset-dialog";
 import SheetsDialog from "@/component/sheets-dialog";
 import { GameProvider } from "@/context/game-context";
@@ -35,7 +36,7 @@ export default function RootLayout({
                 <InstructionsDialog />
                 <FeedbackDialog />
               </span>
-              <h1 className="font-pirate text-5xl my-2">Pirate Game</h1>
+              <Logo />
               <span className="flex flex-row gap-2">
                 <SheetsDialog />
                 <ResetDialog></ResetDialog>

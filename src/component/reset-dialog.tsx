@@ -1,16 +1,13 @@
 "use client";
 import * as RadixDialog from "@radix-ui/react-dialog";
 import { RotateCcw } from "lucide-react";
-import { useContext } from "react";
 import Button from "@/component/ui/button";
 import Dialog from "@/component/ui/dialog";
 import IconButton from "@/component/ui/icon-button";
-import { GameContext } from "@/context/game-context";
+import { useGameContext } from "@/context/game-context";
 
 export default function ResetDialog() {
-  const gameContext = useContext(GameContext);
-  if (!gameContext) return null;
-  const { gameActions } = gameContext;
+  const { gameActions } = useGameContext();
 
   return (
     <Dialog trigger={<IconButton icon={RotateCcw} />} title="Reset">
