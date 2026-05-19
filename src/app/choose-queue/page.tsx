@@ -10,7 +10,7 @@ export default function ChooseQueue() {
   const { chooseQueueState } = useGameContext();
 
   return (
-    <div className="flex flex-row gap-2 justify-between text-light">
+    <div className="flex flex-row gap-2 justify-between">
       <PlayerList></PlayerList>
       <div className="grid grid-cols-[max-content_auto] gap-1">
         <span>

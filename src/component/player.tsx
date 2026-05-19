@@ -83,8 +83,8 @@ export default function Player({ player }: { player: string }) {
     >
       <button
         className={cn(
-          "flex flex-row gap-2 px-2 rounded-sm w-30 bg-gray-800 hover:bg-gray-700",
-          selfSelected ? "bg-gray-700" : "",
+          "flex flex-row gap-2 px-2 rounded-sm w-30 bg-zinc-100 hover:bg-zinc-300",
+          selfSelected ? "bg-zinc-300" : "",
         )}
         onClick={() => selectionContext.toggle(player)}
         type="button"
