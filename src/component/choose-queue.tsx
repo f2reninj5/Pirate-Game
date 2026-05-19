@@ -6,6 +6,7 @@ import Player from "@/component/player";
 import PlayerList from "@/component/player-list";
 import Dialog from "@/component/ui/dialog";
 import { GameContext } from "@/context/game-context";
+import { SelectionProvider } from "@/context/selection-context";
 
 function ChooseQueueTrigger(queue: string[]) {
   return (
@@ -39,11 +40,13 @@ export default function ChooseQueue() {
           <span>
             Next <ArrowRight className="inline" size="1em"></ArrowRight>
           </span>
-          <div className="flex flex-col gap-1">
-            {chooseQueueState.queue.map((player) => (
-              <Player player={player} key={player} />
-            ))}
-          </div>
+          <SelectionProvider>
+            <div className="flex flex-col gap-1">
+              {chooseQueueState.queue.map((player) => (
+                <Player player={player} key={player} />
+              ))}
+            </div>
+          </SelectionProvider>
         </div>
       </div>
     </Dialog>

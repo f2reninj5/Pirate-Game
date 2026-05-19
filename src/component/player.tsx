@@ -1,10 +1,15 @@
 import { Check, Edit, X } from "lucide-react";
 import { useState } from "react";
 import ContextMenu from "@/component/ui/context-menu";
+import { useSelectionContext } from "@/context/selection-context";
+import { cn } from "@/lib/cn";
 
 export default function Player({ player }: { player: string }) {
   const [editing, setEditing] = useState(false);
   const [input, setInput] = useState(player);
+  const { selected, toggle, clear } = useSelectionContext();
+
+  const selfSelected = selected.has(player);
 
   function save() {
     setEditing(false);
@@ -32,7 +37,14 @@ export default function Player({ player }: { player: string }) {
         { name: "People", items: [{ name: "Back" }] },
       ]}
     >
-      <div className="group flex flex-row gap-2 px-2 rounded-sm w-30 bg-gray-800 hover:bg-gray-700 overflow-hidden">
+      <button
+        className={cn(
+          "flex flex-row gap-2 px-2 rounded-sm w-30 bg-gray-800 hover:bg-gray-700 overflow-hidden",
+          selfSelected ? "bg-gray-700" : "",
+        )}
+        onClick={() => toggle(player)}
+        type="button"
+      >
         {editing ? (
           <>
             <input
@@ -59,18 +71,9 @@ export default function Player({ player }: { player: string }) {
             </button>
           </>
         ) : (
-          <>
-            <span className="text-nowrap overflow-hidden">{player}</span>
-            <button
-              onClick={() => setEditing(true)}
-              className="hidden group-hover:block opacity-20 hover:opacity-100"
-              type="button"
-            >
-              <Edit size="1em" />
-            </button>
-          </>
+          <span className="text-nowrap overflow-hidden">{player}</span>
         )}
-      </div>
+      </button>
     </ContextMenu>
   );
 }

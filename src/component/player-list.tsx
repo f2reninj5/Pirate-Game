@@ -2,6 +2,7 @@ import { Delete, ListPlus, Plus } from "lucide-react";
 import { useContext, useRef, useState } from "react";
 import IconButton from "@/component/ui/icon-button";
 import { GameContext } from "@/context/game-context";
+import { SelectionProvider } from "@/context/selection-context";
 import Player from "./player";
 
 export default function PlayerList() {
@@ -54,18 +55,20 @@ export default function PlayerList() {
           <Plus size="1em"></Plus>
         </button>
       </div>
-      <div className="flex flex-col gap-1 h-[min(300px,50vh)] overflow-scroll pr-3">
-        {playersState.players
-          .filter((player) =>
-            player.toLowerCase().startsWith(input.toLowerCase()),
-          )
-          .map((player) => (
-            <div className="flex flex-row gap-2" key={player}>
-              <input type="checkbox" />
-              <Player player={player} key={player} />
-            </div>
-          ))}
-      </div>
+      <SelectionProvider>
+        <div className="flex flex-col gap-1 h-[min(300px,50vh)] overflow-scroll pr-3">
+          {playersState.players
+            .filter((player) =>
+              player.toLowerCase().startsWith(input.toLowerCase()),
+            )
+            .map((player) => (
+              <div className="flex flex-row gap-2" key={player}>
+                <input type="checkbox" />
+                <Player player={player} key={player} />
+              </div>
+            ))}
+        </div>
+      </SelectionProvider>
       <div className="flex flex-row gap-2 justify-between">
         <input type="checkbox" />
         <div className="flex flex-row gap-2">
