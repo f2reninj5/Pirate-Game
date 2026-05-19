@@ -24,7 +24,7 @@ function ChooseQueueTrigger(queue: string[]) {
   );
 }
 
-export default function ChooseQueue() {
+export default function ChooseQueuePreview() {
   const gameContext = useContext(GameContext);
   if (!gameContext) return null;
   const { chooseQueueState } = gameContext;

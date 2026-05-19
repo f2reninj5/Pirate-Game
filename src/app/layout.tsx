@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import { Dr_Sugiyama } from "next/font/google";
 import "./globals.css";
 import type { ReactNode } from "react";
+import FeedbackDialog from "@/component/feedback-dialog";
+import InstructionsDialog from "@/component/instructions-dialog";
+import ResetDialog from "@/component/reset-dialog";
+import SheetsDialog from "@/component/sheets-dialog";
+import { GameProvider } from "@/context/game-context";
 
 const drSugiyama = Dr_Sugiyama({
   weight: "400",
@@ -22,7 +27,38 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${drSugiyama.variable} h-full antialiased`}>
-      <body className="h-full font-sans bg-light text-dark">{children}</body>
+      <body className="h-full font-sans bg-light text-dark">
+        <GameProvider>
+          <div className="min-h-full flex flex-col justify-between p-2">
+            <header className="flex flex-row justify-around items-center">
+              <span className="flex flex-row gap-2">
+                <InstructionsDialog />
+                <FeedbackDialog />
+              </span>
+              <h1 className="font-pirate text-5xl my-2">Pirate Game</h1>
+              <span className="flex flex-row gap-2">
+                <SheetsDialog />
+                <ResetDialog></ResetDialog>
+              </span>
+            </header>
+            <main className="flex flex-row justify-around flex-wrap">
+              {children}
+            </main>
+            <footer className="flex flex-row justify-center items-center">
+              <span>
+                Copyright © 2026 Maks Nowak. Licensed under the{" "}
+                <a
+                  className="text-blue-600"
+                  href="https://www.apache.org/licenses/LICENSE-2.0"
+                >
+                  Apache License, Version 2.0
+                </a>
+                .
+              </span>
+            </footer>
+          </div>
+        </GameProvider>
+      </body>
     </html>
   );
 }
