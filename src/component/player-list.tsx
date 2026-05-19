@@ -56,16 +56,13 @@ export default function PlayerList() {
         </button>
       </div>
       <SelectionProvider>
-        <div className="flex flex-col gap-1 h-[min(300px,50vh)] overflow-scroll pr-3">
+        <div className="flex flex-col gap-1 h-[min(300px,50vh)] overflow-scroll pr-3 py-1">
           {playersState.players
             .filter((player) =>
               player.toLowerCase().startsWith(input.toLowerCase()),
             )
             .map((player) => (
-              <div className="flex flex-row gap-2" key={player}>
-                <input type="checkbox" />
-                <Player player={player} key={player} />
-              </div>
+              <Player player={player} key={player} />
             ))}
         </div>
       </SelectionProvider>
