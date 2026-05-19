@@ -22,10 +22,12 @@ export default function Game() {
             <ResetDialog></ResetDialog>
           </span>
         </header>
-        <main className="flex flex-row flex-wrap">
+        <main className="flex flex-row justify-around flex-wrap">
           <Grid></Grid>
-          <RandomCellButton></RandomCellButton>
-          <ChooseQueue></ChooseQueue>
+          <div className="flex flex-col gap-2">
+            <RandomCellButton></RandomCellButton>
+            <ChooseQueue></ChooseQueue>
+          </div>
         </main>
         <footer className="flex flex-row justify-center items-center">
           <span>

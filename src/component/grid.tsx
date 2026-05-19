@@ -64,7 +64,7 @@ export default function Grid() {
   });
 
   return (
-    <div className="select-none grid grid-cols-7 gap-[0.5vmin] bg-dark p-[1vmin] m-auto rounded-lg w-[80vmin] h-[80vmin]">
+    <div className="select-none grid grid-cols-7 gap-[0.5vmin] bg-dark p-[1vmin] rounded-lg w-[80vmin] h-[80vmin]">
       {grid.map((used, i) => (
         <button
           onClick={() => gridActions.toggleCell(i)}
