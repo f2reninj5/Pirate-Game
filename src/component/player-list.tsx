@@ -1,16 +1,14 @@
 import { Delete, ListPlus, Plus } from "lucide-react";
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import IconButton from "@/component/ui/icon-button";
-import { GameContext } from "@/context/game-context";
+import { useGameContext } from "@/context/game-context";
 import { SelectionProvider } from "@/context/selection-context";
 import Player from "./player";
 
 export default function PlayerList() {
-  const gameContext = useContext(GameContext);
   const ref = useRef<HTMLInputElement | null>(null);
   const [input, setInput] = useState("");
-  if (!gameContext) return null;
-  const { playersState, playersActions } = gameContext;
+  const { playersState, playersActions } = useGameContext();
 
   function unfocusInput() {
     if (ref.current) ref.current.blur();
