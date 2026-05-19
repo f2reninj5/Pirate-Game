@@ -1,23 +1,69 @@
-import { Check, Edit, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ContextMenu from "@/component/ui/context-menu";
 import { useSelectionContext } from "@/context/selection-context";
 import { cn } from "@/lib/cn";
 
+function EditableText({
+  value: initialValue,
+  editing,
+  onSave,
+  onCancel,
+}: {
+  value: string;
+  editing: boolean;
+  onSave: (value: string) => void;
+  onCancel: () => void;
+}) {
+  const [value, setValue] = useState(initialValue);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (editing) {
+      setTimeout(() => {
+        inputRef.current?.focus();
+        inputRef.current?.select();
+      }, 10);
+    }
+  }, [editing]);
+
+  return editing ? (
+    <input
+      className="w-full"
+      type="text"
+      value={value}
+      ref={inputRef}
+      autoFocus
+      onChange={(e) => setValue(e.target.value)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          onSave(value);
+        }
+
+        if (e.key === "Escape") {
+          setValue(initialValue);
+          onCancel();
+        }
+      }}
+    />
+  ) : (
+    <span className="text-nowrap overflow-hidden">{initialValue}</span>
+  );
+}
+
 export default function Player({ player }: { player: string }) {
   const [editing, setEditing] = useState(false);
-  const [input, setInput] = useState(player);
-  const { selected, toggle, clear } = useSelectionContext();
+  const selectionContext = useSelectionContext();
 
-  const selfSelected = selected.has(player);
+  const selfSelected = selectionContext.selected.has(player);
 
-  function save() {
-    setEditing(false);
+  function startEditing() {
+    selectionContext.selectOne(player);
+    setEditing(true);
   }
 
-  function cancel() {
+  function stopEditing() {
+    selectionContext.clear();
     setEditing(false);
-    setInput(player);
   }
 
   return (
@@ -27,9 +73,7 @@ export default function Player({ player }: { player: string }) {
           items: [
             {
               name: "Edit name",
-              onSelect: () => {
-                console.log("Edit name");
-              },
+              onSelect: startEditing,
             },
             { name: "Delete player" },
           ],
@@ -39,40 +83,18 @@ export default function Player({ player }: { player: string }) {
     >
       <button
         className={cn(
-          "flex flex-row gap-2 px-2 rounded-sm w-30 bg-gray-800 hover:bg-gray-700 overflow-hidden",
+          "flex flex-row gap-2 px-2 rounded-sm w-30 bg-gray-800 hover:bg-gray-700",
           selfSelected ? "bg-gray-700" : "",
         )}
-        onClick={() => toggle(player)}
+        onClick={() => selectionContext.toggle(player)}
         type="button"
       >
-        {editing ? (
-          <>
-            <input
-              autoFocus
-              className="w-15 outline-none"
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  save();
-                }
-
-                if (e.key === "Escape") {
-                  cancel();
-                }
-              }}
-            />{" "}
-            <button type="button" onClick={save}>
-              <Check size="1em" />
-            </button>
-            <button type="button" onClick={cancel}>
-              <X size="1em" />
-            </button>
-          </>
-        ) : (
-          <span className="text-nowrap overflow-hidden">{player}</span>
-        )}
+        <EditableText
+          editing={editing}
+          value={player}
+          onSave={stopEditing}
+          onCancel={stopEditing}
+        />
       </button>
     </ContextMenu>
   );
