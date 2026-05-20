@@ -26,7 +26,15 @@ function ActivePlayerItem() {
   );
 }
 
-function PlayerItem({
+function StagePlayerItem({ player }: { player: string }) {
+  return (
+    <div className="flex flex-row gap-2 px-2 rounded-sm w-30 bg-green-200 hover:bg-green-300">
+      <span className="text-nowrap overflow-hidden select-none">{player}</span>
+    </div>
+  );
+}
+
+function DraggablePlayerItem({
   player,
   containerId,
 }: {
@@ -54,7 +62,11 @@ function PlayerList() {
       hoverOverlay={<HoverOverlay text="Remove from queue" />}
     >
       {playersState.players.map((player) => (
-        <PlayerItem player={player} containerId={"player-list"} key={player} />
+        <DraggablePlayerItem
+          player={player}
+          containerId={"player-list"}
+          key={player}
+        />
       ))}
     </Droppable>
   );
@@ -74,11 +86,14 @@ export default function ChooseQueue() {
         >
           <div className="flex flex-col gap-1">
             {chooseQueueState.queue.map((player) => (
-              <PlayerItem
+              <DraggablePlayerItem
                 player={player}
                 containerId="choose-queue"
                 key={player}
               />
+            ))}
+            {chooseQueueState.stage.map((player) => (
+              <StagePlayerItem player={player} key={player} />
             ))}
           </div>
         </Droppable>
