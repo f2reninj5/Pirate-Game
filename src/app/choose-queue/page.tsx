@@ -100,11 +100,11 @@ export default function ChooseQueue() {
           hoverOverlay={<HoverOverlay text="Add to queue" />}
         >
           <div className="flex flex-col gap-1">
-            {chooseQueueState.queue.map((player) => (
+            {chooseQueueState.queue.map((player, i) => (
               <DraggablePlayerItem
                 player={player}
                 containerId="choose-queue"
-                key={player}
+                key={i.toString()}
               />
             ))}
             {chooseQueueState.stage.map((player) => (
@@ -117,7 +117,10 @@ export default function ChooseQueue() {
                     icon={Shuffle}
                     onClick={chooseQueueActions.shuffleStage}
                   />
-                  <InlineIconButton icon={Check} />
+                  <InlineIconButton
+                    icon={Check}
+                    onClick={chooseQueueActions.commitStage}
+                  />
                 </span>
               </div>
             ) : null}
