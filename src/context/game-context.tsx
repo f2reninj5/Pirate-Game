@@ -105,6 +105,7 @@ type ChooseQueueActions = {
   removePlayer: (player: string) => void;
   dequeuePlayer: () => void;
   reset: () => void;
+  shuffleStage: () => void;
 };
 
 type GameActions = {
@@ -206,6 +207,10 @@ export function GameProvider({ children }: { children: ReactNode }) {
     dequeuePlayer: () => {},
     reset: () => {
       setChooseQueueState(initialGameState.chooseQueueState);
+    },
+    shuffleStage: () => {
+      const stage = chooseQueueState.stage.toSorted(() => Math.random() - 0.5);
+      setChooseQueueState({ ...chooseQueueState, stage });
     },
   };
 
