@@ -1,8 +1,10 @@
 "use client";
 
 import { DndContext, DragOverlay, useDndContext } from "@dnd-kit/core";
+import { Check, Shuffle } from "lucide-react";
 import Draggable from "@/component/ui/draggable";
 import Droppable from "@/component/ui/droppable";
+import InlineIconButton from "@/component/ui/inline-icon-button";
 import { useGameContext } from "@/context/game-context";
 
 function HoverOverlay({ text }: { text: string }) {
@@ -73,7 +75,7 @@ function PlayerList() {
 }
 
 export default function ChooseQueue() {
-  const { chooseQueueState } = useGameContext();
+  const { chooseQueueState, chooseQueueActions } = useGameContext();
 
   return (
     <DndContext>
@@ -95,6 +97,17 @@ export default function ChooseQueue() {
             {chooseQueueState.stage.map((player) => (
               <StagePlayerItem player={player} key={player} />
             ))}
+            {chooseQueueState.stage.length > 0 ? (
+              <div className="px-2 w-30">
+                <span className="flex flex-row gap-2">
+                  <InlineIconButton
+                    icon={Shuffle}
+                    onClick={chooseQueueActions.shuffleStage}
+                  />
+                  <InlineIconButton icon={Check} />
+                </span>
+              </div>
+            ) : null}
           </div>
         </Droppable>
       </div>
