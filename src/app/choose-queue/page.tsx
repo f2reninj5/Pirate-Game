@@ -39,13 +39,15 @@ function StagePlayerItem({ player }: { player: string }) {
 function DraggablePlayerItem({
   player,
   containerId,
+  index,
 }: {
   player: string;
   containerId: string;
+  index: number;
 }) {
   return (
     <Draggable
-      id={`${containerId}:${player}`}
+      id={`${containerId}:${player}:${index}`}
       showTransform={false}
       className="flex flex-row gap-2 px-2 rounded-sm w-30 bg-zinc-100 hover:bg-zinc-300"
     >
@@ -63,10 +65,11 @@ function PlayerList() {
       className="flex flex-col gap-1 min-h-100"
       hoverOverlay={<HoverOverlay text="Remove from queue" />}
     >
-      {playersState.players.map((player) => (
+      {playersState.players.map((player, i) => (
         <DraggablePlayerItem
           player={player}
           containerId={"player-list"}
+          index={i}
           key={player}
         />
       ))}
@@ -80,12 +83,20 @@ export default function ChooseQueue() {
   return (
     <DndContext
       onDragEnd={({ active, over }) => {
-        if (!over) return;
-
-        const [sourceContainerId, player] = active.id.toString().split(":");
+        const [sourceContainerId, player, _index] = active.id
+          .toString()
+          .split(":");
+        const index = parseInt(_index, 10);
 
         if (
-          over.id.toString() === "choose-queue" &&
+          (!over || over.id.toString() !== "choose-queue") &&
+          sourceContainerId === "choose-queue"
+        ) {
+          chooseQueueActions.removePlayer(index);
+        }
+
+        if (
+          over?.id.toString() === "choose-queue" &&
           sourceContainerId === "player-list"
         ) {
           chooseQueueActions.stagePlayer(player);
@@ -96,7 +107,7 @@ export default function ChooseQueue() {
         <PlayerList />
         <Droppable
           id="choose-queue"
-          className="flex flex-col gap-1"
+          className="flex flex-col gap-1 min-w-30"
           hoverOverlay={<HoverOverlay text="Add to queue" />}
         >
           <div className="flex flex-col gap-1">
@@ -104,6 +115,7 @@ export default function ChooseQueue() {
               <DraggablePlayerItem
                 player={player}
                 containerId="choose-queue"
+                index={i}
                 key={i.toString()}
               />
             ))}
