@@ -94,6 +94,7 @@ type GridActions = {
 type PlayersActions = {
   addPlayer: (player: string) => void;
   deletePlayer: (player: string) => void;
+  renamePlayer: (player: string, newName: string) => void;
   reset: () => void;
 };
 
@@ -196,6 +197,20 @@ export function GameProvider({ children }: { children: ReactNode }) {
       const players = playersState.players.filter((p) => p !== player);
       const queue = chooseQueueState.queue.filter((p) => p !== player);
       const stage = chooseQueueState.stage.filter((p) => p !== player);
+      setPlayersState({ players });
+      setChooseQueueState({ queue, stage });
+    },
+    renamePlayer: (player, newName) => {
+      const players = playersState.players
+        .map((p) => (p === player ? newName : p))
+        .toSorted(comparePlayers);
+      const queue = chooseQueueState.queue.map((p) =>
+        p === player ? newName : p,
+      );
+      const stage = chooseQueueState.stage.map((p) =>
+        p === player ? newName : p,
+      );
+
       setPlayersState({ players });
       setChooseQueueState({ queue, stage });
     },
