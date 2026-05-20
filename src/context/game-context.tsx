@@ -102,7 +102,7 @@ type ChooseQueueActions = {
   unstagePlayer: (player: string) => void;
   commitStage: () => void;
   enqueuePlayer: (player: string) => void;
-  removePlayer: (player: string) => void;
+  removePlayer: (index: number) => void;
   dequeuePlayer: () => void;
   reset: () => void;
   shuffleStage: () => void;
@@ -212,7 +212,11 @@ export function GameProvider({ children }: { children: ReactNode }) {
       setChooseQueueState({ queue, stage });
     },
     enqueuePlayer: (player) => {},
-    removePlayer: (player) => {},
+    removePlayer: (index) => {
+      const queue = [...chooseQueueState.queue];
+      queue.splice(index, 1);
+      setChooseQueueState({ ...chooseQueueState, queue });
+    },
     dequeuePlayer: () => {},
     reset: () => {
       setChooseQueueState(initialGameState.chooseQueueState);
