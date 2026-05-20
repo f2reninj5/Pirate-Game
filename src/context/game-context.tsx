@@ -206,7 +206,11 @@ export function GameProvider({ children }: { children: ReactNode }) {
       setChooseQueueState({ ...chooseQueueState, stage });
     },
     unstagePlayer: (player) => {},
-    commitStage: () => {},
+    commitStage: () => {
+      const queue = [...chooseQueueState.queue, ...chooseQueueState.stage];
+      const stage: string[] = [];
+      setChooseQueueState({ queue, stage });
+    },
     enqueuePlayer: (player) => {},
     removePlayer: (player) => {},
     dequeuePlayer: () => {},
