@@ -71,7 +71,7 @@ const initialGameState: GameState = {
     ].toSorted(comparePlayers),
   },
   chooseQueueState: {
-    stage: [],
+    stage: ["Xander", "Willow", "Zoe"],
     queue: ["Zoe", "Victor", "Mia M"],
   },
 };
