@@ -192,7 +192,13 @@ export function GameProvider({ children }: { children: ReactNode }) {
         players: [...playersState.players, player].toSorted(comparePlayers),
       });
     },
-    deletePlayer: (player) => {},
+    deletePlayer: (player) => {
+      const players = playersState.players.filter((p) => p !== player);
+      const queue = chooseQueueState.queue.filter((p) => p !== player);
+      const stage = chooseQueueState.stage.filter((p) => p !== player);
+      setPlayersState({ players });
+      setChooseQueueState({ queue, stage });
+    },
     reset: () => {
       setPlayersState(initialGameState.playersState);
     },
