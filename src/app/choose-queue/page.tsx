@@ -78,7 +78,20 @@ export default function ChooseQueue() {
   const { chooseQueueState, chooseQueueActions } = useGameContext();
 
   return (
-    <DndContext>
+    <DndContext
+      onDragEnd={({ active, over }) => {
+        if (!over) return;
+
+        const [sourceContainerId, player] = active.id.toString().split(":");
+
+        if (
+          over.id.toString() === "choose-queue" &&
+          sourceContainerId === "player-list"
+        ) {
+          chooseQueueActions.stagePlayer(player);
+        }
+      }}
+    >
       <div className="flex flex-row gap-2 justify-between">
         <PlayerList />
         <Droppable
