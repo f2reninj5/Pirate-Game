@@ -199,7 +199,12 @@ export function GameProvider({ children }: { children: ReactNode }) {
   };
 
   const chooseQueueActions: ChooseQueueActions = {
-    stagePlayer: (player) => {},
+    stagePlayer: (player) => {
+      if (chooseQueueState.stage.includes(player)) return;
+
+      const stage = [...chooseQueueState.stage, player];
+      setChooseQueueState({ ...chooseQueueState, stage });
+    },
     unstagePlayer: (player) => {},
     commitStage: () => {},
     enqueuePlayer: (player) => {},
