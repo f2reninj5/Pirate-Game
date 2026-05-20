@@ -1,29 +1,92 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
-import Player from "@/component/player";
-import PlayerList from "@/component/player-list";
+import { DndContext, DragOverlay, useDndContext } from "@dnd-kit/core";
+import Draggable from "@/component/ui/draggable";
+import Droppable from "@/component/ui/droppable";
 import { useGameContext } from "@/context/game-context";
-import { SelectionProvider } from "@/context/selection-context";
+
+function HoverOverlay({ text }: { text: string }) {
+  return (
+    <div className="absolute bg-black/50 w-full h-full flex justify-center items-center p-2">
+      <div className="bg-light text-balance text-center rounded-md p-1">
+        {text}
+      </div>
+    </div>
+  );
+}
+
+function ActivePlayerItem() {
+  const { active } = useDndContext();
+  const player = active?.id.toString().split(":")[1];
+
+  return (
+    <div className="flex flex-row gap-2 px-2 rounded-sm w-30 bg-zinc-100 hover:bg-zinc-300">
+      <span className="text-nowrap overflow-hidden select-none">{player}</span>
+    </div>
+  );
+}
+
+function PlayerItem({
+  player,
+  containerId,
+}: {
+  player: string;
+  containerId: string;
+}) {
+  return (
+    <Draggable
+      id={`${containerId}:${player}`}
+      showTransform={false}
+      className="flex flex-row gap-2 px-2 rounded-sm w-30 bg-zinc-100 hover:bg-zinc-300"
+    >
+      <span className="text-nowrap overflow-hidden select-none">{player}</span>
+    </Draggable>
+  );
+}
+
+function PlayerList() {
+  const { playersState } = useGameContext();
+
+  return (
+    <Droppable
+      id="player-list"
+      className="flex flex-col gap-1 min-h-100"
+      hoverOverlay={<HoverOverlay text="Remove from queue" />}
+    >
+      {playersState.players.map((player) => (
+        <PlayerItem player={player} containerId={"player-list"} key={player} />
+      ))}
+    </Droppable>
+  );
+}
 
 export default function ChooseQueue() {
   const { chooseQueueState } = useGameContext();
 
   return (
-    <div className="flex flex-row gap-2 justify-between">
-      <PlayerList></PlayerList>
-      <div className="grid grid-cols-[max-content_auto] gap-1">
-        <span>
-          Next <ArrowRight className="inline" size="1em"></ArrowRight>
-        </span>
-        <SelectionProvider>
+    <DndContext>
+      <div className="flex flex-row gap-2 justify-between">
+        <PlayerList />
+        <Droppable
+          id="choose-queue"
+          className="flex flex-col gap-1"
+          hoverOverlay={<HoverOverlay text="Add to queue" />}
+        >
           <div className="flex flex-col gap-1">
             {chooseQueueState.queue.map((player) => (
-              <Player player={player} key={player} />
+              <PlayerItem
+                player={player}
+                containerId="choose-queue"
+                key={player}
+              />
             ))}
           </div>
-        </SelectionProvider>
+        </Droppable>
       </div>
-    </div>
+
+      <DragOverlay dropAnimation={null}>
+        <ActivePlayerItem />
+      </DragOverlay>
+    </DndContext>
   );
 }

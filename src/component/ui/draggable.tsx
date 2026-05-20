@@ -5,20 +5,25 @@ export default function Draggable({
   id,
   children,
   className,
+  showTransform,
 }: {
   id: string;
   children?: ReactNode;
   className?: string;
+  showTransform?: boolean;
 }) {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id,
-  });
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({
+      id,
+    });
 
-  const style = transform
-    ? {
-        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-      }
-    : undefined;
+  const style = {
+    transform:
+      transform && showTransform
+        ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+        : undefined,
+    cursor: isDragging ? "grabbing" : "grab",
+  };
 
   return (
     <div
