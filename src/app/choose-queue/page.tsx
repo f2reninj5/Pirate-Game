@@ -105,6 +105,14 @@ export default function ChooseQueue() {
         }
 
         if (
+          !over ||
+          (over.id.toString() !== "choose-queue" &&
+            sourceContainerId === "stage")
+        ) {
+          chooseQueueActions.unstagePlayer(player);
+        }
+
+        if (
           over?.id.toString() === "choose-queue" &&
           sourceContainerId === "player-list"
         ) {
