@@ -9,7 +9,7 @@ export function areEqual<T>(a: T[], b: T[]) {
 export function distinctlyShuffled<T>(array: T[]) {
   let shuffledArray = shuffled(array);
 
-  while (areEqual(shuffledArray, array)) {
+  while (array.length > 1 && areEqual(shuffledArray, array)) {
     shuffledArray = shuffled(array);
   }
 
