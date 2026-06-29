@@ -7,6 +7,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { distinctlyShuffled } from "@/lib/array";
 import { getRandomUnusedCell } from "@/lib/grid";
 import { comparePlayers } from "@/lib/player";
 
@@ -243,7 +244,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
       setChooseQueueState(initialGameState.chooseQueueState);
     },
     shuffleStage: () => {
-      const stage = chooseQueueState.stage.toSorted(() => Math.random() - 0.5);
+      const stage = distinctlyShuffled(chooseQueueState.stage);
       setChooseQueueState({ ...chooseQueueState, stage });
     },
   };
