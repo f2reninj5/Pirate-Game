@@ -6,6 +6,7 @@ import Draggable from "@/component/ui/draggable";
 import Droppable from "@/component/ui/droppable";
 import InlineIconButton from "@/component/ui/inline-icon-button";
 import { useGameContext } from "@/context/game-context";
+import { cn } from "@/lib/cn";
 
 function HoverOverlay({ text }: { text: string }) {
   return (
@@ -28,31 +29,39 @@ function ActivePlayerItem() {
   );
 }
 
-function StagePlayerItem({ player }: { player: string }) {
-  return (
-    <div className="flex flex-row gap-2 px-2 rounded-sm w-30 bg-green-200 hover:bg-green-300">
-      <span className="text-nowrap overflow-hidden select-none">{player}</span>
-    </div>
-  );
-}
-
 function DraggablePlayerItem({
   player,
   containerId,
   index,
+  className,
 }: {
   player: string;
   containerId: string;
   index: number;
+  className?: string;
 }) {
   return (
     <Draggable
       id={`${containerId}:${player}:${index}`}
       showTransform={false}
-      className="flex flex-row gap-2 px-2 rounded-sm w-30 bg-zinc-100 hover:bg-zinc-300"
+      className={cn(
+        "flex flex-row gap-2 px-2 rounded-sm w-30 bg-zinc-100 hover:bg-zinc-300",
+        className,
+      )}
     >
       <span className="text-nowrap overflow-hidden select-none">{player}</span>
     </Draggable>
+  );
+}
+
+function StagePlayerItem({ player, index }: { player: string; index: number }) {
+  return (
+    <DraggablePlayerItem
+      player={player}
+      containerId="stage"
+      index={index}
+      className="bg-green-200 hover:bg-green-300"
+    />
   );
 }
 
@@ -119,8 +128,8 @@ export default function ChooseQueue() {
                 key={i.toString()}
               />
             ))}
-            {chooseQueueState.stage.map((player) => (
-              <StagePlayerItem player={player} key={player} />
+            {chooseQueueState.stage.map((player, i) => (
+              <StagePlayerItem player={player} index={i} key={i.toString()} />
             ))}
             {chooseQueueState.stage.length > 0 ? (
               <div className="px-2 w-30">
