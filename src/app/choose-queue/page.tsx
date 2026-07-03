@@ -89,44 +89,24 @@ function PlayerList() {
 export default function ChooseQueue() {
   const { chooseQueueState, chooseQueueActions } = useGameContext();
 
+  const stage = chooseQueueState.stage.map((player) => ({
+    id: idGenerator.nextId(),
+    data: { player },
+  }));
+  const queue = chooseQueueState.queue.map((player, index) => ({
+    id: idGenerator.nextId(),
+    data: { index, player },
+  }));
+
   return (
     <DndContext
-      onDragEnd={({ active, over }) => {
-        const [sourceContainerId, player, _index] = active.id
-          .toString()
-          .split(":");
-        const index = parseInt(_index, 10);
-
-        if (
-          (!over || over.id.toString() !== "choose-queue") &&
-          sourceContainerId === "choose-queue"
-        ) {
-          chooseQueueActions.removePlayer(index);
-        }
-
-        if (
-          !over ||
-          (over.id.toString() !== "choose-queue" &&
-            sourceContainerId === "stage")
-        ) {
-          chooseQueueActions.unstagePlayer(player);
-        }
-
-        if (
-          over?.id.toString() === "choose-queue" &&
-          sourceContainerId === "player-list"
-        ) {
-          chooseQueueActions.stagePlayer(player);
-        }
-      }}
+      onDragStart={() => {}}
+      onDragOver={() => {}}
+      onDragEnd={() => {}}
     >
       <div className="flex flex-row gap-2 justify-between">
         <PlayerList />
-        <Droppable
-          id="choose-queue"
-          className="flex flex-col gap-1 min-w-30"
-          hoverOverlay={<HoverOverlay text="Add to queue" />}
-        >
+        <div className="flex flex-col gap-1 min-w-30">
           <div className="flex flex-col gap-1">
             {chooseQueueState.queue.map((player, i) => (
               <DraggablePlayerItem
@@ -154,7 +134,7 @@ export default function ChooseQueue() {
               </div>
             ) : null}
           </div>
-        </Droppable>
+        </div>
       </div>
 
       <DragOverlay dropAnimation={null}>
