@@ -1,10 +1,12 @@
 "use client";
 
-import { DndContext } from "@dnd-kit/core";
+import { DndContext, DragOverlay, type DragStartEvent } from "@dnd-kit/core";
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { useGameContext } from "@/context/game-context";
-import { idGenerator } from "@/lib/dnd";
+import { IdGenerator } from "@/lib/dnd";
 
 enum Container {
   PLAYER_LIST,
@@ -60,7 +62,7 @@ function PlayerItem({ id, data }: PlayerData) {
   );
 }
 
-function PlayerList() {
+function PlayerList({ idGenerator }: { idGenerator: IdGenerator }) {
   const { playersState } = useGameContext();
   const players: PlayerData[] = playersState.players.map((player) => ({
     id: idGenerator.nextId(),
@@ -79,7 +81,17 @@ function PlayerList() {
 }
 
 export default function ChooseQueue() {
+  const [mounted, setMounted] = useState(false);
   const { chooseQueueState, chooseQueueActions } = useGameContext();
+  const [activePlayerItem, setActivePlayerItem] = useState<PlayerData | null>(
+    null,
+  );
+
+  useEffect(() => {
+    setMounted(true);
+  });
+
+  const idGenerator = new IdGenerator();
 
   const stage = chooseQueueState.stage.map((player) => ({
     id: idGenerator.nextId(),
@@ -92,13 +104,29 @@ export default function ChooseQueue() {
 
   return (
     <DndContext
-      onDragStart={() => {}}
+      onDragStart={(event: DragStartEvent) => {
+        if (event.active.data.current) {
+          setActivePlayerItem({
+            id: event.active.id as number,
+            data: event.active.data.current as PlayerData["data"],
+          });
+          return;
+        }
+      }}
       onDragOver={() => {}}
       onDragEnd={() => {}}
     >
       <div className="flex flex-row gap-2 justify-between">
-        <PlayerList />
+        <PlayerList idGenerator={idGenerator} />
       </div>
+
+      {mounted &&
+        createPortal(
+          <DragOverlay>
+            {activePlayerItem && <PlayerItem {...activePlayerItem} />}
+          </DragOverlay>,
+          document.body,
+        )}
     </DndContext>
   );
 }
