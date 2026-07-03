@@ -189,10 +189,6 @@ export default function ChooseQueue() {
           </div>
         </div>
       </div>
-
-      <DragOverlay dropAnimation={null}>
-        <ActivePlayerItem />
-      </DragOverlay>
     </DndContext>
   );
 }
