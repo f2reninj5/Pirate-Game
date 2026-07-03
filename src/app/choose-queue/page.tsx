@@ -110,17 +110,6 @@ function DraggablePlayerItem({
   );
 }
 
-function StagePlayerItem({ player, index }: { player: string; index: number }) {
-  return (
-    <DraggablePlayerItem
-      player={player}
-      containerId="stage"
-      index={index}
-      className="bg-green-200 hover:bg-green-300"
-    />
-  );
-}
-
 function PlayerList() {
   const { playersState } = useGameContext();
   const players: PlayerData[] = playersState.players.map((player) => ({
