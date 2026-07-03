@@ -1,7 +1,7 @@
 "use client";
 
 import { DndContext, DragOverlay, useDndContext } from "@dnd-kit/core";
-import { useSortable } from "@dnd-kit/sortable";
+import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Check, Shuffle } from "lucide-react";
 import Draggable from "@/component/ui/draggable";
@@ -19,7 +19,9 @@ enum Container {
 
 type PlayerData = {
   id: number;
-  data: { container: Container; player: string; index: number };
+  data:
+    | { container: Container.QUEUE; player: string; index: number }
+    | { container: Exclude<Container, Container.QUEUE>; player: string };
 };
 
 function PlayerItem({ id, data }: PlayerData) {
@@ -112,22 +114,19 @@ function StagePlayerItem({ player, index }: { player: string; index: number }) {
 
 function PlayerList() {
   const { playersState } = useGameContext();
+  const players: PlayerData[] = playersState.players.map((player) => ({
+    id: idGenerator.nextId(),
+    data: { container: Container.PLAYER_LIST, player },
+  }));
 
   return (
-    <Droppable
-      id="player-list"
-      className="flex flex-col gap-1 min-h-100"
-      hoverOverlay={<HoverOverlay text="Remove from queue" />}
-    >
-      {playersState.players.map((player, i) => (
-        <DraggablePlayerItem
-          player={player}
-          containerId={"player-list"}
-          index={i}
-          key={player}
-        />
-      ))}
-    </Droppable>
+    <SortableContext items={players.map((p) => p.id)}>
+      <div className="flex flex-col gap-1 min-h-100">
+        {playersState.players.map((player, i) => (
+          <PlayerItem {...players[i]} key={player} />
+        ))}
+      </div>
+    </SortableContext>
   );
 }
 
