@@ -87,16 +87,29 @@ function Queue({ idGenerator }: { idGenerator: IdGenerator }) {
     id: idGenerator.nextId(),
     data: { container: Container.QUEUE, player, index },
   }));
+  const stage: PlayerData[] = chooseQueueState.stage.map((player) => ({
+    id: idGenerator.nextId(),
+    data: { container: Container.STAGE, player },
+  }));
 
   return (
-    <SortableContext items={queue.map((p) => p.id)}>
-      <div className="flex flex-col gap-1 min-h-100">
-        {queue.map((p) => {
-          if (p.data.container !== Container.QUEUE) return null;
-          return <PlayerItem {...p} key={p.data.index} />;
-        })}
-      </div>
-    </SortableContext>
+    <div className="flex flex-col gap-1 min-h-100">
+      <SortableContext items={queue.map((p) => p.id)}>
+        <div className="flex flex-col gap-1">
+          {queue.map((p) => {
+            if (p.data.container !== Container.QUEUE) return null;
+            return <PlayerItem {...p} key={p.data.index} />;
+          })}
+        </div>
+      </SortableContext>
+      <SortableContext items={stage.map((p) => p.id)}>
+        <div className="flex flex-col gap-1">
+          {stage.map((p) => {
+            return <PlayerItem {...p} key={p.data.player} />;
+          })}
+        </div>
+      </SortableContext>
+    </div>
   );
 }
 
@@ -112,11 +125,6 @@ export default function ChooseQueue() {
   });
 
   const idGenerator = new IdGenerator();
-
-  const stage = chooseQueueState.stage.map((player) => ({
-    id: idGenerator.nextId(),
-    data: { player },
-  }));
 
   return (
     <DndContext
