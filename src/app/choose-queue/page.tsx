@@ -159,35 +159,6 @@ export default function ChooseQueue() {
     >
       <div className="flex flex-row gap-2 justify-between">
         <PlayerList />
-        <div className="flex flex-col gap-1 min-w-30">
-          <div className="flex flex-col gap-1">
-            {chooseQueueState.queue.map((player, i) => (
-              <DraggablePlayerItem
-                player={player}
-                containerId="choose-queue"
-                index={i}
-                key={i.toString()}
-              />
-            ))}
-            {chooseQueueState.stage.map((player, i) => (
-              <StagePlayerItem player={player} index={i} key={i.toString()} />
-            ))}
-            {chooseQueueState.stage.length > 0 ? (
-              <div className="px-2 w-30">
-                <span className="flex flex-row gap-2">
-                  <InlineIconButton
-                    icon={Shuffle}
-                    onClick={chooseQueueActions.shuffleStage}
-                  />
-                  <InlineIconButton
-                    icon={Check}
-                    onClick={chooseQueueActions.commitStage}
-                  />
-                </span>
-              </div>
-            ) : null}
-          </div>
-        </div>
       </div>
     </DndContext>
   );
