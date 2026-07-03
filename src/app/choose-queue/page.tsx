@@ -1,12 +1,57 @@
 "use client";
 
 import { DndContext, DragOverlay, useDndContext } from "@dnd-kit/core";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { Check, Shuffle } from "lucide-react";
 import Draggable from "@/component/ui/draggable";
 import Droppable from "@/component/ui/droppable";
 import InlineIconButton from "@/component/ui/inline-icon-button";
 import { useGameContext } from "@/context/game-context";
 import { cn } from "@/lib/cn";
+import { idGenerator } from "@/lib/dnd";
+
+enum Container {
+  PLAYER_LIST,
+  STAGE,
+  QUEUE,
+}
+
+type PlayerData = {
+  id: number;
+  data: { container: Container; player: string; index: number };
+};
+
+function PlayerItem({ id, data }: PlayerData) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id, data });
+
+  const style = { transition, transform: CSS.Transform.toString(transform) };
+
+  if (isDragging) {
+    return <div>hello</div>;
+  }
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...listeners}
+      {...attributes}
+      className="flex flex-row gap-2 px-2 rounded-sm w-30 bg-zinc-100 hover:bg-zinc-300"
+    >
+      <span className="text-nowrap overflow-hidden select-none">
+        {data.player}
+      </span>
+    </div>
+  );
+}
 
 function HoverOverlay({ text }: { text: string }) {
   return (
