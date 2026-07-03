@@ -1,13 +1,9 @@
 "use client";
 
-import { DndContext, DragOverlay, useDndContext } from "@dnd-kit/core";
+import { DndContext } from "@dnd-kit/core";
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Check, Shuffle } from "lucide-react";
-import Draggable from "@/component/ui/draggable";
-import InlineIconButton from "@/component/ui/inline-icon-button";
 import { useGameContext } from "@/context/game-context";
-import { cn } from "@/lib/cn";
 import { idGenerator } from "@/lib/dnd";
 
 enum Container {
