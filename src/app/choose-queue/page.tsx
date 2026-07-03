@@ -85,31 +85,6 @@ function ActivePlayerItem() {
   );
 }
 
-function DraggablePlayerItem({
-  player,
-  containerId,
-  index,
-  className,
-}: {
-  player: string;
-  containerId: string;
-  index: number;
-  className?: string;
-}) {
-  return (
-    <Draggable
-      id={`${containerId}:${player}:${index}`}
-      showTransform={false}
-      className={cn(
-        "flex flex-row gap-2 px-2 rounded-sm w-30 bg-zinc-100 hover:bg-zinc-300",
-        className,
-      )}
-    >
-      <span className="text-nowrap overflow-hidden select-none">{player}</span>
-    </Draggable>
-  );
-}
-
 function PlayerList() {
   const { playersState } = useGameContext();
   const players: PlayerData[] = playersState.players.map((player) => ({
