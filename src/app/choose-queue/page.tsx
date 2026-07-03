@@ -5,6 +5,7 @@ import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import Droppable from "@/component/ui/droppable";
 import { useGameContext } from "@/context/game-context";
 import { IdGenerator } from "@/lib/dnd";
 
@@ -38,10 +39,10 @@ function PlayerItem({ id, data }: PlayerData) {
       <div
         ref={setNodeRef}
         style={style}
-        className="flex flex-row gap-2 px-2 rounded-sm w-30 bg-zinc-100 hover:bg-zinc-300 cursor-grab"
+        className="flex flex-row gap-2 px-2 rounded-sm w-30 bg-zinc-100 hover:bg-zinc-300 cursor-grab brightness-75 opacity-50 outline-rose-500 outline-2"
       >
-        <span className="text-nowrap overflow-hidden select-none">
-          ----------------
+        <span className="text-nowrap overflow-hidden select-none invisible">
+          -
         </span>
       </div>
     );
@@ -70,11 +71,30 @@ function PlayerList({ idGenerator }: { idGenerator: IdGenerator }) {
   }));
 
   return (
-    <SortableContext items={players.map((p) => p.id)}>
+    <Droppable id="player-list">
       <div className="flex flex-col gap-1 min-h-100">
-        {playersState.players.map((player, i) => (
-          <PlayerItem {...players[i]} key={player} />
+        {players.map((p) => (
+          <PlayerItem {...p} key={p.data.player} />
         ))}
+      </div>
+    </Droppable>
+  );
+}
+
+function Queue({ idGenerator }: { idGenerator: IdGenerator }) {
+  const { chooseQueueState } = useGameContext();
+  const queue: PlayerData[] = chooseQueueState.queue.map((player, index) => ({
+    id: idGenerator.nextId(),
+    data: { container: Container.QUEUE, player, index },
+  }));
+
+  return (
+    <SortableContext items={queue.map((p) => p.id)}>
+      <div className="flex flex-col gap-1 min-h-100">
+        {queue.map((p) => {
+          if (p.data.container !== Container.QUEUE) return null;
+          return <PlayerItem {...p} key={p.data.index} />;
+        })}
       </div>
     </SortableContext>
   );
@@ -97,10 +117,6 @@ export default function ChooseQueue() {
     id: idGenerator.nextId(),
     data: { player },
   }));
-  const queue = chooseQueueState.queue.map((player, index) => ({
-    id: idGenerator.nextId(),
-    data: { index, player },
-  }));
 
   return (
     <DndContext
@@ -118,6 +134,7 @@ export default function ChooseQueue() {
     >
       <div className="flex flex-row gap-2 justify-between">
         <PlayerList idGenerator={idGenerator} />
+        <Queue idGenerator={idGenerator} />
       </div>
 
       {mounted &&
