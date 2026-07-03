@@ -64,16 +64,6 @@ function PlayerItem({ id, data }: PlayerData) {
   );
 }
 
-function HoverOverlay({ text }: { text: string }) {
-  return (
-    <div className="absolute bg-black/50 w-full h-full flex justify-center items-center p-2">
-      <div className="bg-light text-balance text-center rounded-md p-1">
-        {text}
-      </div>
-    </div>
-  );
-}
-
 function PlayerList() {
   const { playersState } = useGameContext();
   const players: PlayerData[] = playersState.players.map((player) => ({
