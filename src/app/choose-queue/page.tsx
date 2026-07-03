@@ -74,17 +74,6 @@ function HoverOverlay({ text }: { text: string }) {
   );
 }
 
-function ActivePlayerItem() {
-  const { active } = useDndContext();
-  const player = active?.id.toString().split(":")[1];
-
-  return (
-    <div className="flex flex-row gap-2 px-2 rounded-sm w-30 bg-zinc-100 hover:bg-zinc-300">
-      <span className="text-nowrap overflow-hidden select-none">{player}</span>
-    </div>
-  );
-}
-
 function PlayerList() {
   const { playersState } = useGameContext();
   const players: PlayerData[] = playersState.players.map((player) => ({
