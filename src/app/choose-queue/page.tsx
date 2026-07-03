@@ -38,10 +38,10 @@ function PlayerItem({ id, data }: PlayerData) {
       <div
         ref={setNodeRef}
         style={style}
-        className="flex flex-row gap-2 px-2 rounded-sm w-30 bg-zinc-100 hover:bg-zinc-300"
+        className="flex flex-row gap-2 px-2 rounded-sm w-30 bg-zinc-100 hover:bg-zinc-300 cursor-grab"
       >
         <span className="text-nowrap overflow-hidden select-none">
-          {data.player}
+          ----------------
         </span>
       </div>
     );
@@ -53,7 +53,7 @@ function PlayerItem({ id, data }: PlayerData) {
       style={style}
       {...listeners}
       {...attributes}
-      className="flex flex-row gap-2 px-2 rounded-sm w-30 bg-zinc-100 hover:bg-zinc-300"
+      className="flex flex-row gap-2 px-2 rounded-sm w-30 bg-zinc-100 hover:bg-zinc-300 cursor-grab"
     >
       <span className="text-nowrap overflow-hidden select-none">
         {data.player}
