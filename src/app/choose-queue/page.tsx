@@ -97,7 +97,13 @@ function PlayerList({ idGenerator }: { idGenerator: IdGenerator }) {
   );
 }
 
-function Queue({ idGenerator }: { idGenerator: IdGenerator }) {
+function Queue({
+  idGenerator,
+  hoveringPlayer,
+}: {
+  idGenerator: IdGenerator;
+  hoveringPlayer?: PlayerData;
+}) {
   const { chooseQueueState, chooseQueueActions } = useGameContext();
   const queue: PlayerData[] = chooseQueueState.queue.map((player, index) => ({
     id: idGenerator.nextId(),
@@ -124,6 +130,9 @@ function Queue({ idGenerator }: { idGenerator: IdGenerator }) {
             {stage.map((p) => {
               return <PlayerItem {...p} key={p.data.player} />;
             })}
+            {hoveringPlayer && (
+              <div className="flex flex-row gap-2 px-2 rounded-sm w-30 h-lh bg-green-300" />
+            )}
             {stage.length > 0 && (
               <div className="flex flex-row gap-2 px-2 rounded-sm w-30 h-lh">
                 <InlineIconButton
@@ -145,10 +154,11 @@ function Queue({ idGenerator }: { idGenerator: IdGenerator }) {
 
 export default function ChooseQueue() {
   const [mounted, setMounted] = useState(false);
-  const { chooseQueueState, chooseQueueActions } = useGameContext();
   const [activePlayerItem, setActivePlayerItem] = useState<PlayerData | null>(
     null,
   );
+  const [isOverQueueFromPlayerList, setIsOverQueueFromPlayerList] =
+    useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -159,6 +169,7 @@ export default function ChooseQueue() {
   return (
     <DndContext
       onDragStart={(event: DragStartEvent) => {
+        console.log(`start: ${event.active.data?.current?.player}`);
         if (event.active.data.current) {
           setActivePlayerItem({
             id: event.active.id as number,
@@ -167,12 +178,48 @@ export default function ChooseQueue() {
           return;
         }
       }}
-      onDragOver={() => {}}
-      onDragEnd={() => {}}
+      onDragOver={(event: DragOverEvent) => {
+        console.log(
+          `over: ${event.active.data?.current?.player} | ${event.over?.id} ${event.over?.data?.current?.player}`,
+        );
+        if (activePlayerItem?.data.container !== Container.PLAYER_LIST)
+          return setIsOverQueueFromPlayerList(false);
+        if (event.over?.id === "queue")
+          return setIsOverQueueFromPlayerList(true);
+
+        const overPlayerData = event.over?.data.current as
+          | PlayerData["data"]
+          | undefined;
+
+        console.log(overPlayerData);
+
+        if (
+          overPlayerData?.container &&
+          [Container.QUEUE, Container.STAGE].includes(overPlayerData.container)
+        )
+          return setIsOverQueueFromPlayerList(true);
+
+        return setIsOverQueueFromPlayerList(false);
+      }}
+      onDragEnd={(event: DragEndEvent) => {
+        console.log(
+          `end: ${event.active.data?.current?.player} | ${event.over?.id} ${event.over?.data?.current?.player}`,
+        );
+
+        setIsOverQueueFromPlayerList(false);
+        setActivePlayerItem(null);
+      }}
     >
       <div className="flex flex-row gap-2 justify-between">
         <PlayerList idGenerator={idGenerator} />
-        <Queue idGenerator={idGenerator} />
+        <Queue
+          idGenerator={idGenerator}
+          hoveringPlayer={
+            isOverQueueFromPlayerList && activePlayerItem
+              ? activePlayerItem
+              : undefined
+          }
+        />
       </div>
 
       {mounted &&
