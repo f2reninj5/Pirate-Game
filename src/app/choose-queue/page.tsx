@@ -93,23 +93,25 @@ function Queue({ idGenerator }: { idGenerator: IdGenerator }) {
   }));
 
   return (
-    <div className="flex flex-col gap-1 min-h-100">
-      <SortableContext items={queue.map((p) => p.id)}>
-        <div className="flex flex-col gap-1">
-          {queue.map((p) => {
-            if (p.data.container !== Container.QUEUE) return null;
-            return <PlayerItem {...p} key={p.data.index} />;
-          })}
-        </div>
-      </SortableContext>
-      <SortableContext items={stage.map((p) => p.id)}>
-        <div className="flex flex-col gap-1">
-          {stage.map((p) => {
-            return <PlayerItem {...p} key={p.data.player} />;
-          })}
-        </div>
-      </SortableContext>
-    </div>
+    <Droppable id="queue">
+      <div className="flex flex-col gap-1 min-h-100">
+        <SortableContext items={queue.map((p) => p.id)}>
+          <div className="flex flex-col gap-1">
+            {queue.map((p) => {
+              if (p.data.container !== Container.QUEUE) return null;
+              return <PlayerItem {...p} key={p.data.index} />;
+            })}
+          </div>
+        </SortableContext>
+        <SortableContext items={stage.map((p) => p.id)}>
+          <div className="flex flex-col gap-1">
+            {stage.map((p) => {
+              return <PlayerItem {...p} key={p.data.player} />;
+            })}
+          </div>
+        </SortableContext>
+      </div>
+    </Droppable>
   );
 }
 
