@@ -155,10 +155,11 @@ function Queue({
 
 export default function ChooseQueue() {
   const [mounted, setMounted] = useState(false);
+  const { chooseQueueActions } = useGameContext();
   const [activePlayerItem, setActivePlayerItem] = useState<PlayerData | null>(
     null,
   );
-  const [isOverQueueFromPlayerList, setIsOverQueueFromPlayerList] =
+  const [movingFromPlayerListToQueue, setMovingFromPlayerListToQueue] =
     useState(false);
 
   useEffect(() => {
@@ -185,9 +186,9 @@ export default function ChooseQueue() {
           `over: ${event.active.data?.current?.player} | ${event.over?.id} ${event.over?.data?.current?.player}`,
         );
         if (activePlayerItem?.data.container !== Container.PLAYER_LIST)
-          return setIsOverQueueFromPlayerList(false);
+          return setMovingFromPlayerListToQueue(false);
         if (event.over?.id === "queue")
-          return setIsOverQueueFromPlayerList(true);
+          return setMovingFromPlayerListToQueue(true);
 
         const overPlayerData = event.over?.data.current as
           | PlayerData["data"]
@@ -199,16 +200,20 @@ export default function ChooseQueue() {
           overPlayerData?.container &&
           [Container.QUEUE, Container.STAGE].includes(overPlayerData.container)
         )
-          return setIsOverQueueFromPlayerList(true);
+          return setMovingFromPlayerListToQueue(true);
 
-        return setIsOverQueueFromPlayerList(false);
+        return setMovingFromPlayerListToQueue(false);
       }}
       onDragEnd={(event: DragEndEvent) => {
         console.log(
           `end: ${event.active.data?.current?.player} | ${event.over?.id} ${event.over?.data?.current?.player}`,
         );
 
-        setIsOverQueueFromPlayerList(false);
+        if (movingFromPlayerListToQueue && activePlayerItem) {
+          chooseQueueActions.stagePlayer(activePlayerItem.data.player);
+        }
+
+        setMovingFromPlayerListToQueue(false);
         setActivePlayerItem(null);
       }}
     >
@@ -217,7 +222,7 @@ export default function ChooseQueue() {
         <Queue
           idGenerator={idGenerator}
           hoveringPlayer={
-            isOverQueueFromPlayerList && activePlayerItem
+            movingFromPlayerListToQueue && activePlayerItem
               ? activePlayerItem
               : undefined
           }
