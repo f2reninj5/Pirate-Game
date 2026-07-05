@@ -14,31 +14,31 @@ export default function ChooseQueuePreview() {
       <div>Choose Queue</div>
       <div className="flex flex-col items-center gap-1">
         <div
-          className="bg-gray-400 text-[1em] w-full"
+          className="bg-gray-400 text-[1em] w-full h-lh"
           style={{
             visibility:
               chooseQueueState.queue.length < 1 ? "hidden" : "visible",
           }}
         >
-          {chooseQueueState.queue[0] ?? "."}
+          {chooseQueueState.queue[0]}
         </div>
         <div
-          className="bg-gray-300 text-[0.75em] w-[75%]"
+          className="bg-gray-300 text-[0.75em] w-[75%] h-lh"
           style={{
             visibility:
               chooseQueueState.queue.length < 2 ? "hidden" : "visible",
           }}
         >
-          {chooseQueueState.queue[1] ?? "."}
+          {chooseQueueState.queue[1]}
         </div>
         <div
-          className="bg-gray-200 text-[0.5625em] w-[56.25%]"
+          className="bg-gray-200 text-[0.5625em] w-[56.25%] h-lh"
           style={{
             visibility:
               chooseQueueState.queue.length < 3 ? "hidden" : "visible",
           }}
         >
-          {chooseQueueState.queue[2] ?? "."}
+          {chooseQueueState.queue[2]}
         </div>
       </div>
     </Link>
