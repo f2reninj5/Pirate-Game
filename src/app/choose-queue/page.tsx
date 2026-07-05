@@ -9,9 +9,11 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { Check, Shuffle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Droppable from "@/component/ui/droppable";
+import InlineIconButton from "@/component/ui/inline-icon-button";
 import { useGameContext } from "@/context/game-context";
 import { cn } from "@/lib/cn";
 import { IdGenerator } from "@/lib/dnd";
@@ -96,7 +98,7 @@ function PlayerList({ idGenerator }: { idGenerator: IdGenerator }) {
 }
 
 function Queue({ idGenerator }: { idGenerator: IdGenerator }) {
-  const { chooseQueueState } = useGameContext();
+  const { chooseQueueState, chooseQueueActions } = useGameContext();
   const queue: PlayerData[] = chooseQueueState.queue.map((player, index) => ({
     id: idGenerator.nextId(),
     data: { container: Container.QUEUE, player, index },
@@ -122,6 +124,18 @@ function Queue({ idGenerator }: { idGenerator: IdGenerator }) {
             {stage.map((p) => {
               return <PlayerItem {...p} key={p.data.player} />;
             })}
+            {stage.length > 0 && (
+              <div className="flex flex-row gap-2 px-2 rounded-sm w-30 h-lh">
+                <InlineIconButton
+                  icon={Shuffle}
+                  onClick={chooseQueueActions.shuffleStage}
+                />
+                <InlineIconButton
+                  icon={Check}
+                  onClick={chooseQueueActions.commitStage}
+                />
+              </div>
+            )}
           </div>
         </SortableContext>
       </div>
