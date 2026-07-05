@@ -1,12 +1,19 @@
 "use client";
 
-import { DndContext, DragOverlay, type DragStartEvent } from "@dnd-kit/core";
+import {
+  DndContext,
+  type DragEndEvent,
+  type DragOverEvent,
+  DragOverlay,
+  type DragStartEvent,
+} from "@dnd-kit/core";
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Droppable from "@/component/ui/droppable";
 import { useGameContext } from "@/context/game-context";
+import { cn } from "@/lib/cn";
 import { IdGenerator } from "@/lib/dnd";
 
 enum Container {
@@ -31,15 +38,22 @@ function PlayerItem({ id, data }: PlayerData) {
     transition,
     isDragging,
   } = useSortable({ id, data });
+  const isStaged = data.container === Container.STAGE;
 
   const style = { transition, transform: CSS.Transform.toString(transform) };
+  const bg = isStaged
+    ? "bg-green-100 hover:bg-green-300"
+    : "bg-zinc-100 hover:bg-zinc-300";
 
   if (isDragging) {
     return (
       <div
         ref={setNodeRef}
         style={style}
-        className="flex flex-row gap-2 px-2 rounded-sm w-30 bg-zinc-100 hover:bg-zinc-300 cursor-grab brightness-75 opacity-50 outline-rose-500 outline-2"
+        className={cn(
+          "flex flex-row gap-2 px-2 rounded-sm w-30 cursor-grab brightness-75 opacity-50 outline-rose-500 outline-2",
+          bg,
+        )}
       >
         <span className="text-nowrap overflow-hidden select-none invisible">
           -
@@ -54,7 +68,7 @@ function PlayerItem({ id, data }: PlayerData) {
       style={style}
       {...listeners}
       {...attributes}
-      className="flex flex-row gap-2 px-2 rounded-sm w-30 bg-zinc-100 hover:bg-zinc-300 cursor-grab"
+      className={cn("flex flex-row gap-2 px-2 rounded-sm w-30 cursor-grab", bg)}
     >
       <span className="text-nowrap overflow-hidden select-none">
         {data.player}
