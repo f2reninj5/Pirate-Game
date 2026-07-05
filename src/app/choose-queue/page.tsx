@@ -6,6 +6,7 @@ import {
   type DragOverEvent,
   DragOverlay,
   type DragStartEvent,
+  pointerWithin,
 } from "@dnd-kit/core";
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -168,6 +169,7 @@ export default function ChooseQueue() {
 
   return (
     <DndContext
+      collisionDetection={pointerWithin}
       onDragStart={(event: DragStartEvent) => {
         console.log(`start: ${event.active.data?.current?.player}`);
         if (event.active.data.current) {
