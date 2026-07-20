@@ -1,5 +1,6 @@
 "use client";
 
+import { arrayMove } from "@dnd-kit/sortable";
 import {
   createContext,
   type ReactNode,
@@ -108,6 +109,8 @@ type ChooseQueueActions = {
   dequeuePlayer: () => void;
   reset: () => void;
   shuffleStage: () => void;
+  movePlayerInQueue: (from: number, to: number) => void;
+  movePlayerInStage: (from: number, to: number) => void;
 };
 
 type GameActions = {
@@ -249,6 +252,18 @@ export function GameProvider({ children }: { children: ReactNode }) {
     shuffleStage: () => {
       const stage = distinctlyShuffled(chooseQueueState.stage);
       setChooseQueueState({ ...chooseQueueState, stage });
+    },
+    movePlayerInQueue: (from, to) => {
+      setChooseQueueState({
+        ...chooseQueueState,
+        queue: arrayMove(chooseQueueState.queue, from, to),
+      });
+    },
+    movePlayerInStage: (from, to) => {
+      setChooseQueueState({
+        ...chooseQueueState,
+        stage: arrayMove(chooseQueueState.stage, from, to),
+      });
     },
   };
 
