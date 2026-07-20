@@ -110,7 +110,7 @@ type ChooseQueueActions = {
   reset: () => void;
   shuffleStage: () => void;
   movePlayerInQueue: (from: number, to: number) => void;
-  movePlayerInStage: (from: number, to: number) => void;
+  movePlayerInStage: (from: string, to: string) => void;
 };
 
 type GameActions = {
@@ -262,7 +262,11 @@ export function GameProvider({ children }: { children: ReactNode }) {
     movePlayerInStage: (from, to) => {
       setChooseQueueState({
         ...chooseQueueState,
-        stage: arrayMove(chooseQueueState.stage, from, to),
+        stage: arrayMove(
+          chooseQueueState.stage,
+          chooseQueueState.stage.indexOf(from),
+          chooseQueueState.stage.indexOf(to),
+        ),
       });
     },
   };

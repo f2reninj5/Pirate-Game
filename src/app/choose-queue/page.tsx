@@ -205,16 +205,47 @@ export default function ChooseQueue() {
         return setMovingFromPlayerListToQueue(false);
       }}
       onDragEnd={(event: DragEndEvent) => {
+        const { over } = event;
+        if (!activePlayerItem) return;
+
         console.log(
           `end: ${event.active.data?.current?.player} | ${event.over?.id} ${event.over?.data?.current?.player}`,
         );
 
-        if (movingFromPlayerListToQueue && activePlayerItem) {
-          chooseQueueActions.stagePlayer(activePlayerItem.data.player);
-        }
+        try {
+          if (movingFromPlayerListToQueue) {
+            chooseQueueActions.stagePlayer(activePlayerItem.data.player);
+            return;
+          }
 
-        setMovingFromPlayerListToQueue(false);
-        setActivePlayerItem(null);
+          if (!over) return;
+          if (activePlayerItem.id === over.id) return;
+          if (!over.data.current) return;
+          const overPlayerData = over.data.current as PlayerData["data"];
+
+          if (
+            activePlayerItem.data.container === Container.QUEUE &&
+            overPlayerData.container === Container.QUEUE
+          ) {
+            chooseQueueActions.movePlayerInQueue(
+              activePlayerItem.data.index,
+              overPlayerData.index,
+            );
+          }
+
+          if (
+            activePlayerItem.data.container === Container.STAGE &&
+            overPlayerData.container === Container.STAGE
+          ) {
+            chooseQueueActions.movePlayerInStage(
+              activePlayerItem.data.player,
+              overPlayerData.player,
+            );
+          }
+        } finally {
+          setMovingFromPlayerListToQueue(false);
+          setActivePlayerItem(null);
+        }
       }}
     >
       <div className="flex flex-row gap-2 justify-between">
