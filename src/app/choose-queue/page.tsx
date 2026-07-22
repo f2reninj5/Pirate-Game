@@ -17,6 +17,7 @@ import Droppable from "@/component/ui/droppable";
 import InlineIconButton from "@/component/ui/inline-icon-button";
 import { useGameContext } from "@/context/game-context";
 import { cn } from "@/lib/cn";
+import type { Player } from "@/lib/player";
 
 enum Container {
   PLAYER_LIST,
@@ -25,8 +26,8 @@ enum Container {
 }
 
 type DndPlayer = {
-  id: number;
-  data: { container: Container; player: string; index: number };
+  id: string;
+  data: { container: Container; player: Player; index: number };
 };
 
 function PlayerItem({ id, data }: DndPlayer) {
@@ -88,7 +89,7 @@ function PlayerList() {
     <Droppable id="player-list">
       <div className="flex flex-col gap-1 min-h-100">
         {players.map((p) => (
-          <PlayerItem {...p} key={p.data.player} />
+          <PlayerItem {...p} key={p.id} />
         ))}
       </div>
     </Droppable>
