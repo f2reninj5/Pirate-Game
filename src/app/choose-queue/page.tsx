@@ -17,7 +17,6 @@ import Droppable from "@/component/ui/droppable";
 import InlineIconButton from "@/component/ui/inline-icon-button";
 import { useGameContext } from "@/context/game-context";
 import { cn } from "@/lib/cn";
-import { IdGenerator } from "@/lib/dnd";
 
 enum Container {
   PLAYER_LIST,
@@ -25,14 +24,14 @@ enum Container {
   QUEUE,
 }
 
-type PlayerData = {
+type DndPlayer = {
   id: number;
   data:
     | { container: Container.QUEUE; player: string; index: number }
     | { container: Exclude<Container, Container.QUEUE>; player: string };
 };
 
-function PlayerItem({ id, data }: PlayerData) {
+function PlayerItem({ id, data }: DndPlayer) {
   const {
     attributes,
     listeners,
@@ -80,10 +79,10 @@ function PlayerItem({ id, data }: PlayerData) {
   );
 }
 
-function PlayerList({ idGenerator }: { idGenerator: IdGenerator }) {
+function PlayerList() {
   const { playersState } = useGameContext();
-  const players: PlayerData[] = playersState.players.map((player) => ({
-    id: idGenerator.nextId(),
+  const players: DndPlayer[] = playersState.players.map((player) => ({
+    id: player._id,
     data: { container: Container.PLAYER_LIST, player },
   }));
 
@@ -103,14 +102,14 @@ function Queue({
   hoveringPlayer,
 }: {
   idGenerator: IdGenerator;
-  hoveringPlayer?: PlayerData;
+  hoveringPlayer?: DndPlayer;
 }) {
   const { chooseQueueState, chooseQueueActions } = useGameContext();
-  const queue: PlayerData[] = chooseQueueState.queue.map((player, index) => ({
+  const queue: DndPlayer[] = chooseQueueState.queue.map((player, index) => ({
     id: idGenerator.nextId(),
     data: { container: Container.QUEUE, player, index },
   }));
-  const stage: PlayerData[] = chooseQueueState.stage.map((player) => ({
+  const stage: DndPlayer[] = chooseQueueState.stage.map((player) => ({
     id: idGenerator.nextId(),
     data: { container: Container.STAGE, player },
   }));
@@ -156,7 +155,7 @@ function Queue({
 export default function ChooseQueue() {
   const [mounted, setMounted] = useState(false);
   const { chooseQueueActions } = useGameContext();
-  const [activePlayerItem, setActivePlayerItem] = useState<PlayerData | null>(
+  const [activePlayerItem, setActivePlayerItem] = useState<DndPlayer | null>(
     null,
   );
   const [movingFromPlayerListToQueue, setMovingFromPlayerListToQueue] =
@@ -176,7 +175,7 @@ export default function ChooseQueue() {
         if (event.active.data.current) {
           setActivePlayerItem({
             id: event.active.id as number,
-            data: event.active.data.current as PlayerData["data"],
+            data: event.active.data.current as DndPlayer["data"],
           });
           return;
         }
@@ -191,7 +190,7 @@ export default function ChooseQueue() {
           return setMovingFromPlayerListToQueue(true);
 
         const overPlayerData = event.over?.data.current as
-          | PlayerData["data"]
+          | DndPlayer["data"]
           | undefined;
 
         console.log(overPlayerData);
@@ -221,7 +220,7 @@ export default function ChooseQueue() {
           if (!over) return;
           if (activePlayerItem.id === over.id) return;
           if (!over.data.current) return;
-          const overPlayerData = over.data.current as PlayerData["data"];
+          const overPlayerData = over.data.current as DndPlayer["data"];
 
           if (
             activePlayerItem.data.container === Container.QUEUE &&
