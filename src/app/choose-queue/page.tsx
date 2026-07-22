@@ -156,8 +156,6 @@ export default function ChooseQueue() {
     setMounted(true);
   });
 
-  const idGenerator = new IdGenerator();
-
   return (
     <DndContext
       collisionDetection={pointerWithin}
@@ -165,7 +163,7 @@ export default function ChooseQueue() {
         console.log(`start: ${event.active.data?.current?.player}`);
         if (event.active.data.current) {
           setActivePlayerItem({
-            id: event.active.id as number,
+            id: event.active.id as string,
             data: event.active.data.current as DndPlayer["data"],
           });
           return;
@@ -204,7 +202,7 @@ export default function ChooseQueue() {
 
         try {
           if (movingFromPlayerListToQueue) {
-            chooseQueueActions.stagePlayer(activePlayerItem.data.player);
+            chooseQueueActions.stagePlayer(activePlayerItem.data.player.name);
             return;
           }
 
@@ -228,8 +226,8 @@ export default function ChooseQueue() {
             overPlayerData.container === Container.STAGE
           ) {
             chooseQueueActions.movePlayerInStage(
-              activePlayerItem.data.player,
-              overPlayerData.player,
+              activePlayerItem.data.index,
+              overPlayerData.index,
             );
           }
         } finally {
@@ -239,9 +237,8 @@ export default function ChooseQueue() {
       }}
     >
       <div className="flex flex-row gap-2 justify-between">
-        <PlayerList idGenerator={idGenerator} />
+        <PlayerList />
         <Queue
-          idGenerator={idGenerator}
           hoveringPlayer={
             movingFromPlayerListToQueue && activePlayerItem
               ? activePlayerItem
