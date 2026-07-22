@@ -10,7 +10,12 @@ import {
 } from "react";
 import { distinctlyShuffled } from "@/lib/array";
 import { getRandomUnusedCell } from "@/lib/grid";
-import { comparePlayersByName, type Player } from "@/lib/player";
+import {
+  comparePlayersByName,
+  createPlayer,
+  type Player,
+  renamePlayer,
+} from "@/lib/player";
 
 type GridState = {
   grid: boolean[];
@@ -199,31 +204,29 @@ export function GameProvider({ children }: { children: ReactNode }) {
   };
 
   const playersActions: PlayersActions = {
-    addPlayer: (player) => {
+    addPlayer: (name) => {
       setPlayersState({
         ...playersState,
-        players: [...playersState.players, player].toSorted(
+        players: [...playersState.players, createPlayer(name)].toSorted(
           comparePlayersByName,
         ),
       });
     },
-    deletePlayer: (player) => {
-      const players = playersState.players.filter((p) => p !== player);
-      const queue = chooseQueueState.queue.filter((p) => p !== player);
-      const stage = chooseQueueState.stage.filter((p) => p !== player);
+    deletePlayer: (name) => {
+      const players = playersState.players.filter((p) => p.name !== name);
+      const queue = chooseQueueState.queue.filter((p) => p.name !== name);
+      const stage = chooseQueueState.stage.filter((p) => p.name !== name);
       setPlayersState({ players });
       setChooseQueueState({ queue, stage });
     },
-    renamePlayer: (player, newName) => {
-      const players = playersState.players
-        .map((p) => (p === player ? newName : p))
-        .toSorted(comparePlayersByName);
-      const queue = chooseQueueState.queue.map((p) =>
-        p === player ? newName : p,
-      );
-      const stage = chooseQueueState.stage.map((p) =>
-        p === player ? newName : p,
-      );
+    renamePlayer: (name, newName) => {
+      const players = renamePlayer(
+        playersState.players,
+        name,
+        newName,
+      ).toSorted(comparePlayersByName);
+      const queue = renamePlayer(chooseQueueState.queue, name, newName);
+      const stage = renamePlayer(chooseQueueState.stage, name, newName);
 
       setPlayersState({ players });
       setChooseQueueState({ queue, stage });
