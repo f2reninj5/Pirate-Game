@@ -21,6 +21,10 @@ export function renamePlayer(
   return array.map((p) => (p.name === name ? { ...p, name: newName } : p));
 }
 
-export function playerInArray(players: Player[], name: string): boolean {
-  return players.some((p) => p.name === name);
+export function playerInArray(array: Player[], name: string): boolean {
+  return array.some((p) => p.name === name);
+}
+
+export function removePlayer(array: Player[], name: string): Player[] {
+  return array.filter((p) => p.name !== name);
 }
