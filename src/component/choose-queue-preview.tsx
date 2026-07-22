@@ -20,7 +20,7 @@ export default function ChooseQueuePreview() {
               chooseQueueState.queue.length < 1 ? "hidden" : "visible",
           }}
         >
-          {chooseQueueState.queue[0]}
+          {chooseQueueState.queue[0].name}
         </div>
         <div
           className="bg-gray-300 text-[0.75em] w-[75%] h-lh"
@@ -29,7 +29,7 @@ export default function ChooseQueuePreview() {
               chooseQueueState.queue.length < 2 ? "hidden" : "visible",
           }}
         >
-          {chooseQueueState.queue[1]}
+          {chooseQueueState.queue[1].name}
         </div>
         <div
           className="bg-gray-200 text-[0.5625em] w-[56.25%] h-lh"
@@ -38,7 +38,7 @@ export default function ChooseQueuePreview() {
               chooseQueueState.queue.length < 3 ? "hidden" : "visible",
           }}
         >
-          {chooseQueueState.queue[2]}
+          {chooseQueueState.queue[2].name}
         </div>
       </div>
     </Link>
