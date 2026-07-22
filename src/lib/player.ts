@@ -1,3 +1,10 @@
-export function comparePlayers(player: string, otherPlayer: string) {
-  return player.toLowerCase().localeCompare(otherPlayer.toLowerCase());
+export type Player = {
+  _id: string;
+  name: string;
+};
+
+export function comparePlayersByName(player: Player, otherPlayer: Player) {
+  return player.name
+    .toLowerCase()
+    .localeCompare(otherPlayer.name.toLowerCase());
 }

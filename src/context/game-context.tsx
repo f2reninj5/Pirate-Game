@@ -10,7 +10,7 @@ import {
 } from "react";
 import { distinctlyShuffled } from "@/lib/array";
 import { getRandomUnusedCell } from "@/lib/grid";
-import { comparePlayers } from "@/lib/player";
+import { comparePlayersByName, type Player } from "@/lib/player";
 
 type GridState = {
   grid: boolean[];
@@ -19,12 +19,12 @@ type GridState = {
 };
 
 type PlayersState = {
-  players: string[];
+  players: Player[];
 };
 
 type ChooseQueueState = {
-  stage: string[];
-  queue: string[];
+  stage: Player[];
+  queue: Player[];
 };
 
 type GameState = {
@@ -40,41 +40,49 @@ const initialGameState: GameState = {
   },
   playersState: {
     players: [
-      "Alice A",
-      "Alice B",
-      "Benjamin",
-      "Chloe",
-      "Daniel D",
-      "Daniel H",
-      "Ethan",
-      "Fiona",
-      "Grace",
-      "Henry",
-      "Isabella",
-      "Jack J",
-      "Jack K",
-      "Kevin",
-      "Liam",
-      "Mia M",
-      "Mia S",
-      "Noah",
-      "Olivia",
-      "Parker",
-      "Quinn",
-      "Ryan R",
-      "Ryan T",
-      "Sophia",
-      "Thomas",
-      "Uma",
-      "Victor",
-      "Willow",
-      "Xander",
-      "Zoe",
-    ].toSorted(comparePlayers),
+      { _id: "0", name: "Alice A" },
+      { _id: "1", name: "Alice B" },
+      { _id: "2", name: "Benjamin" },
+      { _id: "3", name: "Chloe" },
+      { _id: "4", name: "Daniel D" },
+      { _id: "5", name: "Daniel H" },
+      { _id: "6", name: "Ethan" },
+      { _id: "7", name: "Fiona" },
+      { _id: "8", name: "Grace" },
+      { _id: "9", name: "Henry" },
+      { _id: "10", name: "Isabella" },
+      { _id: "11", name: "Jack J" },
+      { _id: "12", name: "Jack K" },
+      { _id: "13", name: "Kevin" },
+      { _id: "14", name: "Liam" },
+      { _id: "15", name: "Mia M" },
+      { _id: "16", name: "Mia S" },
+      { _id: "17", name: "Noah" },
+      { _id: "18", name: "Olivia" },
+      { _id: "19", name: "Parker" },
+      { _id: "20", name: "Quinn" },
+      { _id: "21", name: "Ryan R" },
+      { _id: "22", name: "Ryan T" },
+      { _id: "23", name: "Sophia" },
+      { _id: "24", name: "Thomas" },
+      { _id: "25", name: "Uma" },
+      { _id: "26", name: "Victor" },
+      { _id: "27", name: "Willow" },
+      { _id: "28", name: "Xander" },
+      { _id: "29", name: "Zoe" },
+    ].toSorted(comparePlayersByName),
   },
   chooseQueueState: {
-    stage: ["Xander", "Willow", "Zoe"],
-    queue: ["Zoe", "Victor", "Mia M"],
+    stage: [
+      { _id: "30", name: "Xander" },
+      { _id: "31", name: "Willow" },
+      { _id: "32", name: "Zoe" },
+    ],
+    queue: [
+      { _id: "33", name: "Zoe" },
+      { _id: "34", name: "Victor" },
+      { _id: "35", name: "Mia M" },
+    ],
   },
 };
 
@@ -194,7 +202,9 @@ export function GameProvider({ children }: { children: ReactNode }) {
     addPlayer: (player) => {
       setPlayersState({
         ...playersState,
-        players: [...playersState.players, player].toSorted(comparePlayers),
+        players: [...playersState.players, player].toSorted(
+          comparePlayersByName,
+        ),
       });
     },
     deletePlayer: (player) => {
@@ -207,7 +217,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
     renamePlayer: (player, newName) => {
       const players = playersState.players
         .map((p) => (p === player ? newName : p))
-        .toSorted(comparePlayers);
+        .toSorted(comparePlayersByName);
       const queue = chooseQueueState.queue.map((p) =>
         p === player ? newName : p,
       );
