@@ -72,7 +72,7 @@ function PlayerItem({ id, data }: DndPlayer) {
       className={cn("flex flex-row gap-2 px-2 rounded-sm w-30 cursor-grab", bg)}
     >
       <span className="text-nowrap overflow-hidden select-none">
-        {data.player}
+        {data.player.name}
       </span>
     </div>
   );
