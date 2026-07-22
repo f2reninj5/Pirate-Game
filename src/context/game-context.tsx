@@ -14,6 +14,8 @@ import {
   comparePlayersByName,
   createPlayer,
   type Player,
+  playerInArray,
+  removePlayer,
   renamePlayer,
 } from "@/lib/player";
 
@@ -237,22 +239,22 @@ export function GameProvider({ children }: { children: ReactNode }) {
   };
 
   const chooseQueueActions: ChooseQueueActions = {
-    stagePlayer: (player) => {
-      if (chooseQueueState.stage.includes(player)) return;
+    stagePlayer: (name) => {
+      if (playerInArray(chooseQueueState.stage, name)) return;
 
-      const stage = [...chooseQueueState.stage, player];
+      const stage = [...chooseQueueState.stage, createPlayer(name)];
       setChooseQueueState({ ...chooseQueueState, stage });
     },
-    unstagePlayer: (player) => {
-      const stage = chooseQueueState.stage.filter((p) => p !== player);
+    unstagePlayer: (name) => {
+      const stage = removePlayer(chooseQueueState.stage, name);
       setChooseQueueState({ ...chooseQueueState, stage });
     },
     commitStage: () => {
       const queue = [...chooseQueueState.queue, ...chooseQueueState.stage];
-      const stage: string[] = [];
+      const stage: Player[] = [];
       setChooseQueueState({ queue, stage });
     },
-    enqueuePlayer: (player) => {},
+    enqueuePlayer: (name) => {},
     removePlayer: (index) => {
       const queue = [...chooseQueueState.queue];
       queue.splice(index, 1);
@@ -275,11 +277,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
     movePlayerInStage: (from, to) => {
       setChooseQueueState({
         ...chooseQueueState,
-        stage: arrayMove(
-          chooseQueueState.stage,
-          chooseQueueState.stage.indexOf(from),
-          chooseQueueState.stage.indexOf(to),
-        ),
+        stage: arrayMove(chooseQueueState.stage, from, to),
       });
     },
   };
