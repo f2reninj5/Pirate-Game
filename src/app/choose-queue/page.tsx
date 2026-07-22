@@ -96,20 +96,14 @@ function PlayerList() {
   );
 }
 
-function Queue({
-  idGenerator,
-  hoveringPlayer,
-}: {
-  idGenerator: IdGenerator;
-  hoveringPlayer?: DndPlayer;
-}) {
+function Queue({ hoveringPlayer }: { hoveringPlayer?: DndPlayer }) {
   const { chooseQueueState, chooseQueueActions } = useGameContext();
   const queue: DndPlayer[] = chooseQueueState.queue.map((player, index) => ({
-    id: idGenerator.nextId(),
+    id: player._id,
     data: { container: Container.QUEUE, player, index },
   }));
   const stage: DndPlayer[] = chooseQueueState.stage.map((player, index) => ({
-    id: idGenerator.nextId(),
+    id: player._id,
     data: { container: Container.STAGE, player, index },
   }));
 
@@ -127,7 +121,7 @@ function Queue({
         <SortableContext items={stage.map((p) => p.id)}>
           <div className="flex flex-col gap-1">
             {stage.map((p) => {
-              return <PlayerItem {...p} key={p.data.player} />;
+              return <PlayerItem {...p} key={p.id} />;
             })}
             {hoveringPlayer && (
               <div className="flex flex-row gap-2 px-2 rounded-sm w-30 h-lh bg-green-300" />
