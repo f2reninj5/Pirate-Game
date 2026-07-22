@@ -102,23 +102,23 @@ type GridActions = {
 };
 
 type PlayersActions = {
-  addPlayer: (player: string) => void;
-  deletePlayer: (player: string) => void;
-  renamePlayer: (player: string, newName: string) => void;
+  addPlayer: (name: string) => void;
+  deletePlayer: (name: string) => void;
+  renamePlayer: (name: string, newName: string) => void;
   reset: () => void;
 };
 
 type ChooseQueueActions = {
-  stagePlayer: (player: string) => void;
-  unstagePlayer: (player: string) => void;
+  stagePlayer: (name: string) => void;
+  unstagePlayer: (name: string) => void;
   commitStage: () => void;
-  enqueuePlayer: (player: string) => void;
+  enqueuePlayer: (name: string) => void;
   removePlayer: (index: number) => void;
   dequeuePlayer: () => void;
   reset: () => void;
   shuffleStage: () => void;
   movePlayerInQueue: (from: number, to: number) => void;
-  movePlayerInStage: (from: string, to: string) => void;
+  movePlayerInStage: (from: number, to: number) => void;
 };
 
 type GameActions = {
