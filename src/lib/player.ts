@@ -8,3 +8,7 @@ export function comparePlayersByName(player: Player, otherPlayer: Player) {
     .toLowerCase()
     .localeCompare(otherPlayer.name.toLowerCase());
 }
+
+export function createPlayer(name: string) {
+  return { _id: crypto.randomUUID(), name };
+}
