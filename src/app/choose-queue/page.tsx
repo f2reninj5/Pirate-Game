@@ -30,10 +30,10 @@ type DndPlayer = {
   data: { container: Container; player: Player; index: number };
 };
 
-function createDndPlayer(player: Player, index: number) {
+function createDndPlayer(player: Player, index: number, container: Container) {
   return {
     id: player._id,
-    data: { container: Container.PLAYER_LIST, player, index },
+    data: { container, player, index },
   };
 }
 
@@ -87,7 +87,9 @@ function PlayerItem({ id, data }: DndPlayer) {
 
 function PlayerList() {
   const { playersState } = useGameContext();
-  const players: DndPlayer[] = playersState.players.map(createDndPlayer);
+  const players: DndPlayer[] = playersState.players.map((player, index) =>
+    createDndPlayer(player, index, Container.PLAYER_LIST),
+  );
 
   return (
     <Droppable id="player-list">
@@ -102,8 +104,12 @@ function PlayerList() {
 
 function Queue({ hoveringPlayer }: { hoveringPlayer?: DndPlayer }) {
   const { chooseQueueState, chooseQueueActions } = useGameContext();
-  const queue: DndPlayer[] = chooseQueueState.queue.map(createDndPlayer);
-  const stage: DndPlayer[] = chooseQueueState.stage.map(createDndPlayer);
+  const queue: DndPlayer[] = chooseQueueState.queue.map((player, index) =>
+    createDndPlayer(player, index, Container.QUEUE),
+  );
+  const stage: DndPlayer[] = chooseQueueState.stage.map((player, index) =>
+    createDndPlayer(player, index, Container.STAGE),
+  );
 
   return (
     <Droppable id="queue">
