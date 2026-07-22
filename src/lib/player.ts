@@ -9,10 +9,18 @@ export function comparePlayersByName(player: Player, otherPlayer: Player) {
     .localeCompare(otherPlayer.name.toLowerCase());
 }
 
-export function createPlayer(name: string) {
+export function createPlayer(name: string): Player {
   return { _id: crypto.randomUUID(), name };
 }
 
-export function renamePlayer(array: Player[], name: string, newName: string) {
+export function renamePlayer(
+  array: Player[],
+  name: string,
+  newName: string,
+): Player[] {
   return array.map((p) => (p.name === name ? { ...p, name: newName } : p));
+}
+
+export function playerInArray(players: Player[], name: string): boolean {
+  return players.some((p) => p.name === name);
 }
