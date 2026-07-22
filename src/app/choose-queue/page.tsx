@@ -26,9 +26,7 @@ enum Container {
 
 type DndPlayer = {
   id: number;
-  data:
-    | { container: Container.QUEUE; player: string; index: number }
-    | { container: Exclude<Container, Container.QUEUE>; player: string };
+  data: { container: Container; player: string; index: number };
 };
 
 function PlayerItem({ id, data }: DndPlayer) {
@@ -81,9 +79,9 @@ function PlayerItem({ id, data }: DndPlayer) {
 
 function PlayerList() {
   const { playersState } = useGameContext();
-  const players: DndPlayer[] = playersState.players.map((player) => ({
+  const players: DndPlayer[] = playersState.players.map((player, index) => ({
     id: player._id,
-    data: { container: Container.PLAYER_LIST, player },
+    data: { container: Container.PLAYER_LIST, player, index },
   }));
 
   return (
@@ -109,9 +107,9 @@ function Queue({
     id: idGenerator.nextId(),
     data: { container: Container.QUEUE, player, index },
   }));
-  const stage: DndPlayer[] = chooseQueueState.stage.map((player) => ({
+  const stage: DndPlayer[] = chooseQueueState.stage.map((player, index) => ({
     id: idGenerator.nextId(),
-    data: { container: Container.STAGE, player },
+    data: { container: Container.STAGE, player, index },
   }));
 
   return (
