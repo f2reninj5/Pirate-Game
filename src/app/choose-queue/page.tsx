@@ -6,13 +6,17 @@ import {
   type DragOverEvent,
   DragOverlay,
   type DragStartEvent,
+  PointerSensor,
   pointerWithin,
+  useSensor,
+  useSensors,
 } from "@dnd-kit/core";
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Check, Shuffle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import ContextMenu from "@/component/ui/context-menu";
 import Droppable from "@/component/ui/droppable";
 import InlineIconButton from "@/component/ui/inline-icon-button";
 import { useGameContext } from "@/context/game-context";
@@ -38,6 +42,9 @@ function createDndPlayer(player: Player, index: number, container: Container) {
 }
 
 function PlayerItem({ id, data }: DndPlayer) {
+  const { playersActions } = useGameContext();
+  const [editing, setEditing] = useState(false);
+  const [newName, setNewName] = useState(data.player.name);
   const {
     attributes,
     listeners,
@@ -71,17 +78,60 @@ function PlayerItem({ id, data }: DndPlayer) {
   }
 
   return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      {...listeners}
-      {...attributes}
-      className={cn("flex flex-row gap-2 px-2 rounded-sm w-30 cursor-grab", bg)}
+    <ContextMenu
+      groups={[
+        {
+          name: "Player",
+          items: [
+            {
+              name: "Rename",
+              onSelect: () => {
+                setEditing(true);
+              },
+            },
+            {
+              name: "Delete",
+              onSelect: () => {
+                playersActions.deletePlayer(data.player.name);
+              },
+            },
+          ],
+        },
+      ]}
     >
-      <span className="text-nowrap overflow-hidden select-none">
-        {data.player.name}
-      </span>
-    </div>
+      <div
+        ref={setNodeRef}
+        style={style}
+        {...listeners}
+        {...attributes}
+        className={cn(
+          "flex flex-row gap-2 px-2 rounded-sm w-30 cursor-grab",
+          bg,
+        )}
+      >
+        {editing ? (
+          <input
+            className="text-nowrap overflow-hidden select-none bg-black text-zinc-50"
+            autoFocus
+            type="text"
+            value={newName}
+            onChange={(e) => setNewName(e.target.value)}
+            onBlur={() => {
+              setEditing(false);
+            }}
+            onKeyDown={(e) => {
+              if (e.key !== "Enter") return;
+              setEditing(false);
+              playersActions.renamePlayer(data.player.name, newName);
+            }}
+          />
+        ) : (
+          <span className="text-nowrap overflow-hidden select-none">
+            {data.player.name}
+          </span>
+        )}
+      </div>
+    </ContextMenu>
   );
 }
 
@@ -164,6 +214,7 @@ export default function ChooseQueue() {
 
   return (
     <DndContext
+      sensors={useSensors(useSensor(PointerSensor))}
       collisionDetection={pointerWithin}
       onDragStart={(event: DragStartEvent) => {
         if (event.active.data.current) {
