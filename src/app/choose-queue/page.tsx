@@ -166,7 +166,6 @@ export default function ChooseQueue() {
     <DndContext
       collisionDetection={pointerWithin}
       onDragStart={(event: DragStartEvent) => {
-        console.log(`start: ${event.active.data?.current?.player}`);
         if (event.active.data.current) {
           setActivePlayerItem({
             id: event.active.id as string,
@@ -176,9 +175,6 @@ export default function ChooseQueue() {
         }
       }}
       onDragOver={(event: DragOverEvent) => {
-        console.log(
-          `over: ${event.active.data?.current?.player} | ${event.over?.id} ${event.over?.data?.current?.player}`,
-        );
         if (activePlayerItem?.data.container !== Container.PLAYER_LIST)
           return setMovingFromPlayerListToQueue(false);
         if (event.over?.id === "queue")
@@ -187,8 +183,6 @@ export default function ChooseQueue() {
         const overPlayerData = event.over?.data.current as
           | DndPlayer["data"]
           | undefined;
-
-        console.log(overPlayerData);
 
         if (
           overPlayerData?.container &&
@@ -201,10 +195,6 @@ export default function ChooseQueue() {
       onDragEnd={(event: DragEndEvent) => {
         const { over } = event;
         if (!activePlayerItem) return;
-
-        console.log(
-          `end: ${event.active.data?.current?.player} | ${event.over?.id} ${event.over?.data?.current?.player}`,
-        );
 
         try {
           if (movingFromPlayerListToQueue) {
