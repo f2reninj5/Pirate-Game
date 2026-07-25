@@ -1,6 +1,7 @@
 import { Download, Printer } from "lucide-react";
 import Image from "next/image";
 import IconButton from "@/component/ui/icon-button";
+import InlineIconButton from "@/component/ui/inline-icon-button";
 
 export default function SheetCard({ name }: { name: string }) {
   function printFile(): void {
@@ -25,11 +26,11 @@ export default function SheetCard({ name }: { name: string }) {
         height={100}
         alt=""
       />
-      <span className="flex flex-row gap-2">
+      <span className="flex flex-row gap-2 m-2 text-xl">
         <a href={`/sheet/${name}.pdf`} download>
-          <IconButton icon={Download} />
+          <InlineIconButton icon={Download} />
         </a>
-        <IconButton icon={Printer} onClick={printFile} />
+        <InlineIconButton icon={Printer} onClick={printFile} />
       </span>
     </div>
   );

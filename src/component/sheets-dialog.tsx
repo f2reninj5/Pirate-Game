@@ -5,6 +5,7 @@ import { useState } from "react";
 import SheetCard from "@/component/sheet-card";
 import Dialog from "@/component/ui/dialog";
 import IconButton from "@/component/ui/icon-button";
+import InlineIconButton from "@/component/ui/inline-icon-button";
 
 export default function SheetsDialog() {
   const [half, setHalf] = useState(true);
@@ -13,11 +14,13 @@ export default function SheetsDialog() {
     <Dialog trigger={<IconButton icon={Printer} />} title="Sheets">
       <div className="flex flex-col gap-2">
         <div className="flex flex-row gap-2">
-          <span>Size: </span>
-          <IconButton
-            icon={half ? Columns2 : Square}
-            onClick={() => setHalf(!half)}
-          />
+          <span>
+            Size:{" "}
+            <InlineIconButton
+              icon={half ? Columns2 : Square}
+              onClick={() => setHalf(!half)}
+            />
+          </span>
         </div>
         <div className="flex flex-row gap-2">
           {half ? (
