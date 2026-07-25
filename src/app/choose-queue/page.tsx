@@ -42,7 +42,7 @@ function createDndPlayer(player: Player, index: number, container: Container) {
 }
 
 function PlayerItem({ id, data }: DndPlayer) {
-  const { playersActions } = useGameContext();
+  const { playersActions, chooseQueueActions } = useGameContext();
   const [editing, setEditing] = useState(false);
   const [newName, setNewName] = useState(data.player.name);
   const {
@@ -107,28 +107,56 @@ function PlayerItem({ id, data }: DndPlayer) {
     );
   }
 
-  return (
-    <ContextMenu
-      groups={[
+  const contextMenuGroups = [
+    {
+      name: "Player",
+      items: [
         {
-          name: "Player",
-          items: [
-            {
-              name: "Rename",
-              onSelect: () => {
-                setEditing(true);
-              },
-            },
-            {
-              name: "Delete",
-              onSelect: () => {
-                playersActions.deletePlayer(data.player.name);
-              },
-            },
-          ],
+          name: "Rename",
+          onSelect: () => {
+            setEditing(true);
+          },
         },
-      ]}
-    >
+        {
+          name: "Delete",
+          onSelect: () => {
+            playersActions.deletePlayer(data.player.name);
+          },
+        },
+      ],
+    },
+  ];
+
+  if (data.container === Container.QUEUE) {
+    contextMenuGroups.push({
+      name: "Queue",
+      items: [
+        {
+          name: "Remove from queue",
+          onSelect: () => {
+            chooseQueueActions.removePlayer(data.index);
+          },
+        },
+      ],
+    });
+  }
+
+  if (data.container === Container.STAGE) {
+    contextMenuGroups.push({
+      name: "Stage",
+      items: [
+        {
+          name: "Unstage",
+          onSelect: () => {
+            chooseQueueActions.unstagePlayer(data.player.name);
+          },
+        },
+      ],
+    });
+  }
+
+  return (
+    <ContextMenu groups={contextMenuGroups}>
       <div
         ref={setNodeRef}
         style={style}
