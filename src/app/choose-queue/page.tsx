@@ -77,6 +77,36 @@ function PlayerItem({ id, data }: DndPlayer) {
     );
   }
 
+  if (editing) {
+    return (
+      <div
+        style={style}
+        className={cn("flex flex-row gap-2 px-2 rounded-sm w-30 ", bg)}
+      >
+        <input
+          className="text-nowrap overflow-hidden select-none w-full"
+          autoFocus
+          type="text"
+          value={newName}
+          onChange={(e) => setNewName(e.target.value)}
+          onBlur={() => {
+            setEditing(false);
+            setNewName(data.player.name);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              setEditing(false);
+              playersActions.renamePlayer(data.player.name, newName);
+            } else if (e.key === "Escape") {
+              setEditing(false);
+              setNewName(data.player.name);
+            }
+          }}
+        />
+      </div>
+    );
+  }
+
   return (
     <ContextMenu
       groups={[
@@ -109,32 +139,9 @@ function PlayerItem({ id, data }: DndPlayer) {
           bg,
         )}
       >
-        {editing ? (
-          <input
-            className="text-nowrap overflow-hidden select-none bg-black text-zinc-50"
-            autoFocus
-            type="text"
-            value={newName}
-            onChange={(e) => setNewName(e.target.value)}
-            onBlur={() => {
-              setEditing(false);
-              setNewName(data.player.name);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                setEditing(false);
-                playersActions.renamePlayer(data.player.name, newName);
-              } else if (e.key === "Escape") {
-                setEditing(false);
-                setNewName(data.player.name);
-              }
-            }}
-          />
-        ) : (
-          <span className="text-nowrap overflow-hidden select-none">
-            {data.player.name}
-          </span>
-        )}
+        <span className="text-nowrap overflow-hidden select-none">
+          {data.player.name}
+        </span>
       </div>
     </ContextMenu>
   );
