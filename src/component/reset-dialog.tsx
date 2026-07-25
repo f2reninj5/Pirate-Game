@@ -10,7 +10,7 @@ export default function ResetDialog() {
   const { gameActions } = useGameContext();
 
   return (
-    <Dialog trigger={<IconButton icon={RotateCcw} />} title="Reset">
+    <Dialog trigger={<IconButton icon={RotateCcw} />} title="Reset game">
       <div className="flex flex-1 flex-col justify-around items-center">
         <h2>Are you sure?</h2>
         <RadixDialog.Close asChild>
