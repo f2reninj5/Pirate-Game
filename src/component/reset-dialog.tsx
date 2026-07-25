@@ -14,7 +14,12 @@ export default function ResetDialog() {
       <div className="flex flex-1 flex-col justify-around items-center">
         <h2>Are you sure?</h2>
         <RadixDialog.Close asChild>
-          <Button onClick={() => gameActions.reset()}>Reset</Button>
+          <Button
+            className="bg-light text-dark hover:outline-none p-2"
+            onClick={() => gameActions.reset()}
+          >
+            Reset
+          </Button>
         </RadixDialog.Close>
       </div>
     </Dialog>
