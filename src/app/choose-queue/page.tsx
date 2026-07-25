@@ -128,7 +128,7 @@ function PlayerItem({ id, data }: DndPlayer) {
   ];
 
   if (data.container === Container.QUEUE) {
-    contextMenuGroups.push({
+    contextMenuGroups.unshift({
       name: "Queue",
       items: [
         {
@@ -142,7 +142,7 @@ function PlayerItem({ id, data }: DndPlayer) {
   }
 
   if (data.container === Container.STAGE) {
-    contextMenuGroups.push({
+    contextMenuGroups.unshift({
       name: "Stage",
       items: [
         {
