@@ -118,11 +118,16 @@ function PlayerItem({ id, data }: DndPlayer) {
             onChange={(e) => setNewName(e.target.value)}
             onBlur={() => {
               setEditing(false);
+              setNewName(data.player.name);
             }}
             onKeyDown={(e) => {
-              if (e.key !== "Enter") return;
-              setEditing(false);
-              playersActions.renamePlayer(data.player.name, newName);
+              if (e.key === "Enter") {
+                setEditing(false);
+                playersActions.renamePlayer(data.player.name, newName);
+              } else if (e.key === "Escape") {
+                setEditing(false);
+                setNewName(data.player.name);
+              }
             }}
           />
         ) : (
