@@ -46,7 +46,7 @@ export default function RootLayout({
                 <ResetDialog></ResetDialog>
               </span>
             </header>
-            <main className="flex flex-row justify-around flex-wrap">
+            <main className="flex flex-row justify-center gap-2 flex-wrap">
               {children}
             </main>
             <footer className="flex flex-row justify-center items-center">
