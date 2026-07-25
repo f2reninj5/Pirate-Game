@@ -9,7 +9,13 @@ export default function InlineIconButton({
   ...props
 }: ComponentProps<typeof Button> & { icon: LucideIcon }) {
   return (
-    <Button className={cn("", className)} {...props}>
+    <Button
+      className={cn(
+        "bg-transparent text-dark rounded-full hover:scale-150 duration-200 ease-out outline-none",
+        className,
+      )}
+      {...props}
+    >
       <Icon size="1em" />
     </Button>
   );
