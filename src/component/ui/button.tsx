@@ -9,7 +9,7 @@ export default function Button({
   return (
     <button
       className={cn(
-        "bg-dark text-light rounded-sm hover:scale-120 duration-200 ease-out hover:outline-light hover:outline-1",
+        "bg-dark text-light rounded-sm hover:scale-110 duration-200 ease-out hover:outline-light hover:outline-1",
         className,
       )}
       type="button"

@@ -11,7 +11,7 @@ export default function InlineIconButton({
   return (
     <Button
       className={cn(
-        "bg-transparent text-dark rounded-full hover:scale-150 duration-200 ease-out outline-none",
+        "bg-transparent text-inherit rounded-full hover:scale-150 duration-200 ease-out outline-none",
         className,
       )}
       {...props}
