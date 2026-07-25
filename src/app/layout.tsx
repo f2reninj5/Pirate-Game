@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { Dr_Sugiyama } from "next/font/google";
 import "./globals.css";
+import { FileQuestion } from "lucide-react";
+import Link from "next/link";
 import type { ReactNode } from "react";
 import FeedbackDialog from "@/component/feedback-dialog";
-import InstructionsDialog from "@/component/instructions-dialog";
 import Logo from "@/component/logo";
 import ResetDialog from "@/component/reset-dialog";
 import SheetsDialog from "@/component/sheets-dialog";
+import IconButton from "@/component/ui/icon-button";
 import { GameProvider } from "@/context/game-context";
 
 const drSugiyama = Dr_Sugiyama({
@@ -33,7 +35,9 @@ export default function RootLayout({
           <div className="min-h-full flex flex-col justify-between p-2">
             <header className="flex flex-row justify-around items-center">
               <span className="flex flex-row gap-2">
-                <InstructionsDialog />
+                <Link href="/instructions">
+                  <IconButton icon={FileQuestion} />
+                </Link>
                 <FeedbackDialog />
               </span>
               <Logo />
