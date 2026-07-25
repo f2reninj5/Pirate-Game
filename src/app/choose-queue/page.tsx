@@ -13,7 +13,7 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Check, Shuffle } from "lucide-react";
+import { Check, Plus, Shuffle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import ContextMenu from "@/component/ui/context-menu";
@@ -176,7 +176,9 @@ function PlayerItem({ id, data }: DndPlayer) {
 }
 
 function PlayerList() {
-  const { playersState } = useGameContext();
+  const { playersState, playersActions } = useGameContext();
+  const [adding, setAdding] = useState(false);
+  const [newPlayerName, setNewPlayerName] = useState("");
   const players: DndPlayer[] = playersState.players.map((player, index) =>
     createDndPlayer(player, index, Container.PLAYER_LIST),
   );
@@ -187,6 +189,33 @@ function PlayerList() {
         {players.map((p) => (
           <PlayerItem {...p} key={p.id} />
         ))}
+        {adding ? (
+          <input
+            className="px-2 rounded-sm w-30 h-lh"
+            autoFocus
+            type="text"
+            value={newPlayerName}
+            onChange={(e) => setNewPlayerName(e.target.value)}
+            onBlur={() => {
+              setAdding(false);
+              setNewPlayerName("");
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setAdding(false);
+                playersActions.addPlayer(newPlayerName);
+                setNewPlayerName("");
+              } else if (e.key === "Escape") {
+                setAdding(false);
+                setNewPlayerName("");
+              }
+            }}
+          />
+        ) : (
+          <div className="flex flex-row gap-2 px-2 rounded-sm w-30 h-lh">
+            <InlineIconButton icon={Plus} onClick={() => setAdding(true)} />
+          </div>
+        )}
       </div>
     </Droppable>
   );

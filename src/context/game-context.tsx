@@ -52,31 +52,12 @@ const initialGameState: GameState = {
       { _id: "2", name: "Benjamin" },
       { _id: "3", name: "Chloe" },
       { _id: "4", name: "Daniel D" },
-      { _id: "5", name: "Daniel H" },
+      { _id: "5", name: "Mia M" },
       { _id: "6", name: "Ethan" },
-      { _id: "7", name: "Fiona" },
-      { _id: "8", name: "Grace" },
-      { _id: "9", name: "Henry" },
-      { _id: "10", name: "Isabella" },
-      { _id: "11", name: "Jack J" },
-      { _id: "12", name: "Jack K" },
-      { _id: "13", name: "Kevin" },
-      { _id: "14", name: "Liam" },
-      { _id: "15", name: "Mia M" },
-      { _id: "16", name: "Mia S" },
-      { _id: "17", name: "Noah" },
-      { _id: "18", name: "Olivia" },
-      { _id: "19", name: "Parker" },
-      { _id: "20", name: "Quinn" },
-      { _id: "21", name: "Ryan R" },
-      { _id: "22", name: "Ryan T" },
-      { _id: "23", name: "Sophia" },
-      { _id: "24", name: "Thomas" },
-      { _id: "25", name: "Uma" },
-      { _id: "26", name: "Victor" },
-      { _id: "27", name: "Willow" },
-      { _id: "28", name: "Xander" },
-      { _id: "29", name: "Zoe" },
+      { _id: "7", name: "Victor" },
+      { _id: "8", name: "Xander" },
+      { _id: "9", name: "Willow" },
+      { _id: "10", name: "Zoe" },
     ].toSorted(comparePlayersByName),
   },
   chooseQueueState: {
@@ -207,6 +188,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
 
   const playersActions: PlayersActions = {
     addPlayer: (name) => {
+      if (playersState.players.map((p) => p.name).includes(name)) return;
       setPlayersState({
         ...playersState,
         players: [...playersState.players, createPlayer(name)].toSorted(
