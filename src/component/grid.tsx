@@ -22,7 +22,7 @@ export default function Grid() {
   const [grid, setGrid] = useState<boolean[]>(new Array(49).fill(false));
   const animationId = useRef(0);
 
-  const { gridState, gridActions } = useGameContext();
+  const { gridState, gridActions, chooseQueueActions } = useGameContext();
 
   useEffect(() => {
     const target = gridState.cellHistory[0];
@@ -61,7 +61,10 @@ export default function Grid() {
     <div className="select-none grid grid-cols-7 gap-[0.5vmin] bg-dark p-[1vmin] rounded-lg w-[80vmin] h-[80vmin]">
       {grid.map((used, i) => (
         <button
-          onClick={() => gridActions.toggleCell(i)}
+          onClick={() => {
+            if (!used) chooseQueueActions.dequeuePlayer();
+            gridActions.toggleCell(i);
+          }}
           className={cn(
             "block bg-light rounded-sm hover:cursor-pointer hover:scale-105 active:scale-100 active:translate-y-0.5",
             used ? styles.used : highlighted === i ? styles.highlighted : "",

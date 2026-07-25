@@ -260,7 +260,10 @@ export function GameProvider({ children }: { children: ReactNode }) {
       queue.splice(index, 1);
       setChooseQueueState({ ...chooseQueueState, queue });
     },
-    dequeuePlayer: () => {},
+    dequeuePlayer: () => {
+      const queue = chooseQueueState.queue.slice(1);
+      setChooseQueueState({ ...chooseQueueState, queue });
+    },
     reset: () => {
       setChooseQueueState(initialGameState.chooseQueueState);
     },
