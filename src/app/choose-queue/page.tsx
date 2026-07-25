@@ -52,7 +52,7 @@ function PlayerItem({ id, data }: DndPlayer) {
     transform,
     transition,
     isDragging,
-  } = useSortable({ id, data });
+  } = useSortable({ id, data, disabled: editing });
   const isStaged = data.container === Container.STAGE;
 
   const style = { transition, transform: CSS.Transform.toString(transform) };
