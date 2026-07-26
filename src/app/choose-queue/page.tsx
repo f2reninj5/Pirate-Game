@@ -174,7 +174,7 @@ function PlayerList() {
 
   return (
     <Droppable id="player-list">
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1 min-h-full">
         {players.map((p) => (
           <PlayerItem {...p} key={p.id} />
         ))}
@@ -222,7 +222,7 @@ function Queue({ hoveringPlayer }: { hoveringPlayer?: DndPlayer }) {
 
   return (
     <Droppable id="queue">
-      <div className="flex flex-col gap-1 min-h-100">
+      <div className="flex flex-col gap-1 min-h-full">
         <SortableContext items={queue.map((p) => p.id)}>
           <div className="flex flex-col gap-1">
             {queue.map((p) => {
