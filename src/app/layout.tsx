@@ -33,7 +33,7 @@ export default function RootLayout({
       <body className="h-full font-sans bg-light text-dark">
         <GameProvider>
           <div className="min-h-full flex flex-col justify-between p-2">
-            <header className="flex flex-row justify-around items-center">
+            <header className="flex flex-row justify-center gap-[15vw] items-center">
               <span className="flex flex-row gap-2">
                 <Link href="/instructions">
                   <IconButton icon={FileQuestion} />
