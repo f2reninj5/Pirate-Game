@@ -66,25 +66,19 @@ function PlayerItem({ id, data }: DndPlayer) {
         ref={setNodeRef}
         style={style}
         className={cn(
-          "flex flex-row gap-2 px-2 rounded-sm w-30 cursor-grab brightness-75 opacity-50 outline-rose-500 outline-2",
+          "player-item cursor-grab brightness-75 opacity-50 outline-rose-500 outline-2",
           bg,
         )}
       >
-        <span className="text-nowrap overflow-hidden select-none invisible">
-          -
-        </span>
+        <div className="invisible">-</div>
       </div>
     );
   }
 
   if (editing) {
     return (
-      <div
-        style={style}
-        className={cn("flex flex-row gap-2 px-2 rounded-sm w-30 ", bg)}
-      >
+      <div style={style} className={cn("player-item", bg)}>
         <input
-          className="text-nowrap overflow-hidden select-none w-full"
           autoFocus
           type="text"
           value={newName}
@@ -162,14 +156,9 @@ function PlayerItem({ id, data }: DndPlayer) {
         style={style}
         {...listeners}
         {...attributes}
-        className={cn(
-          "flex flex-row gap-2 px-2 rounded-sm w-30 cursor-grab",
-          bg,
-        )}
+        className={cn("player-item cursor-grab", bg)}
       >
-        <span className="text-nowrap overflow-hidden select-none">
-          {data.player.name}
-        </span>
+        <div>{data.player.name}</div>
       </div>
     </ContextMenu>
   );
@@ -189,33 +178,34 @@ function PlayerList() {
         {players.map((p) => (
           <PlayerItem {...p} key={p.id} />
         ))}
-        {adding ? (
-          <input
-            className="px-2 rounded-sm w-30 h-lh"
-            autoFocus
-            type="text"
-            value={newPlayerName}
-            onChange={(e) => setNewPlayerName(e.target.value)}
-            onBlur={() => {
-              setAdding(false);
-              setNewPlayerName("");
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                setAdding(false);
-                playersActions.addPlayer(newPlayerName);
-                setNewPlayerName("");
-              } else if (e.key === "Escape") {
+        <div className="player-item">
+          {adding ? (
+            <input
+              autoFocus
+              type="text"
+              value={newPlayerName}
+              onChange={(e) => setNewPlayerName(e.target.value)}
+              onBlur={() => {
                 setAdding(false);
                 setNewPlayerName("");
-              }
-            }}
-          />
-        ) : (
-          <div className="flex flex-row gap-2 px-2 rounded-sm w-30 h-lh">
-            <InlineIconButton icon={Plus} onClick={() => setAdding(true)} />
-          </div>
-        )}
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  setAdding(false);
+                  playersActions.addPlayer(newPlayerName);
+                  setNewPlayerName("");
+                } else if (e.key === "Escape") {
+                  setAdding(false);
+                  setNewPlayerName("");
+                }
+              }}
+            />
+          ) : (
+            <div>
+              <InlineIconButton icon={Plus} onClick={() => setAdding(true)} />
+            </div>
+          )}
+        </div>
       </div>
     </Droppable>
   );
@@ -247,10 +237,12 @@ function Queue({ hoveringPlayer }: { hoveringPlayer?: DndPlayer }) {
               return <PlayerItem {...p} key={p.id} />;
             })}
             {hoveringPlayer && (
-              <div className="flex flex-row gap-2 px-2 rounded-sm w-30 h-lh bg-green-300" />
+              <div className="player-item bg-green-300">
+                <div />
+              </div>
             )}
             {stage.length > 0 && (
-              <div className="flex flex-row gap-2 px-2 rounded-sm w-30 h-lh">
+              <div className="player-item">
                 <InlineIconButton
                   icon={Shuffle}
                   onClick={chooseQueueActions.shuffleStage}

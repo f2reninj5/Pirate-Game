@@ -38,3 +38,15 @@ button {
     height: 0;
   }
 }
+
+.player-item {
+  @apply px-2 py-1 rounded-[0.25em] w-40;
+
+  & div {
+    @apply text-nowrap overflow-hidden text-ellipsis select-none h-lh;
+  }
+
+  & input {
+    @apply text-nowrap overflow-hidden select-none w-full h-lh;
+  }
+}
