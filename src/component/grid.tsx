@@ -1,14 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Button from "@/component/ui/button";
 import { useGameContext } from "@/context/game-context";
 import { randomInt, sleep } from "@/lib/animation";
 import { cn } from "@/lib/cn";
 import { getRandomUnusedCell } from "@/lib/grid";
 
 const styles = {
-  used: "bg-gray-400",
-  highlighted: "bg-yellow-400",
+  used: "opacity-20",
+  highlighted: "scale-110 outline-1 outline-dark",
 };
 
 const letters = ["A", "B", "C", "D", "E", "F", "G"];
@@ -43,7 +44,7 @@ export default function Grid() {
           const randomIndex = getRandomUnusedCell(grid);
           if (randomIndex === null) break;
           setHighlighted(randomIndex);
-          await sleep(200);
+          await sleep(250);
         }
       }
 
@@ -60,21 +61,20 @@ export default function Grid() {
   return (
     <div className="select-none grid grid-cols-7 gap-[0.5vmin] bg-dark p-[1vmin] rounded-lg w-[80vmin] h-[80vmin]">
       {grid.map((used, i) => (
-        <button
+        <Button
           onClick={() => {
             if (!used) chooseQueueActions.dequeuePlayer();
             gridActions.toggleCell(i);
           }}
           className={cn(
-            "block bg-light rounded-sm hover:cursor-pointer hover:scale-105 active:scale-100 active:translate-y-0.5",
+            "bg-light text-dark rounded-sm hover:outline-dark hover:cursor-pointer",
             used ? styles.used : highlighted === i ? styles.highlighted : "",
           )}
           key={labels[i]}
-          type="button"
         >
           <span className="m-1">{labels[i]}</span>
           <span className="m-1">{cellPositions[i]}</span>
-        </button>
+        </Button>
       ))}
     </div>
   );
