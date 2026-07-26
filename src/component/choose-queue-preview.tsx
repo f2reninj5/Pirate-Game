@@ -19,7 +19,7 @@ export default function ChooseQueuePreview() {
                 chooseQueueState.queue.length < 1 ? "hidden" : "visible",
             }}
           >
-            {chooseQueueState.queue[0]?.name}
+            <div>{chooseQueueState.queue[0]?.name}</div>
           </div>
           <div
             className="bg-light text-dark player-item text-[0.75em] brightness-90 mt-[-0.5em] z-1 shadow-[0_0.1em_0.5em_0.1em] shadow-dark/50"
@@ -28,7 +28,7 @@ export default function ChooseQueuePreview() {
                 chooseQueueState.queue.length < 2 ? "hidden" : "visible",
             }}
           >
-            {chooseQueueState.queue[1]?.name}
+            <div>{chooseQueueState.queue[1]?.name}</div>
           </div>
           <div
             className="bg-light text-dark player-item text-[0.5625em] brightness-81 mt-[-0.5em] shadow-[0_0.1em_0.5em_0.1em]"
@@ -37,7 +37,7 @@ export default function ChooseQueuePreview() {
                 chooseQueueState.queue.length < 3 ? "hidden" : "visible",
             }}
           >
-            {chooseQueueState.queue[2]?.name}
+            <div>{chooseQueueState.queue[2]?.name}</div>
           </div>
         </div>
       </Button>
