@@ -246,7 +246,7 @@ function Queue({ hoveringPlayer }: { hoveringPlayer?: DndPlayer }) {
                 <InlineIconButton
                   icon={Shuffle}
                   onClick={chooseQueueActions.shuffleStage}
-                />
+                />{" "}
                 <InlineIconButton
                   icon={Check}
                   onClick={chooseQueueActions.commitStage}
