@@ -8,7 +8,14 @@ import { cn } from "@/lib/cn";
 import { getRandomUnusedCell } from "@/lib/grid";
 
 const styles = {
-  used: "opacity-20",
+  used: (position: number | null) => {
+    switch (position) {
+      case 0:
+        return "opacity-60";
+      default:
+        return "opacity-20";
+    }
+  },
   highlighted: "scale-110 outline-1 outline-dark",
 };
 
@@ -68,12 +75,15 @@ export default function Grid() {
           }}
           className={cn(
             "bg-light text-dark rounded-sm hover:outline-dark hover:cursor-pointer",
-            used ? styles.used : highlighted === i ? styles.highlighted : "",
+            used
+              ? styles.used(cellPositions[i])
+              : highlighted === i
+                ? styles.highlighted
+                : "",
           )}
           key={labels[i]}
         >
           <span className="m-1">{labels[i]}</span>
-          <span className="m-1">{cellPositions[i]}</span>
         </Button>
       ))}
     </div>
