@@ -174,7 +174,7 @@ function PlayerList() {
 
   return (
     <Droppable id="player-list">
-      <div className="flex flex-col gap-1 min-h-100">
+      <div className="flex flex-col gap-1">
         {players.map((p) => (
           <PlayerItem {...p} key={p.id} />
         ))}

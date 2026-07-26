@@ -32,7 +32,7 @@ export default function RootLayout({
     <html lang="en" className={`${drSugiyama.variable} h-full antialiased`}>
       <body className="h-full font-sans bg-light text-dark">
         <GameProvider>
-          <div className="min-h-full flex flex-col justify-between p-2">
+          <div className="min-h-full flex flex-col justify-between p-2 gap-5">
             <header className="flex flex-row justify-center gap-[15vw] items-center">
               <span className="flex flex-row gap-2">
                 <Link href="/instructions">
@@ -46,7 +46,7 @@ export default function RootLayout({
                 <ResetDialog></ResetDialog>
               </span>
             </header>
-            <main className="flex flex-row justify-center gap-2 flex-wrap">
+            <main className="flex flex-row justify-center gap-2 flex-wrap flex-1">
               {children}
             </main>
             <footer className="flex flex-row justify-center items-center">
