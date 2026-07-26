@@ -57,8 +57,8 @@ function PlayerItem({ id, data }: DndPlayer) {
 
   const style = { transition, transform: CSS.Transform.toString(transform) };
   const bg = isStaged
-    ? "bg-green-100 hover:bg-green-300"
-    : "bg-zinc-100 hover:bg-zinc-300";
+    ? "outline-1 outline-light outline-dashed bg-transparent text-light hover:bg-light/20"
+    : "hover:brightness-80";
 
   if (isDragging) {
     return (
@@ -66,18 +66,18 @@ function PlayerItem({ id, data }: DndPlayer) {
         ref={setNodeRef}
         style={style}
         className={cn(
-          "player-item cursor-grab brightness-75 opacity-50 outline-rose-500 outline-2",
+          "bg-light player-item cursor-grab brightness-80 opacity-80",
           bg,
         )}
       >
-        <div className="invisible">-</div>
+        <div>{data.player.name}</div>
       </div>
     );
   }
 
   if (editing) {
     return (
-      <div style={style} className={cn("player-item", bg)}>
+      <div style={style} className={cn("bg-light player-item", bg)}>
         <input
           autoFocus
           type="text"
@@ -156,7 +156,7 @@ function PlayerItem({ id, data }: DndPlayer) {
         style={style}
         {...listeners}
         {...attributes}
-        className={cn("player-item cursor-grab", bg)}
+        className={cn("bg-light player-item cursor-grab", bg)}
       >
         <div>{data.player.name}</div>
       </div>
@@ -174,11 +174,14 @@ function PlayerList() {
 
   return (
     <Droppable id="player-list">
-      <div className="flex flex-col gap-1 min-h-full">
+      <div className="flex flex-col gap-1 min-h-full bg-dark p-2 rounded-md">
+        <div className="player-item text-light">
+          <div>Player List</div>
+        </div>
         {players.map((p) => (
           <PlayerItem {...p} key={p.id} />
         ))}
-        <div className="player-item">
+        <div className="player-item text-light">
           {adding ? (
             <input
               autoFocus
@@ -222,7 +225,10 @@ function Queue({ hoveringPlayer }: { hoveringPlayer?: DndPlayer }) {
 
   return (
     <Droppable id="queue">
-      <div className="flex flex-col gap-1 min-h-full">
+      <div className="flex flex-col gap-1 min-h-full bg-dark p-2 rounded-md">
+        <div className="player-item text-light">
+          <div>Queue</div>
+        </div>
         <SortableContext items={queue.map((p) => p.id)}>
           <div className="flex flex-col gap-1">
             {queue.map((p) => {
@@ -237,12 +243,12 @@ function Queue({ hoveringPlayer }: { hoveringPlayer?: DndPlayer }) {
               return <PlayerItem {...p} key={p.id} />;
             })}
             {hoveringPlayer && (
-              <div className="player-item bg-green-300">
+              <div className="player-item outline-1 outline-light outline-dashed bg-light/20">
                 <div />
               </div>
             )}
             {stage.length > 0 && (
-              <div className="player-item">
+              <div className="player-item text-light">
                 <InlineIconButton
                   icon={Shuffle}
                   onClick={chooseQueueActions.shuffleStage}
