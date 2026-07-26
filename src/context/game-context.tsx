@@ -46,31 +46,11 @@ const initialGameState: GameState = {
     cellHistory: [],
   },
   playersState: {
-    players: [
-      { _id: "0", name: "Alice A" },
-      { _id: "1", name: "Alice B" },
-      { _id: "2", name: "Benjamin" },
-      { _id: "3", name: "Chloe" },
-      { _id: "4", name: "Daniel D" },
-      { _id: "5", name: "Mia M" },
-      { _id: "6", name: "Ethan" },
-      { _id: "7", name: "Victor" },
-      { _id: "8", name: "Xander" },
-      { _id: "9", name: "Willow" },
-      { _id: "10", name: "Zoe" },
-    ].toSorted(comparePlayersByName),
+    players: [],
   },
   chooseQueueState: {
-    stage: [
-      { _id: "30", name: "Xander" },
-      { _id: "31", name: "Willow" },
-      { _id: "32", name: "Zoe" },
-    ],
-    queue: [
-      { _id: "33", name: "Zoe" },
-      { _id: "34", name: "Victor" },
-      { _id: "35", name: "Mia M" },
-    ],
+    stage: [],
+    queue: [],
   },
 };
 
