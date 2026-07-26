@@ -40,7 +40,7 @@ button {
 }
 
 .player-item {
-  @apply px-2 py-1 rounded-[0.25em] w-40;
+  @apply px-[0.5em] py-[0.25em] rounded-[0.25em] w-[10em];
 
   & div {
     @apply text-nowrap overflow-hidden text-ellipsis select-none h-lh;
