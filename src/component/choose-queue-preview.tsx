@@ -13,7 +13,7 @@ export default function ChooseQueuePreview() {
         <div>Choose Queue</div>
         <div className="flex flex-col items-center">
           <div
-            className="bg-light text-dark text-[1em] w-full rounded-[0.25em] h-lh z-2 shadow-[0_0.1em_0.5em_0.1em] shadow-dark/50"
+            className="bg-light text-dark player-item text-[1em] z-2 shadow-[0_0.1em_0.5em_0.1em] shadow-dark/50"
             style={{
               visibility:
                 chooseQueueState.queue.length < 1 ? "hidden" : "visible",
@@ -22,7 +22,7 @@ export default function ChooseQueuePreview() {
             {chooseQueueState.queue[0]?.name}
           </div>
           <div
-            className="bg-light text-dark brightness-75 text-[0.75em] w-[75%] rounded-[0.25em] h-lh mt-[-0.5em] z-1 shadow-[0_0.1em_0.5em_0.1em] shadow-dark/50"
+            className="bg-light text-dark player-item text-[0.75em] brightness-90 mt-[-0.5em] z-1 shadow-[0_0.1em_0.5em_0.1em] shadow-dark/50"
             style={{
               visibility:
                 chooseQueueState.queue.length < 2 ? "hidden" : "visible",
@@ -31,7 +31,7 @@ export default function ChooseQueuePreview() {
             {chooseQueueState.queue[1]?.name}
           </div>
           <div
-            className="bg-light text-dark brightness-[56.25%] text-[0.5625em] w-[56.25%] rounded-[0.25em] h-lh mt-[-0.5em] shadow-[0_0.1em_0.5em_0.1em]"
+            className="bg-light text-dark player-item text-[0.5625em] brightness-81 mt-[-0.5em] shadow-[0_0.1em_0.5em_0.1em]"
             style={{
               visibility:
                 chooseQueueState.queue.length < 3 ? "hidden" : "visible",
