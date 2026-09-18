@@ -1,9 +1,10 @@
-import { Component, HostListener, OnInit, ViewChild, ViewContainerRef } from '@angular/core'
+import { Component, HostListener, ViewChild, ViewContainerRef } from '@angular/core'
 import { WindowContentsType, WindowOptions, WindowService } from './window.service'
 import { WindowComponent } from './components/window/window.component'
 import { FilesComponent } from './components/files/files.component'
 import { GameControlService } from './game-control.service'
 import { PlayerShufflerComponent } from './components/player-shuffler/player-shuffler.component'
+import { RedirectComponent } from "./components/redirect/redirect.component";
 
 @Component({
     selector: 'app-root',
@@ -25,6 +26,10 @@ export class AppComponent {
 
             this.createWindow(contents, options)
         })
+    }
+
+    ngAfterViewInit(): void {
+        this.windowService.createWindow(RedirectComponent)
     }
 
     private createWindow(contents: WindowContentsType, options?: WindowOptions): void {

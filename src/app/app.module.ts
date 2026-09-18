@@ -17,6 +17,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { PlayerShufflerComponent } from './components/player-shuffler/player-shuffler.component';
 import { HistoryComponent } from './components/history/history.component';
 import { InstructionsComponent } from './components/instructions/instructions.component'
+import {RedirectComponent} from "./components/redirect/redirect.component";
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import { InstructionsComponent } from './components/instructions/instructions.co
         FooterComponent,
         PlayerShufflerComponent,
         HistoryComponent,
-        InstructionsComponent
+        InstructionsComponent,
+        RedirectComponent
     ],
     imports: [
         BrowserModule,
